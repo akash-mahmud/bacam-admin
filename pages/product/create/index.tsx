@@ -1,17 +1,25 @@
 import React, { useCallback, useContext, useState } from 'react'
 
 import { useFormik } from 'formik'
-import { notification, Spin, UploadFile } from 'antd'
+import { v4 } from 'uuid'
+
+import { Modal, notification, Spin, UploadFile } from 'antd'
 import Card, { CardBody } from '@/components/bootstrap/Card'
 import FormGroup from '@/components/bootstrap/forms/FormGroup';
 import Textarea from '@/components/bootstrap/forms/Textarea';
 import PageWrapper from '@/layout/PageWrapper/PageWrapper';
-import { useCreateOneProductMutation, useUploadFileMutation } from '@/graphql/generated/schema';
+import { useCategoriesQuery, useCreateOneProductMutation, useUploadFileMutation } from '@/graphql/generated/schema';
 import Input from '@/components/bootstrap/forms/Input';
 import Button from '@/components/bootstrap/Button';
 import AuthContext from '@/context/authContext';
 import { useRouter } from 'next/router';
 import { RcFile } from 'antd/es/upload';
+import { getImage } from '@/utils/getImage';
+import UploadSingleImage from "@/common/UploadMultipleFiles";
+import Image from 'next/image'
+import Select from '@/components/bootstrap/forms/Select'
+import Option from '@/components/bootstrap/Option'
+
 export default function index({isUpdate}) {
 	const formik = useFormik({
 		enableReinitialize: true,
@@ -52,7 +60,7 @@ export default function index({isUpdate}) {
 
 
 
-			await createCompany(values);
+			await createProduct(values);
 
 
 		},
@@ -63,27 +71,17 @@ export default function index({isUpdate}) {
 	const createProduct = useCallback(
 		async (data: {
 
-			name: string;
-			description: string;
-			slug: string;
-			avater: string,
-			fetaureImage: string,
-			logo: string,
-			location: {
-				create: {
-					country: string;
-					state: string;
-					city: string;
-					zip: string;
-					streetAddress: string;
-				};
-			};
-			geolocation: {
-				create: {
-					longitude: number;
-					latitude: number;
-				};
-			};
+		    name: string;
+    description: string;
+    slug: string;
+    images: never[];
+    category: {
+        connect: {
+            id: string;
+        };
+    };
+    price: number;
+    orderStartPrice: number;
 
 		}) => {
 			try {
@@ -95,7 +93,11 @@ export default function index({isUpdate}) {
 					variables: {
 						data: {
 							...data,
-
+images: {
+	set: data.images
+},
+price:parseFloat(String(data.price)),
+orderStartPrice:parseFloat(String(data.orderStartPrice)),
 
 						}
 					}
@@ -105,8 +107,7 @@ export default function index({isUpdate}) {
 					notification.success({
 						message: 'Created'
 					})
-					authorize()
-					router.push("/")
+				
 				} else {
 					notification.error({
 						message: 'Something went wrong'
@@ -122,6 +123,12 @@ export default function index({isUpdate}) {
 		},
 		[user],
 	)
+	const uploadButton = (
+		<>
+			+
+			<div style={{ marginTop: 8 }}>Upload</div>
+		</>
+	);
 	const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
 	const [files, setFiles] = useState<any[]>([]);
@@ -165,6 +172,8 @@ export default function index({isUpdate}) {
 
 
     };
+	const handleCancel = () => setPreviewOpen(false);
+const {data} = useCategoriesQuery()
 	return (
 		<PageWrapper>
 
@@ -255,16 +264,19 @@ export default function index({isUpdate}) {
 										/>
 									</FormGroup>
 								</div>
-								<div className='col-md-6'>
+								<div className='col-md-12'>
 									<FormGroup
 										id='category.connect.id'
 										label='Category'
 									>
-										<Input type='text' size={'lg'} value={formik.values.category.connect.id}
+										<Select
+										  size={'lg'} value={formik.values.category.connect.id}
 											isTouched={formik.touched.category?.connect?.id}
 											invalidFeedback={
 												formik.errors.category?.connect?.id
 											}
+													ariaLabel='Select category'
+										placeholder='Select category'
 											isValid={formik.isValid}
 											onChange={formik.handleChange}
 											onBlur={formik.handleBlur}
@@ -272,21 +284,33 @@ export default function index({isUpdate}) {
 												formik.setErrors({});
 											}} className=''
 
-										/>
+										>
+{data?.categories?.map((category) => (
+											<Option
+												key={category.id}
+												value={category.id}>
+												{category.name}
+											</Option>
+										))}
+
+										</Select>
 									</FormGroup>
 								</div>
-								<div className='col-md-6'>
+								<div className='col-md-12'>
 									<FormGroup
 										label='Images'
 									>
 										 <Spin spinning={loadingUpload}>
 
-<UploadSingleImage uploadButton={uploadButton} filelist={isUpdate ? updatefiles : files}
+<UploadSingleImage uploadButton={uploadButton} filelist={
+	// isUpdate ? updatefiles : 
+
+files}
 	handlePreview={handlePreview} beforeUpload={handleBeforeUploadUpdate} handleRemove={() => {
 		if (isUpdate) {
 
-			updatesetFiles([])
-			updatesetValue('image', '')
+			// updatesetFiles([])
+			// updatesetValue('image', '')
 		} else {
 
 			setFiles([])
@@ -340,6 +364,9 @@ export default function index({isUpdate}) {
 					</CardBody>
 				</Card>
 			</div>
+			<Modal open={previewOpen} title={''} footer={null} onCancel={handleCancel}>
+                    <Image alt="example" height={300} width={500} src={previewImage} />
+                </Modal>
 		</PageWrapper>
 	)
 }

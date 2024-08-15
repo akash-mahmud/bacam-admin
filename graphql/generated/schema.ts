@@ -65,11 +65,33 @@ export type AggregateUserTokens = {
 
 export type Category = {
   __typename?: 'Category';
+  _count?: Maybe<CategoryCount>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
+  products: Array<Product>;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+
+export type CategoryProductsArgs = {
+  cursor?: InputMaybe<ProductWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ProductScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ProductOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<ProductWhereInput>;
+};
+
+export type CategoryCount = {
+  __typename?: 'CategoryCount';
+  products: Scalars['Int']['output'];
+};
+
+
+export type CategoryCountProductsArgs = {
+  where?: InputMaybe<ProductWhereInput>;
 };
 
 export type CategoryCountAggregate = {
@@ -94,11 +116,31 @@ export type CategoryCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
+  products?: InputMaybe<ProductCreateNestedManyWithoutCategoryInput>;
   slug: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type CategoryCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type CategoryCreateNestedOneWithoutProductsInput = {
+  connect?: InputMaybe<CategoryWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CategoryCreateOrConnectWithoutProductsInput>;
+  create?: InputMaybe<CategoryCreateWithoutProductsInput>;
+};
+
+export type CategoryCreateOrConnectWithoutProductsInput = {
+  create: CategoryCreateWithoutProductsInput;
+  where: CategoryWhereUniqueInput;
+};
+
+export type CategoryCreateWithoutProductsInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
@@ -167,8 +209,14 @@ export type CategoryOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
+  products?: InputMaybe<ProductOrderByRelationAggregateInput>;
   slug?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type CategoryRelationFilter = {
+  is?: InputMaybe<CategoryWhereInput>;
+  isNot?: InputMaybe<CategoryWhereInput>;
 };
 
 export enum CategoryScalarFieldEnum {
@@ -194,6 +242,7 @@ export type CategoryUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  products?: InputMaybe<ProductUpdateManyWithoutCategoryNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -206,6 +255,27 @@ export type CategoryUpdateManyMutationInput = {
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
+export type CategoryUpdateOneRequiredWithoutProductsNestedInput = {
+  connect?: InputMaybe<CategoryWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CategoryCreateOrConnectWithoutProductsInput>;
+  create?: InputMaybe<CategoryCreateWithoutProductsInput>;
+  update?: InputMaybe<CategoryUpdateWithoutProductsInput>;
+  upsert?: InputMaybe<CategoryUpsertWithoutProductsInput>;
+};
+
+export type CategoryUpdateWithoutProductsInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type CategoryUpsertWithoutProductsInput = {
+  create: CategoryCreateWithoutProductsInput;
+  update: CategoryUpdateWithoutProductsInput;
+};
+
 export type CategoryWhereInput = {
   AND?: InputMaybe<Array<CategoryWhereInput>>;
   NOT?: InputMaybe<Array<CategoryWhereInput>>;
@@ -213,6 +283,7 @@ export type CategoryWhereInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
+  products?: InputMaybe<ProductListRelationFilter>;
   slug?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
@@ -884,6 +955,8 @@ export enum NullsOrder {
 export type Product = {
   __typename?: 'Product';
   _count?: Maybe<ProductCount>;
+  category: Category;
+  categoryId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
   id: Scalars['String']['output'];
@@ -930,6 +1003,7 @@ export type ProductCountReveiwsArgs = {
 export type ProductCountAggregate = {
   __typename?: 'ProductCountAggregate';
   _all: Scalars['Int']['output'];
+  categoryId: Scalars['Int']['output'];
   createdAt: Scalars['Int']['output'];
   description: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
@@ -942,6 +1016,7 @@ export type ProductCountAggregate = {
 };
 
 export type ProductCountOrderByAggregateInput = {
+  categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -954,6 +1029,7 @@ export type ProductCountOrderByAggregateInput = {
 };
 
 export type ProductCreateInput = {
+  category: CategoryCreateNestedOneWithoutProductsInput;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
@@ -966,7 +1042,7 @@ export type ProductCreateInput = {
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type ProductCreateManyInput = {
+export type ProductCreateManyCategoryInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
@@ -978,10 +1054,40 @@ export type ProductCreateManyInput = {
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type ProductCreateManyCategoryInputEnvelope = {
+  data: Array<ProductCreateManyCategoryInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type ProductCreateManyInput = {
+  categoryId: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<ProductCreateimagesInput>;
+  name: Scalars['String']['input'];
+  orderStartPrice: Scalars['Float']['input'];
+  price: Scalars['Float']['input'];
+  slug: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type ProductCreateNestedManyWithoutCategoryInput = {
+  connect?: InputMaybe<Array<ProductWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ProductCreateOrConnectWithoutCategoryInput>>;
+  create?: InputMaybe<Array<ProductCreateWithoutCategoryInput>>;
+  createMany?: InputMaybe<ProductCreateManyCategoryInputEnvelope>;
+};
+
 export type ProductCreateNestedOneWithoutReveiwsInput = {
   connect?: InputMaybe<ProductWhereUniqueInput>;
   connectOrCreate?: InputMaybe<ProductCreateOrConnectWithoutReveiwsInput>;
   create?: InputMaybe<ProductCreateWithoutReveiwsInput>;
+};
+
+export type ProductCreateOrConnectWithoutCategoryInput = {
+  create: ProductCreateWithoutCategoryInput;
+  where: ProductWhereUniqueInput;
 };
 
 export type ProductCreateOrConnectWithoutReveiwsInput = {
@@ -989,7 +1095,21 @@ export type ProductCreateOrConnectWithoutReveiwsInput = {
   where: ProductWhereUniqueInput;
 };
 
+export type ProductCreateWithoutCategoryInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<ProductCreateimagesInput>;
+  name: Scalars['String']['input'];
+  orderStartPrice: Scalars['Float']['input'];
+  price: Scalars['Float']['input'];
+  reveiws?: InputMaybe<ReviewCreateNestedManyWithoutProductInput>;
+  slug: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
 export type ProductCreateWithoutReveiwsInput = {
+  category: CategoryCreateNestedOneWithoutProductsInput;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
@@ -1012,6 +1132,7 @@ export type ProductGroupBy = {
   _max?: Maybe<ProductMaxAggregate>;
   _min?: Maybe<ProductMinAggregate>;
   _sum?: Maybe<ProductSumAggregate>;
+  categoryId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
   id: Scalars['String']['output'];
@@ -1023,8 +1144,15 @@ export type ProductGroupBy = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type ProductListRelationFilter = {
+  every?: InputMaybe<ProductWhereInput>;
+  none?: InputMaybe<ProductWhereInput>;
+  some?: InputMaybe<ProductWhereInput>;
+};
+
 export type ProductMaxAggregate = {
   __typename?: 'ProductMaxAggregate';
+  categoryId?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
@@ -1036,6 +1164,7 @@ export type ProductMaxAggregate = {
 };
 
 export type ProductMaxOrderByAggregateInput = {
+  categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -1048,6 +1177,7 @@ export type ProductMaxOrderByAggregateInput = {
 
 export type ProductMinAggregate = {
   __typename?: 'ProductMinAggregate';
+  categoryId?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
@@ -1059,6 +1189,7 @@ export type ProductMinAggregate = {
 };
 
 export type ProductMinOrderByAggregateInput = {
+  categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -1069,12 +1200,17 @@ export type ProductMinOrderByAggregateInput = {
   updatedAt?: InputMaybe<SortOrder>;
 };
 
+export type ProductOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
 export type ProductOrderByWithAggregationInput = {
   _avg?: InputMaybe<ProductAvgOrderByAggregateInput>;
   _count?: InputMaybe<ProductCountOrderByAggregateInput>;
   _max?: InputMaybe<ProductMaxOrderByAggregateInput>;
   _min?: InputMaybe<ProductMinOrderByAggregateInput>;
   _sum?: InputMaybe<ProductSumOrderByAggregateInput>;
+  categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -1087,6 +1223,8 @@ export type ProductOrderByWithAggregationInput = {
 };
 
 export type ProductOrderByWithRelationInput = {
+  category?: InputMaybe<CategoryOrderByWithRelationInput>;
+  categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -1105,6 +1243,7 @@ export type ProductRelationFilter = {
 };
 
 export enum ProductScalarFieldEnum {
+  CategoryId = 'categoryId',
   CreatedAt = 'createdAt',
   Description = 'description',
   Id = 'id',
@@ -1116,10 +1255,27 @@ export enum ProductScalarFieldEnum {
   UpdatedAt = 'updatedAt'
 }
 
+export type ProductScalarWhereInput = {
+  AND?: InputMaybe<Array<ProductScalarWhereInput>>;
+  NOT?: InputMaybe<Array<ProductScalarWhereInput>>;
+  OR?: InputMaybe<Array<ProductScalarWhereInput>>;
+  categoryId?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  description?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  images?: InputMaybe<StringNullableListFilter>;
+  name?: InputMaybe<StringFilter>;
+  orderStartPrice?: InputMaybe<FloatFilter>;
+  price?: InputMaybe<FloatFilter>;
+  slug?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
 export type ProductScalarWhereWithAggregatesInput = {
   AND?: InputMaybe<Array<ProductScalarWhereWithAggregatesInput>>;
   NOT?: InputMaybe<Array<ProductScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<ProductScalarWhereWithAggregatesInput>>;
+  categoryId?: InputMaybe<StringWithAggregatesFilter>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   description?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
@@ -1143,6 +1299,7 @@ export type ProductSumOrderByAggregateInput = {
 };
 
 export type ProductUpdateInput = {
+  category?: InputMaybe<CategoryUpdateOneRequiredWithoutProductsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -1167,6 +1324,25 @@ export type ProductUpdateManyMutationInput = {
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
+export type ProductUpdateManyWithWhereWithoutCategoryInput = {
+  data: ProductUpdateManyMutationInput;
+  where: ProductScalarWhereInput;
+};
+
+export type ProductUpdateManyWithoutCategoryNestedInput = {
+  connect?: InputMaybe<Array<ProductWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<ProductCreateOrConnectWithoutCategoryInput>>;
+  create?: InputMaybe<Array<ProductCreateWithoutCategoryInput>>;
+  createMany?: InputMaybe<ProductCreateManyCategoryInputEnvelope>;
+  delete?: InputMaybe<Array<ProductWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<ProductScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<ProductWhereUniqueInput>>;
+  set?: InputMaybe<Array<ProductWhereUniqueInput>>;
+  update?: InputMaybe<Array<ProductUpdateWithWhereUniqueWithoutCategoryInput>>;
+  updateMany?: InputMaybe<Array<ProductUpdateManyWithWhereWithoutCategoryInput>>;
+  upsert?: InputMaybe<Array<ProductUpsertWithWhereUniqueWithoutCategoryInput>>;
+};
+
 export type ProductUpdateOneRequiredWithoutReveiwsNestedInput = {
   connect?: InputMaybe<ProductWhereUniqueInput>;
   connectOrCreate?: InputMaybe<ProductCreateOrConnectWithoutReveiwsInput>;
@@ -1175,7 +1351,26 @@ export type ProductUpdateOneRequiredWithoutReveiwsNestedInput = {
   upsert?: InputMaybe<ProductUpsertWithoutReveiwsInput>;
 };
 
+export type ProductUpdateWithWhereUniqueWithoutCategoryInput = {
+  data: ProductUpdateWithoutCategoryInput;
+  where: ProductWhereUniqueInput;
+};
+
+export type ProductUpdateWithoutCategoryInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  images?: InputMaybe<ProductUpdateimagesInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  orderStartPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  price?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  reveiws?: InputMaybe<ReviewUpdateManyWithoutProductNestedInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
 export type ProductUpdateWithoutReveiwsInput = {
+  category?: InputMaybe<CategoryUpdateOneRequiredWithoutProductsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -1192,6 +1387,12 @@ export type ProductUpdateimagesInput = {
   set?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
+export type ProductUpsertWithWhereUniqueWithoutCategoryInput = {
+  create: ProductCreateWithoutCategoryInput;
+  update: ProductUpdateWithoutCategoryInput;
+  where: ProductWhereUniqueInput;
+};
+
 export type ProductUpsertWithoutReveiwsInput = {
   create: ProductCreateWithoutReveiwsInput;
   update: ProductUpdateWithoutReveiwsInput;
@@ -1201,6 +1402,8 @@ export type ProductWhereInput = {
   AND?: InputMaybe<Array<ProductWhereInput>>;
   NOT?: InputMaybe<Array<ProductWhereInput>>;
   OR?: InputMaybe<Array<ProductWhereInput>>;
+  category?: InputMaybe<CategoryRelationFilter>;
+  categoryId?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   description?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
@@ -2635,6 +2838,18 @@ export type CategoryQueryVariables = Exact<{
 
 export type CategoryQuery = { __typename?: 'Query', category?: { __typename?: 'Category', id: string, name: string, slug: string } | null };
 
+export type CategoriesQueryVariables = Exact<{
+  where?: InputMaybe<CategoryWhereInput>;
+  orderBy?: InputMaybe<Array<CategoryOrderByWithRelationInput> | CategoryOrderByWithRelationInput>;
+  cursor?: InputMaybe<CategoryWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<CategoryScalarFieldEnum> | CategoryScalarFieldEnum>;
+}>;
+
+
+export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string }> };
+
 export type UploadFileMutationVariables = Exact<{
   file: Scalars['Upload']['input'];
 }>;
@@ -2825,6 +3040,59 @@ export type CategoryQueryHookResult = ReturnType<typeof useCategoryQuery>;
 export type CategoryLazyQueryHookResult = ReturnType<typeof useCategoryLazyQuery>;
 export type CategorySuspenseQueryHookResult = ReturnType<typeof useCategorySuspenseQuery>;
 export type CategoryQueryResult = Apollo.QueryResult<CategoryQuery, CategoryQueryVariables>;
+export const CategoriesDocument = gql`
+    query Categories($where: CategoryWhereInput, $orderBy: [CategoryOrderByWithRelationInput!], $cursor: CategoryWhereUniqueInput, $take: Int, $skip: Int, $distinct: [CategoryScalarFieldEnum!]) {
+  categories(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useCategoriesQuery__
+ *
+ * To run a query within a React component, call `useCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCategoriesQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function useCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
+      }
+export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
+        }
+export function useCategoriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
+        }
+export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
+export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
+export type CategoriesSuspenseQueryHookResult = ReturnType<typeof useCategoriesSuspenseQuery>;
+export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
 export const UploadFileDocument = gql`
     mutation UploadFile($file: Upload!) {
   uploadFile(file: $file) {
