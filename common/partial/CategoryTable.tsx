@@ -1,13 +1,11 @@
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
-import dayjs from 'dayjs';
 import { FormikHelpers, useFormik } from 'formik';
 import Card, {
 	CardActions,
 	CardBody,
 	CardHeader,
-	CardLabel,
-	CardTitle,
+
 } from '../../components/bootstrap/Card';
 import Button from '../../components/bootstrap/Button';
 import { priceFormat } from '../../helpers/helpers';
@@ -32,10 +30,9 @@ import USERS from '../data/userDummyData';
 import EVENT_STATUS from '../data/enumEventStatus';
 import Avatar from '../../components/Avatar';
 import PaginationButtons, { dataPagination, PER_COUNT } from '../../components/PaginationButtons';
-import useSortableData from '../../hooks/useSortableData';
 import useDarkMode from '../../hooks/useDarkMode';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@/components/bootstrap/Modal';
-import { useCreateOneCategoryMutation } from '@/graphql/generated/schema';
+import { SortOrder, useCategoriesQuery, useCreateOneCategoryMutation, useUpdateOneCategoryMutation } from '@/graphql/generated/schema';
 import { notification, Spin } from 'antd';
 
 interface ICategoryTableProps {
@@ -51,29 +48,39 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	};
 
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
-	const handleUpcomingEdit = () => {
+	const [updatedataState, setupdatedataState] = useState({})
+	const handleUpcomingEdit = (item: { __typename?: "Category"; id: string; name: string; }) => {
 		setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
+		setupdatedataState(item)
+		formik.setFieldValue('name', item.name)
 	};
 	// END :: Upcoming Events
 
 	const formik = useFormik({
-		onSubmit<Values>(
+		async onSubmit<Values>(
 			values: Values,
 			formikHelpers: FormikHelpers<Values>,
-		): void | Promise<any> {
+		)  {
+			await UpdateCategory({
+				variables:{
+					where:{
+						// @ts-ignore
+						id: updatedataState.id
+					},
+					data:{
+					name:{
+						set:values.name
+					}
+					}
+				}
+			})
+			setUpcomingEventsEditOffcanvas(false)
+			refetch()
 			return undefined;
 		},
 		initialValues: {
-			customerName: 'Alison Berry',
-			service: 'Exercise Bike',
-			employee: `${USERS.GRACE.name} ${USERS.GRACE.surname}`,
-			location: 'Maryland',
-			date: dayjs().add(1, 'days').format('YYYY-MM-DD'),
-			time: '10:30',
-			note: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nisi odio. Nam sit amet pharetra enim. Nulla facilisi. Nunc dictum felis id massa mattis pretium. Mauris at blandit orci. Nunc vulputate vulputate turpis vitae cursus. In sit amet turpis tincidunt, interdum ex vitae, sollicitudin massa. Maecenas eget dui molestie, ullamcorper ante vel, tincidunt nisi. Donec vitae pulvinar risus. In ultricies nisl ac massa malesuada, vel tempus neque placerat.',
-			notify: true,
+		
             name: '',
-			description: '',
 			slug: '',
 		},
 	});
@@ -94,7 +101,6 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	});
 	const [currentPage, setCurrentPage] = useState(1);
 	const [perPage, setPerPage] = useState(PER_COUNT['5']);
-	const { items, requestSort, getClassNamesFor } = useSortableData(data);
     const [createModal, setcreateModal] = useState(false);
 const onOpenCreateModal = () => {
     setcreateModal(true)
@@ -105,6 +111,8 @@ const onCloseCreateModal = () => {
 }
 
 const [CreateCategory, {loading:categoryCreateLoading}] = useCreateOneCategoryMutation()
+const [UpdateCategory, {loading:updatecategoryCreateLoading}] = useUpdateOneCategoryMutation()
+
 const createData = async(data:any)=> {
 const {data:res} = await CreateCategory({
 	variables:{
@@ -122,10 +130,19 @@ if (res?.createOneCategory.id) {
 	})
 }
 }
-
+const {data, loading, refetch} = useCategoriesQuery({
+	variables:{
+		orderBy:{
+			createdAt: SortOrder.Desc
+		}
+	}
+})
+const categories = data?.categories
 	return (
 		<>
+
 			<Card stretch={isFluid}>
+		{/* <Spin spinning={updatecategoryCreateLoading||loading}> */}
 				<CardHeader borderSize={1}>
 				
 					<CardActions >
@@ -144,116 +161,23 @@ if (res?.createOneCategory.id) {
 					<table className='table table-modern'>
 						<thead>
 							<tr>
-								<td style={{ width: 60 }} />
-								<th
-									onClick={() => requestSort('date')}
-									className='cursor-pointer text-decoration-underline'>
-									Date / Time{' '}
-									<Icon
-										size='lg'
-										className={getClassNamesFor('date')}
-										icon='FilterList'
-									/>
-								</th>
-								<th>Customer</th>
-								<th>Assigned to</th>
-								<th>Service</th>
-								<th>Duration</th>
-								<th>Payment</th>
-								<th>Status</th>
+								
+								<th>Id</th>
+								<th>Name</th>
+							
 								<td />
 							</tr>
 						</thead>
 						<tbody>
-							{dataPagination(items, currentPage, perPage).map((item) => (
+							{categories?.map((item) => (
 								<tr key={item.id}>
-									<td>
-										<Button
-											isOutline={!darkModeStatus}
-											color='dark'
-											isLight={darkModeStatus}
-											className={classNames({
-												'border-light': !darkModeStatus,
-											})}
-											icon='Info'
-											onClick={handleUpcomingDetails}
-											aria-label='Detailed information'
-										/>
-									</td>
-									<td>
-										<div className='d-flex align-items-center'>
-											<span
-												className={classNames(
-													'badge',
-													'border border-2',
-													[`border-${themeStatus}`],
-													'rounded-circle',
-													'bg-success',
-													'p-2 me-2',
-													`bg-${item.status.color}`,
-												)}>
-												<span className='visually-hidden'>
-													{item.status.name}
-												</span>
-											</span>
-											<span className='text-nowrap'>
-												{dayjs(`${item.date} ${item.time}`).format(
-													'MMM Do YYYY, h:mm a',
-												)}
-											</span>
-										</div>
-									</td>
-									<td>
-										<div>
-											<div>{item.customer.name}</div>
-											<div className='small text-muted'>
-												{item.customer.email}
-											</div>
-										</div>
-									</td>
-									<td>
-										<div className='d-flex'>
-											<div className='flex-shrink-0'>
-												<Avatar
-													src={item.assigned.src}
-													color={item.assigned.color}
-													size={36}
-												/>
-											</div>
-											<div className='flex-grow-1 ms-3 d-flex align-items-center text-nowrap'>
-												{`${item.assigned.name} ${item.assigned.surname}`}
-											</div>
-										</div>
-									</td>
-									<td>{item.service.name}</td>
-									<td>{item.duration}</td>
-									<td>{item.payment && priceFormat(item.payment)}</td>
-									<td>
-										<Dropdown>
-											<DropdownToggle hasIcon={false}>
-												<Button
-													isLink
-													color={item.status.color}
-													icon='Circle'
-													className='text-nowrap'>
-													{item.status.name}
-												</Button>
-											</DropdownToggle>
-											<DropdownMenu>
-												{Object.keys(EVENT_STATUS).map((key) => (
-													<DropdownItem key={key}>
-														<div>
-															<Icon
-																icon='Circle'
-																color={EVENT_STATUS[key].color}
-															/>
-															{EVENT_STATUS[key].name}
-														</div>
-													</DropdownItem>
-												))}
-											</DropdownMenu>
-										</Dropdown>
-									</td>
+									
+								
+								
+									<td>{item.id}</td>
+									<td>{item.name}</td>
+								
+									
 									<td>
 										<Button
 											isOutline={!darkModeStatus}
@@ -263,7 +187,7 @@ if (res?.createOneCategory.id) {
 												'border-light': !darkModeStatus,
 											})}
 											icon='Edit'
-											onClick={handleUpcomingEdit}>
+											onClick={()=>handleUpcomingEdit(item)}>
 											Edit
 										</Button>
 									</td>
@@ -272,15 +196,9 @@ if (res?.createOneCategory.id) {
 						</tbody>
 					</table>
 				</CardBody>
-				<PaginationButtons
-					data={items}
-					label='items'
-					setCurrentPage={setCurrentPage}
-					currentPage={currentPage}
-					perPage={perPage}
-					setPerPage={setPerPage}
-				/>
+				{/* </Spin> */}
 			</Card>
+
 
 
 			<OffCanvas
@@ -289,111 +207,23 @@ if (res?.createOneCategory.id) {
 				titleId='upcomingEdit'
 				isBodyScroll
 				placement='end'>
+
 				<OffCanvasHeader setOpen={setUpcomingEventsEditOffcanvas}>
-					<OffCanvasTitle id='upcomingEdit'>Edit Appointments</OffCanvasTitle>
+					<OffCanvasTitle id='upcomingEdit'>Edit Categories</OffCanvasTitle>
 				</OffCanvasHeader>
 				<OffCanvasBody>
 					<div className='row g-4'>
 						<div className='col-12'>
-							<FormGroup id='customerName' label='Customer'>
+							<FormGroup id='name' label='name'>
 								<Input
 									onChange={formik.handleChange}
-									value={formik.values.customerName}
+									value={formik.values.name}
 								/>
 							</FormGroup>
 						</div>
-						<div className='col-12'>
-							<FormGroup id='service' label='Service'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.service}
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-12'>
-							<FormGroup id='employee' label='Employee'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.employee}
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-12'>
-							<FormGroup id='location' label='Location'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.location}
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-6'>
-							<FormGroup id='date' label='Date'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.date}
-									type='date'
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-6'>
-							<FormGroup id='time' label='time'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.time}
-									type='time'
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-12'>
-							<Card isCompact borderSize={2} shadow='none' className='mb-0'>
-								<CardHeader>
-									<CardLabel>
-										<CardTitle>Extras</CardTitle>
-									</CardLabel>
-								</CardHeader>
-								<CardBody>
-									<FormGroup id='note' label='Note'>
-										<Textarea
-											onChange={formik.handleChange}
-											value={formik.values.note}
-										/>
-									</FormGroup>
-								</CardBody>
-							</Card>
-						</div>
-						<div className='col-12'>
-							<Card isCompact borderSize={2} shadow='none' className='mb-0'>
-								<CardHeader>
-									<CardLabel>
-										<CardTitle>Notification</CardTitle>
-									</CardLabel>
-								</CardHeader>
-								<CardBody>
-									<FormGroup>
-										<Checks
-											id='notify'
-											type='switch'
-											label={
-												<>
-													Notify the Customer
-													<Popovers
-														trigger='hover'
-														desc='Check this checkbox if you want your customer to receive an email about the scheduled appointment'>
-														<Icon
-															icon='Help'
-															size='lg'
-															className='ms-1 cursor-help'
-														/>
-													</Popovers>
-												</>
-											}
-											onChange={formik.handleChange}
-											checked={formik.values.notify}
-										/>
-									</FormGroup>
-								</CardBody>
-							</Card>
-						</div>
+					
+					
+			
 					</div>
 				</OffCanvasBody>
 				<div className='row m-0'>
@@ -401,7 +231,7 @@ if (res?.createOneCategory.id) {
 						<Button
 							color='info'
 							className='w-100'
-							onClick={() => setUpcomingEventsEditOffcanvas(false)}>
+							onClick={formik.handleSubmit}>
 							Save
 						</Button>
 					</div>

@@ -34,8 +34,13 @@ export const demoPagesMenu = {
 		text: 'Category',
 		path: 'category',
 		icon: 'Article',
-	}
-
+	},
+	orders:{
+		id: 'order',
+		text: 'Orders',
+		path: 'order',
+		icon: 'BookOnline',
+	},
 
 
 };
