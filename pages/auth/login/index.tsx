@@ -47,33 +47,47 @@ const Login: NextPage<ILoginProps> = () => {
 		email: string;
 		password: string;
 	}) => {
-		const { data } = await Login({
-			variables: {
-				...values
-			}
-		})
-		if (data?.adminLogin?.success) {
-			const { accessToken, user } = data?.adminLogin
-			const localStoreVal = {
-				token: accessToken
-			}
-			localStorage.setItem(USER_COOKIE, accessToken ?? "")
-			authorize()
-			if (redirectTo) {
-				router.push(redirectTo)
-
+		try {
+			const { data } = await Login({
+				variables: {
+					...values
+				}
+			})
+			if (data?.adminLogin?.success) {
+				const { accessToken, user } = data?.adminLogin
+				const localStoreVal = {
+					token: accessToken
+				}
+				localStorage.setItem(USER_COOKIE, accessToken ?? "")
+				authorize()
+				notification.success({
+					message:data.adminLogin.message
+				})
+				if (redirectTo) {
+					router.push(redirectTo)
+	
+				} else {
+					router.push('/')
+	
+				}
+				// notification.success({
+				//  message:'Logged in'
+				// })
 			} else {
-				router.push('/')
-
+				console.log(data);
+				notification.error({
+					message:data?.adminLogin?.message
+				})
 			}
-			// notification.success({
-			//  message:'Logged in'
-			// })
-		} else {
-			console.log(data);
-
+			// router.push('/')	
+		} catch (error) {
+			console.log(error);
+			
+			notification.error({
+				message:"Something went wrong!"
+			})
 		}
-		// router.push('/')
+
 	}, [router]);
 
 

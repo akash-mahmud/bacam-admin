@@ -24,11 +24,36 @@ export type AffectedRowsOutput = {
   count: Scalars['Int']['output'];
 };
 
+export type AggregateCart = {
+  __typename?: 'AggregateCart';
+  _count?: Maybe<CartCountAggregate>;
+  _max?: Maybe<CartMaxAggregate>;
+  _min?: Maybe<CartMinAggregate>;
+};
+
+export type AggregateCartItem = {
+  __typename?: 'AggregateCartItem';
+  _avg?: Maybe<CartItemAvgAggregate>;
+  _count?: Maybe<CartItemCountAggregate>;
+  _max?: Maybe<CartItemMaxAggregate>;
+  _min?: Maybe<CartItemMinAggregate>;
+  _sum?: Maybe<CartItemSumAggregate>;
+};
+
 export type AggregateCategory = {
   __typename?: 'AggregateCategory';
   _count?: Maybe<CategoryCountAggregate>;
   _max?: Maybe<CategoryMaxAggregate>;
   _min?: Maybe<CategoryMinAggregate>;
+};
+
+export type AggregateDefaultShippingAdress = {
+  __typename?: 'AggregateDefaultShippingAdress';
+  _avg?: Maybe<DefaultShippingAdressAvgAggregate>;
+  _count?: Maybe<DefaultShippingAdressCountAggregate>;
+  _max?: Maybe<DefaultShippingAdressMaxAggregate>;
+  _min?: Maybe<DefaultShippingAdressMinAggregate>;
+  _sum?: Maybe<DefaultShippingAdressSumAggregate>;
 };
 
 export type AggregateOrder = {
@@ -95,6 +120,534 @@ export type AggregateUserTokens = {
   _count?: Maybe<UserTokensCountAggregate>;
   _max?: Maybe<UserTokensMaxAggregate>;
   _min?: Maybe<UserTokensMinAggregate>;
+};
+
+export type Cart = {
+  __typename?: 'Cart';
+  _count?: Maybe<CartCount>;
+  cartItem: Array<CartItem>;
+  id: Scalars['String']['output'];
+  user: User;
+  userId: Scalars['String']['output'];
+};
+
+
+export type CartCartItemArgs = {
+  cursor?: InputMaybe<CartItemWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CartItemScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CartItemOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartItemWhereInput>;
+};
+
+export type CartCount = {
+  __typename?: 'CartCount';
+  cartItem: Scalars['Int']['output'];
+};
+
+
+export type CartCountCartItemArgs = {
+  where?: InputMaybe<CartItemWhereInput>;
+};
+
+export type CartCountAggregate = {
+  __typename?: 'CartCountAggregate';
+  _all: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  userId: Scalars['Int']['output'];
+};
+
+export type CartCountOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type CartCreateInput = {
+  cartItem?: InputMaybe<CartItemCreateNestedManyWithoutCartInput>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  user: UserCreateNestedOneWithoutCartInput;
+};
+
+export type CartCreateManyInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  userId: Scalars['String']['input'];
+};
+
+export type CartCreateNestedOneWithoutCartItemInput = {
+  connect?: InputMaybe<CartWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CartCreateOrConnectWithoutCartItemInput>;
+  create?: InputMaybe<CartCreateWithoutCartItemInput>;
+};
+
+export type CartCreateNestedOneWithoutUserInput = {
+  connect?: InputMaybe<CartWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CartCreateOrConnectWithoutUserInput>;
+  create?: InputMaybe<CartCreateWithoutUserInput>;
+};
+
+export type CartCreateOrConnectWithoutCartItemInput = {
+  create: CartCreateWithoutCartItemInput;
+  where: CartWhereUniqueInput;
+};
+
+export type CartCreateOrConnectWithoutUserInput = {
+  create: CartCreateWithoutUserInput;
+  where: CartWhereUniqueInput;
+};
+
+export type CartCreateWithoutCartItemInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  user: UserCreateNestedOneWithoutCartInput;
+};
+
+export type CartCreateWithoutUserInput = {
+  cartItem?: InputMaybe<CartItemCreateNestedManyWithoutCartInput>;
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CartGroupBy = {
+  __typename?: 'CartGroupBy';
+  _count?: Maybe<CartCountAggregate>;
+  _max?: Maybe<CartMaxAggregate>;
+  _min?: Maybe<CartMinAggregate>;
+  id: Scalars['String']['output'];
+  userId: Scalars['String']['output'];
+};
+
+export type CartItem = {
+  __typename?: 'CartItem';
+  cart: Cart;
+  cartId: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  product: Product;
+  productId: Scalars['String']['output'];
+  quantity: Scalars['Int']['output'];
+};
+
+export type CartItemAvgAggregate = {
+  __typename?: 'CartItemAvgAggregate';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+export type CartItemAvgOrderByAggregateInput = {
+  quantity?: InputMaybe<SortOrder>;
+};
+
+export type CartItemCountAggregate = {
+  __typename?: 'CartItemCountAggregate';
+  _all: Scalars['Int']['output'];
+  cartId: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  productId: Scalars['Int']['output'];
+  quantity: Scalars['Int']['output'];
+};
+
+export type CartItemCountOrderByAggregateInput = {
+  cartId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  productId?: InputMaybe<SortOrder>;
+  quantity?: InputMaybe<SortOrder>;
+};
+
+export type CartItemCreateInput = {
+  cart: CartCreateNestedOneWithoutCartItemInput;
+  id?: InputMaybe<Scalars['String']['input']>;
+  product: ProductCreateNestedOneWithoutCartItemInput;
+  quantity: Scalars['Int']['input'];
+};
+
+export type CartItemCreateManyCartInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  productId: Scalars['String']['input'];
+  quantity: Scalars['Int']['input'];
+};
+
+export type CartItemCreateManyCartInputEnvelope = {
+  data: Array<CartItemCreateManyCartInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CartItemCreateManyInput = {
+  cartId: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  productId: Scalars['String']['input'];
+  quantity: Scalars['Int']['input'];
+};
+
+export type CartItemCreateManyProductInput = {
+  cartId: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  quantity: Scalars['Int']['input'];
+};
+
+export type CartItemCreateManyProductInputEnvelope = {
+  data: Array<CartItemCreateManyProductInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CartItemCreateNestedManyWithoutCartInput = {
+  connect?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CartItemCreateOrConnectWithoutCartInput>>;
+  create?: InputMaybe<Array<CartItemCreateWithoutCartInput>>;
+  createMany?: InputMaybe<CartItemCreateManyCartInputEnvelope>;
+};
+
+export type CartItemCreateNestedManyWithoutProductInput = {
+  connect?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CartItemCreateOrConnectWithoutProductInput>>;
+  create?: InputMaybe<Array<CartItemCreateWithoutProductInput>>;
+  createMany?: InputMaybe<CartItemCreateManyProductInputEnvelope>;
+};
+
+export type CartItemCreateOrConnectWithoutCartInput = {
+  create: CartItemCreateWithoutCartInput;
+  where: CartItemWhereUniqueInput;
+};
+
+export type CartItemCreateOrConnectWithoutProductInput = {
+  create: CartItemCreateWithoutProductInput;
+  where: CartItemWhereUniqueInput;
+};
+
+export type CartItemCreateWithoutCartInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  product: ProductCreateNestedOneWithoutCartItemInput;
+  quantity: Scalars['Int']['input'];
+};
+
+export type CartItemCreateWithoutProductInput = {
+  cart: CartCreateNestedOneWithoutCartItemInput;
+  id?: InputMaybe<Scalars['String']['input']>;
+  quantity: Scalars['Int']['input'];
+};
+
+export type CartItemGroupBy = {
+  __typename?: 'CartItemGroupBy';
+  _avg?: Maybe<CartItemAvgAggregate>;
+  _count?: Maybe<CartItemCountAggregate>;
+  _max?: Maybe<CartItemMaxAggregate>;
+  _min?: Maybe<CartItemMinAggregate>;
+  _sum?: Maybe<CartItemSumAggregate>;
+  cartId: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  productId: Scalars['String']['output'];
+  quantity: Scalars['Int']['output'];
+};
+
+export type CartItemListRelationFilter = {
+  every?: InputMaybe<CartItemWhereInput>;
+  none?: InputMaybe<CartItemWhereInput>;
+  some?: InputMaybe<CartItemWhereInput>;
+};
+
+export type CartItemMaxAggregate = {
+  __typename?: 'CartItemMaxAggregate';
+  cartId?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  productId?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CartItemMaxOrderByAggregateInput = {
+  cartId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  productId?: InputMaybe<SortOrder>;
+  quantity?: InputMaybe<SortOrder>;
+};
+
+export type CartItemMinAggregate = {
+  __typename?: 'CartItemMinAggregate';
+  cartId?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  productId?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CartItemMinOrderByAggregateInput = {
+  cartId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  productId?: InputMaybe<SortOrder>;
+  quantity?: InputMaybe<SortOrder>;
+};
+
+export type CartItemOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type CartItemOrderByWithAggregationInput = {
+  _avg?: InputMaybe<CartItemAvgOrderByAggregateInput>;
+  _count?: InputMaybe<CartItemCountOrderByAggregateInput>;
+  _max?: InputMaybe<CartItemMaxOrderByAggregateInput>;
+  _min?: InputMaybe<CartItemMinOrderByAggregateInput>;
+  _sum?: InputMaybe<CartItemSumOrderByAggregateInput>;
+  cartId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  productId?: InputMaybe<SortOrder>;
+  quantity?: InputMaybe<SortOrder>;
+};
+
+export type CartItemOrderByWithRelationInput = {
+  cart?: InputMaybe<CartOrderByWithRelationInput>;
+  cartId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  product?: InputMaybe<ProductOrderByWithRelationInput>;
+  productId?: InputMaybe<SortOrder>;
+  quantity?: InputMaybe<SortOrder>;
+};
+
+export enum CartItemScalarFieldEnum {
+  CartId = 'cartId',
+  Id = 'id',
+  ProductId = 'productId',
+  Quantity = 'quantity'
+}
+
+export type CartItemScalarWhereInput = {
+  AND?: InputMaybe<Array<CartItemScalarWhereInput>>;
+  NOT?: InputMaybe<Array<CartItemScalarWhereInput>>;
+  OR?: InputMaybe<Array<CartItemScalarWhereInput>>;
+  cartId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  productId?: InputMaybe<StringFilter>;
+  quantity?: InputMaybe<IntFilter>;
+};
+
+export type CartItemScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<CartItemScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<CartItemScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<CartItemScalarWhereWithAggregatesInput>>;
+  cartId?: InputMaybe<StringWithAggregatesFilter>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  productId?: InputMaybe<StringWithAggregatesFilter>;
+  quantity?: InputMaybe<IntWithAggregatesFilter>;
+};
+
+export type CartItemSumAggregate = {
+  __typename?: 'CartItemSumAggregate';
+  quantity?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CartItemSumOrderByAggregateInput = {
+  quantity?: InputMaybe<SortOrder>;
+};
+
+export type CartItemUpdateInput = {
+  cart?: InputMaybe<CartUpdateOneRequiredWithoutCartItemNestedInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  product?: InputMaybe<ProductUpdateOneRequiredWithoutCartItemNestedInput>;
+  quantity?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type CartItemUpdateManyMutationInput = {
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  quantity?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type CartItemUpdateManyWithWhereWithoutCartInput = {
+  data: CartItemUpdateManyMutationInput;
+  where: CartItemScalarWhereInput;
+};
+
+export type CartItemUpdateManyWithWhereWithoutProductInput = {
+  data: CartItemUpdateManyMutationInput;
+  where: CartItemScalarWhereInput;
+};
+
+export type CartItemUpdateManyWithoutCartNestedInput = {
+  connect?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CartItemCreateOrConnectWithoutCartInput>>;
+  create?: InputMaybe<Array<CartItemCreateWithoutCartInput>>;
+  createMany?: InputMaybe<CartItemCreateManyCartInputEnvelope>;
+  delete?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<CartItemScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  set?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  update?: InputMaybe<Array<CartItemUpdateWithWhereUniqueWithoutCartInput>>;
+  updateMany?: InputMaybe<Array<CartItemUpdateManyWithWhereWithoutCartInput>>;
+  upsert?: InputMaybe<Array<CartItemUpsertWithWhereUniqueWithoutCartInput>>;
+};
+
+export type CartItemUpdateManyWithoutProductNestedInput = {
+  connect?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CartItemCreateOrConnectWithoutProductInput>>;
+  create?: InputMaybe<Array<CartItemCreateWithoutProductInput>>;
+  createMany?: InputMaybe<CartItemCreateManyProductInputEnvelope>;
+  delete?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<CartItemScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  set?: InputMaybe<Array<CartItemWhereUniqueInput>>;
+  update?: InputMaybe<Array<CartItemUpdateWithWhereUniqueWithoutProductInput>>;
+  updateMany?: InputMaybe<Array<CartItemUpdateManyWithWhereWithoutProductInput>>;
+  upsert?: InputMaybe<Array<CartItemUpsertWithWhereUniqueWithoutProductInput>>;
+};
+
+export type CartItemUpdateWithWhereUniqueWithoutCartInput = {
+  data: CartItemUpdateWithoutCartInput;
+  where: CartItemWhereUniqueInput;
+};
+
+export type CartItemUpdateWithWhereUniqueWithoutProductInput = {
+  data: CartItemUpdateWithoutProductInput;
+  where: CartItemWhereUniqueInput;
+};
+
+export type CartItemUpdateWithoutCartInput = {
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  product?: InputMaybe<ProductUpdateOneRequiredWithoutCartItemNestedInput>;
+  quantity?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type CartItemUpdateWithoutProductInput = {
+  cart?: InputMaybe<CartUpdateOneRequiredWithoutCartItemNestedInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  quantity?: InputMaybe<IntFieldUpdateOperationsInput>;
+};
+
+export type CartItemUpsertWithWhereUniqueWithoutCartInput = {
+  create: CartItemCreateWithoutCartInput;
+  update: CartItemUpdateWithoutCartInput;
+  where: CartItemWhereUniqueInput;
+};
+
+export type CartItemUpsertWithWhereUniqueWithoutProductInput = {
+  create: CartItemCreateWithoutProductInput;
+  update: CartItemUpdateWithoutProductInput;
+  where: CartItemWhereUniqueInput;
+};
+
+export type CartItemWhereInput = {
+  AND?: InputMaybe<Array<CartItemWhereInput>>;
+  NOT?: InputMaybe<Array<CartItemWhereInput>>;
+  OR?: InputMaybe<Array<CartItemWhereInput>>;
+  cart?: InputMaybe<CartRelationFilter>;
+  cartId?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  product?: InputMaybe<ProductRelationFilter>;
+  productId?: InputMaybe<StringFilter>;
+  quantity?: InputMaybe<IntFilter>;
+};
+
+export type CartItemWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CartMaxAggregate = {
+  __typename?: 'CartMaxAggregate';
+  id?: Maybe<Scalars['String']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+export type CartMaxOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type CartMinAggregate = {
+  __typename?: 'CartMinAggregate';
+  id?: Maybe<Scalars['String']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+export type CartMinOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type CartOrderByWithAggregationInput = {
+  _count?: InputMaybe<CartCountOrderByAggregateInput>;
+  _max?: InputMaybe<CartMaxOrderByAggregateInput>;
+  _min?: InputMaybe<CartMinOrderByAggregateInput>;
+  id?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type CartOrderByWithRelationInput = {
+  cartItem?: InputMaybe<CartItemOrderByRelationAggregateInput>;
+  id?: InputMaybe<SortOrder>;
+  user?: InputMaybe<UserOrderByWithRelationInput>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type CartRelationFilter = {
+  is?: InputMaybe<CartWhereInput>;
+  isNot?: InputMaybe<CartWhereInput>;
+};
+
+export enum CartScalarFieldEnum {
+  Id = 'id',
+  UserId = 'userId'
+}
+
+export type CartScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<CartScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<CartScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<CartScalarWhereWithAggregatesInput>>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  userId?: InputMaybe<StringWithAggregatesFilter>;
+};
+
+export type CartUpdateInput = {
+  cartItem?: InputMaybe<CartItemUpdateManyWithoutCartNestedInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutCartNestedInput>;
+};
+
+export type CartUpdateManyMutationInput = {
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type CartUpdateOneRequiredWithoutCartItemNestedInput = {
+  connect?: InputMaybe<CartWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CartCreateOrConnectWithoutCartItemInput>;
+  create?: InputMaybe<CartCreateWithoutCartItemInput>;
+  update?: InputMaybe<CartUpdateWithoutCartItemInput>;
+  upsert?: InputMaybe<CartUpsertWithoutCartItemInput>;
+};
+
+export type CartUpdateOneWithoutUserNestedInput = {
+  connect?: InputMaybe<CartWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CartCreateOrConnectWithoutUserInput>;
+  create?: InputMaybe<CartCreateWithoutUserInput>;
+  delete?: InputMaybe<Scalars['Boolean']['input']>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
+  update?: InputMaybe<CartUpdateWithoutUserInput>;
+  upsert?: InputMaybe<CartUpsertWithoutUserInput>;
+};
+
+export type CartUpdateWithoutCartItemInput = {
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutCartNestedInput>;
+};
+
+export type CartUpdateWithoutUserInput = {
+  cartItem?: InputMaybe<CartItemUpdateManyWithoutCartNestedInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type CartUpsertWithoutCartItemInput = {
+  create: CartCreateWithoutCartItemInput;
+  update: CartUpdateWithoutCartItemInput;
+};
+
+export type CartUpsertWithoutUserInput = {
+  create: CartCreateWithoutUserInput;
+  update: CartUpdateWithoutUserInput;
+};
+
+export type CartWhereInput = {
+  AND?: InputMaybe<Array<CartWhereInput>>;
+  NOT?: InputMaybe<Array<CartWhereInput>>;
+  OR?: InputMaybe<Array<CartWhereInput>>;
+  cartItem?: InputMaybe<CartItemListRelationFilter>;
+  id?: InputMaybe<StringFilter>;
+  user?: InputMaybe<UserRelationFilter>;
+  userId?: InputMaybe<StringFilter>;
+};
+
+export type CartWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Category = {
@@ -337,6 +890,11 @@ export type CreateOneUserArgsCustom = {
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
+export enum CustomProductStatus {
+  MinimumOrderNeeded = 'minimum_order_needed',
+  Started = 'started'
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -366,6 +924,381 @@ export type DateTimeWithAggregatesFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
+export type DefaultShippingAdress = {
+  __typename?: 'DefaultShippingAdress';
+  address: Scalars['String']['output'];
+  city: Scalars['String']['output'];
+  country: Scalars['String']['output'];
+  fullName: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  lat: Scalars['Float']['output'];
+  lng: Scalars['Float']['output'];
+  postalCode: Scalars['String']['output'];
+  shippingPrice: Scalars['Float']['output'];
+  taxPrice: Scalars['Float']['output'];
+  user: User;
+  userId: Scalars['String']['output'];
+};
+
+export type DefaultShippingAdressAvgAggregate = {
+  __typename?: 'DefaultShippingAdressAvgAggregate';
+  lat?: Maybe<Scalars['Float']['output']>;
+  lng?: Maybe<Scalars['Float']['output']>;
+  shippingPrice?: Maybe<Scalars['Float']['output']>;
+  taxPrice?: Maybe<Scalars['Float']['output']>;
+};
+
+export type DefaultShippingAdressAvgOrderByAggregateInput = {
+  lat?: InputMaybe<SortOrder>;
+  lng?: InputMaybe<SortOrder>;
+  shippingPrice?: InputMaybe<SortOrder>;
+  taxPrice?: InputMaybe<SortOrder>;
+};
+
+export type DefaultShippingAdressCountAggregate = {
+  __typename?: 'DefaultShippingAdressCountAggregate';
+  _all: Scalars['Int']['output'];
+  address: Scalars['Int']['output'];
+  city: Scalars['Int']['output'];
+  country: Scalars['Int']['output'];
+  fullName: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  lat: Scalars['Int']['output'];
+  lng: Scalars['Int']['output'];
+  postalCode: Scalars['Int']['output'];
+  shippingPrice: Scalars['Int']['output'];
+  taxPrice: Scalars['Int']['output'];
+  userId: Scalars['Int']['output'];
+};
+
+export type DefaultShippingAdressCountOrderByAggregateInput = {
+  address?: InputMaybe<SortOrder>;
+  city?: InputMaybe<SortOrder>;
+  country?: InputMaybe<SortOrder>;
+  fullName?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  lat?: InputMaybe<SortOrder>;
+  lng?: InputMaybe<SortOrder>;
+  postalCode?: InputMaybe<SortOrder>;
+  shippingPrice?: InputMaybe<SortOrder>;
+  taxPrice?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type DefaultShippingAdressCreateInput = {
+  address: Scalars['String']['input'];
+  city: Scalars['String']['input'];
+  country: Scalars['String']['input'];
+  fullName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  lat: Scalars['Float']['input'];
+  lng: Scalars['Float']['input'];
+  postalCode: Scalars['String']['input'];
+  shippingPrice?: InputMaybe<Scalars['Float']['input']>;
+  taxPrice?: InputMaybe<Scalars['Float']['input']>;
+  user: UserCreateNestedOneWithoutDefaultShippingAdressInput;
+};
+
+export type DefaultShippingAdressCreateManyInput = {
+  address: Scalars['String']['input'];
+  city: Scalars['String']['input'];
+  country: Scalars['String']['input'];
+  fullName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  lat: Scalars['Float']['input'];
+  lng: Scalars['Float']['input'];
+  postalCode: Scalars['String']['input'];
+  shippingPrice?: InputMaybe<Scalars['Float']['input']>;
+  taxPrice?: InputMaybe<Scalars['Float']['input']>;
+  userId: Scalars['String']['input'];
+};
+
+export type DefaultShippingAdressCreateNestedOneWithoutUserInput = {
+  connect?: InputMaybe<DefaultShippingAdressWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<DefaultShippingAdressCreateOrConnectWithoutUserInput>;
+  create?: InputMaybe<DefaultShippingAdressCreateWithoutUserInput>;
+};
+
+export type DefaultShippingAdressCreateOrConnectWithoutUserInput = {
+  create: DefaultShippingAdressCreateWithoutUserInput;
+  where: DefaultShippingAdressWhereUniqueInput;
+};
+
+export type DefaultShippingAdressCreateWithoutUserInput = {
+  address: Scalars['String']['input'];
+  city: Scalars['String']['input'];
+  country: Scalars['String']['input'];
+  fullName: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  lat: Scalars['Float']['input'];
+  lng: Scalars['Float']['input'];
+  postalCode: Scalars['String']['input'];
+  shippingPrice?: InputMaybe<Scalars['Float']['input']>;
+  taxPrice?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type DefaultShippingAdressGroupBy = {
+  __typename?: 'DefaultShippingAdressGroupBy';
+  _avg?: Maybe<DefaultShippingAdressAvgAggregate>;
+  _count?: Maybe<DefaultShippingAdressCountAggregate>;
+  _max?: Maybe<DefaultShippingAdressMaxAggregate>;
+  _min?: Maybe<DefaultShippingAdressMinAggregate>;
+  _sum?: Maybe<DefaultShippingAdressSumAggregate>;
+  address: Scalars['String']['output'];
+  city: Scalars['String']['output'];
+  country: Scalars['String']['output'];
+  fullName: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  lat: Scalars['Float']['output'];
+  lng: Scalars['Float']['output'];
+  postalCode: Scalars['String']['output'];
+  shippingPrice: Scalars['Float']['output'];
+  taxPrice: Scalars['Float']['output'];
+  userId: Scalars['String']['output'];
+};
+
+export type DefaultShippingAdressMaxAggregate = {
+  __typename?: 'DefaultShippingAdressMaxAggregate';
+  address?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  fullName?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  lat?: Maybe<Scalars['Float']['output']>;
+  lng?: Maybe<Scalars['Float']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
+  shippingPrice?: Maybe<Scalars['Float']['output']>;
+  taxPrice?: Maybe<Scalars['Float']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+export type DefaultShippingAdressMaxOrderByAggregateInput = {
+  address?: InputMaybe<SortOrder>;
+  city?: InputMaybe<SortOrder>;
+  country?: InputMaybe<SortOrder>;
+  fullName?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  lat?: InputMaybe<SortOrder>;
+  lng?: InputMaybe<SortOrder>;
+  postalCode?: InputMaybe<SortOrder>;
+  shippingPrice?: InputMaybe<SortOrder>;
+  taxPrice?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type DefaultShippingAdressMinAggregate = {
+  __typename?: 'DefaultShippingAdressMinAggregate';
+  address?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  fullName?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  lat?: Maybe<Scalars['Float']['output']>;
+  lng?: Maybe<Scalars['Float']['output']>;
+  postalCode?: Maybe<Scalars['String']['output']>;
+  shippingPrice?: Maybe<Scalars['Float']['output']>;
+  taxPrice?: Maybe<Scalars['Float']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
+};
+
+export type DefaultShippingAdressMinOrderByAggregateInput = {
+  address?: InputMaybe<SortOrder>;
+  city?: InputMaybe<SortOrder>;
+  country?: InputMaybe<SortOrder>;
+  fullName?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  lat?: InputMaybe<SortOrder>;
+  lng?: InputMaybe<SortOrder>;
+  postalCode?: InputMaybe<SortOrder>;
+  shippingPrice?: InputMaybe<SortOrder>;
+  taxPrice?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type DefaultShippingAdressOrderByWithAggregationInput = {
+  _avg?: InputMaybe<DefaultShippingAdressAvgOrderByAggregateInput>;
+  _count?: InputMaybe<DefaultShippingAdressCountOrderByAggregateInput>;
+  _max?: InputMaybe<DefaultShippingAdressMaxOrderByAggregateInput>;
+  _min?: InputMaybe<DefaultShippingAdressMinOrderByAggregateInput>;
+  _sum?: InputMaybe<DefaultShippingAdressSumOrderByAggregateInput>;
+  address?: InputMaybe<SortOrder>;
+  city?: InputMaybe<SortOrder>;
+  country?: InputMaybe<SortOrder>;
+  fullName?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  lat?: InputMaybe<SortOrder>;
+  lng?: InputMaybe<SortOrder>;
+  postalCode?: InputMaybe<SortOrder>;
+  shippingPrice?: InputMaybe<SortOrder>;
+  taxPrice?: InputMaybe<SortOrder>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type DefaultShippingAdressOrderByWithRelationInput = {
+  address?: InputMaybe<SortOrder>;
+  city?: InputMaybe<SortOrder>;
+  country?: InputMaybe<SortOrder>;
+  fullName?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  lat?: InputMaybe<SortOrder>;
+  lng?: InputMaybe<SortOrder>;
+  postalCode?: InputMaybe<SortOrder>;
+  shippingPrice?: InputMaybe<SortOrder>;
+  taxPrice?: InputMaybe<SortOrder>;
+  user?: InputMaybe<UserOrderByWithRelationInput>;
+  userId?: InputMaybe<SortOrder>;
+};
+
+export type DefaultShippingAdressRelationFilter = {
+  is?: InputMaybe<DefaultShippingAdressWhereInput>;
+  isNot?: InputMaybe<DefaultShippingAdressWhereInput>;
+};
+
+export enum DefaultShippingAdressScalarFieldEnum {
+  Address = 'address',
+  City = 'city',
+  Country = 'country',
+  FullName = 'fullName',
+  Id = 'id',
+  Lat = 'lat',
+  Lng = 'lng',
+  PostalCode = 'postalCode',
+  ShippingPrice = 'shippingPrice',
+  TaxPrice = 'taxPrice',
+  UserId = 'userId'
+}
+
+export type DefaultShippingAdressScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<DefaultShippingAdressScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<DefaultShippingAdressScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<DefaultShippingAdressScalarWhereWithAggregatesInput>>;
+  address?: InputMaybe<StringWithAggregatesFilter>;
+  city?: InputMaybe<StringWithAggregatesFilter>;
+  country?: InputMaybe<StringWithAggregatesFilter>;
+  fullName?: InputMaybe<StringWithAggregatesFilter>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  lat?: InputMaybe<FloatWithAggregatesFilter>;
+  lng?: InputMaybe<FloatWithAggregatesFilter>;
+  postalCode?: InputMaybe<StringWithAggregatesFilter>;
+  shippingPrice?: InputMaybe<FloatWithAggregatesFilter>;
+  taxPrice?: InputMaybe<FloatWithAggregatesFilter>;
+  userId?: InputMaybe<StringWithAggregatesFilter>;
+};
+
+export type DefaultShippingAdressSumAggregate = {
+  __typename?: 'DefaultShippingAdressSumAggregate';
+  lat?: Maybe<Scalars['Float']['output']>;
+  lng?: Maybe<Scalars['Float']['output']>;
+  shippingPrice?: Maybe<Scalars['Float']['output']>;
+  taxPrice?: Maybe<Scalars['Float']['output']>;
+};
+
+export type DefaultShippingAdressSumOrderByAggregateInput = {
+  lat?: InputMaybe<SortOrder>;
+  lng?: InputMaybe<SortOrder>;
+  shippingPrice?: InputMaybe<SortOrder>;
+  taxPrice?: InputMaybe<SortOrder>;
+};
+
+export type DefaultShippingAdressUpdateInput = {
+  address?: InputMaybe<StringFieldUpdateOperationsInput>;
+  city?: InputMaybe<StringFieldUpdateOperationsInput>;
+  country?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fullName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  lat?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  lng?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  postalCode?: InputMaybe<StringFieldUpdateOperationsInput>;
+  shippingPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  taxPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutDefaultShippingAdressNestedInput>;
+};
+
+export type DefaultShippingAdressUpdateManyMutationInput = {
+  address?: InputMaybe<StringFieldUpdateOperationsInput>;
+  city?: InputMaybe<StringFieldUpdateOperationsInput>;
+  country?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fullName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  lat?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  lng?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  postalCode?: InputMaybe<StringFieldUpdateOperationsInput>;
+  shippingPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  taxPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+};
+
+export type DefaultShippingAdressUpdateOneWithoutUserNestedInput = {
+  connect?: InputMaybe<DefaultShippingAdressWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<DefaultShippingAdressCreateOrConnectWithoutUserInput>;
+  create?: InputMaybe<DefaultShippingAdressCreateWithoutUserInput>;
+  delete?: InputMaybe<Scalars['Boolean']['input']>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
+  update?: InputMaybe<DefaultShippingAdressUpdateWithoutUserInput>;
+  upsert?: InputMaybe<DefaultShippingAdressUpsertWithoutUserInput>;
+};
+
+export type DefaultShippingAdressUpdateWithoutUserInput = {
+  address?: InputMaybe<StringFieldUpdateOperationsInput>;
+  city?: InputMaybe<StringFieldUpdateOperationsInput>;
+  country?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fullName?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  lat?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  lng?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  postalCode?: InputMaybe<StringFieldUpdateOperationsInput>;
+  shippingPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  taxPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+};
+
+export type DefaultShippingAdressUpsertWithoutUserInput = {
+  create: DefaultShippingAdressCreateWithoutUserInput;
+  update: DefaultShippingAdressUpdateWithoutUserInput;
+};
+
+export type DefaultShippingAdressWhereInput = {
+  AND?: InputMaybe<Array<DefaultShippingAdressWhereInput>>;
+  NOT?: InputMaybe<Array<DefaultShippingAdressWhereInput>>;
+  OR?: InputMaybe<Array<DefaultShippingAdressWhereInput>>;
+  address?: InputMaybe<StringFilter>;
+  city?: InputMaybe<StringFilter>;
+  country?: InputMaybe<StringFilter>;
+  fullName?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  lat?: InputMaybe<FloatFilter>;
+  lng?: InputMaybe<FloatFilter>;
+  postalCode?: InputMaybe<StringFilter>;
+  shippingPrice?: InputMaybe<FloatFilter>;
+  taxPrice?: InputMaybe<FloatFilter>;
+  user?: InputMaybe<UserRelationFilter>;
+  userId?: InputMaybe<StringFilter>;
+};
+
+export type DefaultShippingAdressWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  userId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type EnumCustomProductStatusFieldUpdateOperationsInput = {
+  set?: InputMaybe<CustomProductStatus>;
+};
+
+export type EnumCustomProductStatusFilter = {
+  equals?: InputMaybe<CustomProductStatus>;
+  in?: InputMaybe<Array<CustomProductStatus>>;
+  not?: InputMaybe<NestedEnumCustomProductStatusFilter>;
+  notIn?: InputMaybe<Array<CustomProductStatus>>;
+};
+
+export type EnumCustomProductStatusWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumCustomProductStatusFilter>;
+  _min?: InputMaybe<NestedEnumCustomProductStatusFilter>;
+  equals?: InputMaybe<CustomProductStatus>;
+  in?: InputMaybe<Array<CustomProductStatus>>;
+  not?: InputMaybe<NestedEnumCustomProductStatusWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<CustomProductStatus>>;
+};
+
 export type EnumOrderStatusFieldUpdateOperationsInput = {
   set?: InputMaybe<OrderStatus>;
 };
@@ -385,6 +1318,27 @@ export type EnumOrderStatusWithAggregatesFilter = {
   in?: InputMaybe<Array<OrderStatus>>;
   not?: InputMaybe<NestedEnumOrderStatusWithAggregatesFilter>;
   notIn?: InputMaybe<Array<OrderStatus>>;
+};
+
+export type EnumProductTypeFieldUpdateOperationsInput = {
+  set?: InputMaybe<ProductType>;
+};
+
+export type EnumProductTypeFilter = {
+  equals?: InputMaybe<ProductType>;
+  in?: InputMaybe<Array<ProductType>>;
+  not?: InputMaybe<NestedEnumProductTypeFilter>;
+  notIn?: InputMaybe<Array<ProductType>>;
+};
+
+export type EnumProductTypeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumProductTypeFilter>;
+  _min?: InputMaybe<NestedEnumProductTypeFilter>;
+  equals?: InputMaybe<ProductType>;
+  in?: InputMaybe<Array<ProductType>>;
+  not?: InputMaybe<NestedEnumProductTypeWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<ProductType>>;
 };
 
 export type EnumUserAccountStatusFieldUpdateOperationsInput = {
@@ -540,7 +1494,10 @@ export type Mutation = {
   adminLogin?: Maybe<LoginResponsce>;
   adminRegister?: Maybe<DefaultResponsce>;
   createCheckoutSession?: Maybe<PaymentSessionCreateResponse>;
+  createManyCart: AffectedRowsOutput;
+  createManyCartItem: AffectedRowsOutput;
   createManyCategory: AffectedRowsOutput;
+  createManyDefaultShippingAdress: AffectedRowsOutput;
   createManyOrder: AffectedRowsOutput;
   createManyOrderItem: AffectedRowsOutput;
   createManyPaymentResult: AffectedRowsOutput;
@@ -549,7 +1506,10 @@ export type Mutation = {
   createManyShippingAddress: AffectedRowsOutput;
   createManyUser: AffectedRowsOutput;
   createManyUserTokens: AffectedRowsOutput;
+  createOneCart: Cart;
+  createOneCartItem: CartItem;
   createOneCategory: Category;
+  createOneDefaultShippingAdress: DefaultShippingAdress;
   createOneOrder: Order;
   createOneOrderItem: OrderItem;
   createOnePaymentResult: PaymentResult;
@@ -558,7 +1518,10 @@ export type Mutation = {
   createOneShippingAddress: ShippingAddress;
   createOneUser: User;
   createOneUserTokens: UserTokens;
+  deleteManyCart: AffectedRowsOutput;
+  deleteManyCartItem: AffectedRowsOutput;
   deleteManyCategory: AffectedRowsOutput;
+  deleteManyDefaultShippingAdress: AffectedRowsOutput;
   deleteManyOrder: AffectedRowsOutput;
   deleteManyOrderItem: AffectedRowsOutput;
   deleteManyPaymentResult: AffectedRowsOutput;
@@ -567,7 +1530,10 @@ export type Mutation = {
   deleteManyShippingAddress: AffectedRowsOutput;
   deleteManyUser: AffectedRowsOutput;
   deleteManyUserTokens: AffectedRowsOutput;
+  deleteOneCart?: Maybe<Cart>;
+  deleteOneCartItem?: Maybe<CartItem>;
   deleteOneCategory?: Maybe<Category>;
+  deleteOneDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
   deleteOneOrder?: Maybe<Order>;
   deleteOneOrderItem?: Maybe<OrderItem>;
   deleteOnePaymentResult?: Maybe<PaymentResult>;
@@ -583,7 +1549,10 @@ export type Mutation = {
   refreshToken?: Maybe<Scalars['String']['output']>;
   register?: Maybe<DefaultResponsce>;
   resetPassByVerficationLink?: Maybe<DefaultResponsce>;
+  updateManyCart: AffectedRowsOutput;
+  updateManyCartItem: AffectedRowsOutput;
   updateManyCategory: AffectedRowsOutput;
+  updateManyDefaultShippingAdress: AffectedRowsOutput;
   updateManyOrder: AffectedRowsOutput;
   updateManyOrderItem: AffectedRowsOutput;
   updateManyPaymentResult: AffectedRowsOutput;
@@ -592,7 +1561,10 @@ export type Mutation = {
   updateManyShippingAddress: AffectedRowsOutput;
   updateManyUser: AffectedRowsOutput;
   updateManyUserTokens: AffectedRowsOutput;
+  updateOneCart?: Maybe<Cart>;
+  updateOneCartItem?: Maybe<CartItem>;
   updateOneCategory?: Maybe<Category>;
+  updateOneDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
   updateOneOrder?: Maybe<Order>;
   updateOneOrderItem?: Maybe<OrderItem>;
   updateOnePaymentResult?: Maybe<PaymentResult>;
@@ -603,7 +1575,10 @@ export type Mutation = {
   updateOneUserTokens?: Maybe<UserTokens>;
   updateProfile?: Maybe<DefaultResponsce>;
   uploadFile?: Maybe<FileUploadResponsce>;
+  upsertOneCart: Cart;
+  upsertOneCartItem: CartItem;
   upsertOneCategory: Category;
+  upsertOneDefaultShippingAdress: DefaultShippingAdress;
   upsertOneOrder: Order;
   upsertOneOrderItem: OrderItem;
   upsertOnePaymentResult: PaymentResult;
@@ -632,8 +1607,26 @@ export type MutationCreateCheckoutSessionArgs = {
 };
 
 
+export type MutationCreateManyCartArgs = {
+  data: Array<CartCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManyCartItemArgs = {
+  data: Array<CartItemCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
 export type MutationCreateManyCategoryArgs = {
   data: Array<CategoryCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManyDefaultShippingAdressArgs = {
+  data: Array<DefaultShippingAdressCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -686,8 +1679,23 @@ export type MutationCreateManyUserTokensArgs = {
 };
 
 
+export type MutationCreateOneCartArgs = {
+  data: CartCreateInput;
+};
+
+
+export type MutationCreateOneCartItemArgs = {
+  data: CartItemCreateInput;
+};
+
+
 export type MutationCreateOneCategoryArgs = {
   data: CategoryCreateInput;
+};
+
+
+export type MutationCreateOneDefaultShippingAdressArgs = {
+  data: DefaultShippingAdressCreateInput;
 };
 
 
@@ -731,8 +1739,23 @@ export type MutationCreateOneUserTokensArgs = {
 };
 
 
+export type MutationDeleteManyCartArgs = {
+  where?: InputMaybe<CartWhereInput>;
+};
+
+
+export type MutationDeleteManyCartItemArgs = {
+  where?: InputMaybe<CartItemWhereInput>;
+};
+
+
 export type MutationDeleteManyCategoryArgs = {
   where?: InputMaybe<CategoryWhereInput>;
+};
+
+
+export type MutationDeleteManyDefaultShippingAdressArgs = {
+  where?: InputMaybe<DefaultShippingAdressWhereInput>;
 };
 
 
@@ -776,8 +1799,23 @@ export type MutationDeleteManyUserTokensArgs = {
 };
 
 
+export type MutationDeleteOneCartArgs = {
+  where: CartWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneCartItemArgs = {
+  where: CartItemWhereUniqueInput;
+};
+
+
 export type MutationDeleteOneCategoryArgs = {
   where: CategoryWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneDefaultShippingAdressArgs = {
+  where: DefaultShippingAdressWhereUniqueInput;
 };
 
 
@@ -847,9 +1885,27 @@ export type MutationResetPassByVerficationLinkArgs = {
 };
 
 
+export type MutationUpdateManyCartArgs = {
+  data: CartUpdateManyMutationInput;
+  where?: InputMaybe<CartWhereInput>;
+};
+
+
+export type MutationUpdateManyCartItemArgs = {
+  data: CartItemUpdateManyMutationInput;
+  where?: InputMaybe<CartItemWhereInput>;
+};
+
+
 export type MutationUpdateManyCategoryArgs = {
   data: CategoryUpdateManyMutationInput;
   where?: InputMaybe<CategoryWhereInput>;
+};
+
+
+export type MutationUpdateManyDefaultShippingAdressArgs = {
+  data: DefaultShippingAdressUpdateManyMutationInput;
+  where?: InputMaybe<DefaultShippingAdressWhereInput>;
 };
 
 
@@ -901,9 +1957,27 @@ export type MutationUpdateManyUserTokensArgs = {
 };
 
 
+export type MutationUpdateOneCartArgs = {
+  data: CartUpdateInput;
+  where: CartWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneCartItemArgs = {
+  data: CartItemUpdateInput;
+  where: CartItemWhereUniqueInput;
+};
+
+
 export type MutationUpdateOneCategoryArgs = {
   data: CategoryUpdateInput;
   where: CategoryWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneDefaultShippingAdressArgs = {
+  data: DefaultShippingAdressUpdateInput;
+  where: DefaultShippingAdressWhereUniqueInput;
 };
 
 
@@ -966,10 +2040,31 @@ export type MutationUploadFileArgs = {
 };
 
 
+export type MutationUpsertOneCartArgs = {
+  create: CartCreateInput;
+  update: CartUpdateInput;
+  where: CartWhereUniqueInput;
+};
+
+
+export type MutationUpsertOneCartItemArgs = {
+  create: CartItemCreateInput;
+  update: CartItemUpdateInput;
+  where: CartItemWhereUniqueInput;
+};
+
+
 export type MutationUpsertOneCategoryArgs = {
   create: CategoryCreateInput;
   update: CategoryUpdateInput;
   where: CategoryWhereUniqueInput;
+};
+
+
+export type MutationUpsertOneDefaultShippingAdressArgs = {
+  create: DefaultShippingAdressCreateInput;
+  update: DefaultShippingAdressUpdateInput;
+  where: DefaultShippingAdressWhereUniqueInput;
 };
 
 
@@ -1058,6 +2153,23 @@ export type NestedDateTimeWithAggregatesFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
 };
 
+export type NestedEnumCustomProductStatusFilter = {
+  equals?: InputMaybe<CustomProductStatus>;
+  in?: InputMaybe<Array<CustomProductStatus>>;
+  not?: InputMaybe<NestedEnumCustomProductStatusFilter>;
+  notIn?: InputMaybe<Array<CustomProductStatus>>;
+};
+
+export type NestedEnumCustomProductStatusWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumCustomProductStatusFilter>;
+  _min?: InputMaybe<NestedEnumCustomProductStatusFilter>;
+  equals?: InputMaybe<CustomProductStatus>;
+  in?: InputMaybe<Array<CustomProductStatus>>;
+  not?: InputMaybe<NestedEnumCustomProductStatusWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<CustomProductStatus>>;
+};
+
 export type NestedEnumOrderStatusFilter = {
   equals?: InputMaybe<OrderStatus>;
   in?: InputMaybe<Array<OrderStatus>>;
@@ -1073,6 +2185,23 @@ export type NestedEnumOrderStatusWithAggregatesFilter = {
   in?: InputMaybe<Array<OrderStatus>>;
   not?: InputMaybe<NestedEnumOrderStatusWithAggregatesFilter>;
   notIn?: InputMaybe<Array<OrderStatus>>;
+};
+
+export type NestedEnumProductTypeFilter = {
+  equals?: InputMaybe<ProductType>;
+  in?: InputMaybe<Array<ProductType>>;
+  not?: InputMaybe<NestedEnumProductTypeFilter>;
+  notIn?: InputMaybe<Array<ProductType>>;
+};
+
+export type NestedEnumProductTypeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumProductTypeFilter>;
+  _min?: InputMaybe<NestedEnumProductTypeFilter>;
+  equals?: InputMaybe<ProductType>;
+  in?: InputMaybe<Array<ProductType>>;
+  not?: InputMaybe<NestedEnumProductTypeWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<ProductType>>;
 };
 
 export type NestedEnumUserAccountStatusFilter = {
@@ -1282,22 +2411,33 @@ export enum NullsOrder {
 
 export type Order = {
   __typename?: 'Order';
+  _count?: Maybe<OrderCount>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   itemsPrePrice: Scalars['Float']['output'];
   itemsPrePricePaymentSessionId?: Maybe<Scalars['String']['output']>;
   itemsPrice: Scalars['Float']['output'];
   itemsTotalPricePaymentSessionId?: Maybe<Scalars['String']['output']>;
-  orderItem?: Maybe<OrderItem>;
+  orderItem: Array<OrderItem>;
   paymentResult?: Maybe<PaymentResult>;
   shippingAddress?: Maybe<ShippingAddress>;
-  shippingPrice?: Maybe<Scalars['Float']['output']>;
+  shippingPrice: Scalars['Float']['output'];
   status: OrderStatus;
-  taxPrice?: Maybe<Scalars['Float']['output']>;
-  totalPrice?: Maybe<Scalars['Float']['output']>;
+  taxPrice: Scalars['Float']['output'];
+  totalPrice: Scalars['Float']['output'];
   updatedAt: Scalars['DateTime']['output'];
   user: User;
   userId: Scalars['String']['output'];
+};
+
+
+export type OrderOrderItemArgs = {
+  cursor?: InputMaybe<OrderItemWhereUniqueInput>;
+  distinct?: InputMaybe<Array<OrderItemScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<OrderItemOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<OrderItemWhereInput>;
 };
 
 export type OrderAvgAggregate = {
@@ -1315,6 +2455,16 @@ export type OrderAvgOrderByAggregateInput = {
   shippingPrice?: InputMaybe<SortOrder>;
   taxPrice?: InputMaybe<SortOrder>;
   totalPrice?: InputMaybe<SortOrder>;
+};
+
+export type OrderCount = {
+  __typename?: 'OrderCount';
+  orderItem: Scalars['Int']['output'];
+};
+
+
+export type OrderCountOrderItemArgs = {
+  where?: InputMaybe<OrderItemWhereInput>;
 };
 
 export type OrderCountAggregate = {
@@ -1352,11 +2502,11 @@ export type OrderCountOrderByAggregateInput = {
 export type OrderCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  itemsPrePrice: Scalars['Float']['input'];
+  itemsPrePrice?: InputMaybe<Scalars['Float']['input']>;
   itemsPrePricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
   itemsPrice: Scalars['Float']['input'];
   itemsTotalPricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
-  orderItem?: InputMaybe<OrderItemCreateNestedOneWithoutOrderInput>;
+  orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutOrderInput>;
   paymentResult?: InputMaybe<PaymentResultCreateNestedOneWithoutOrderInput>;
   shippingAddress?: InputMaybe<ShippingAddressCreateNestedOneWithoutOrderInput>;
   shippingPrice?: InputMaybe<Scalars['Float']['input']>;
@@ -1370,7 +2520,7 @@ export type OrderCreateInput = {
 export type OrderCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  itemsPrePrice: Scalars['Float']['input'];
+  itemsPrePrice?: InputMaybe<Scalars['Float']['input']>;
   itemsPrePricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
   itemsPrice: Scalars['Float']['input'];
   itemsTotalPricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
@@ -1385,7 +2535,7 @@ export type OrderCreateManyInput = {
 export type OrderCreateManyUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  itemsPrePrice: Scalars['Float']['input'];
+  itemsPrePrice?: InputMaybe<Scalars['Float']['input']>;
   itemsPrePricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
   itemsPrice: Scalars['Float']['input'];
   itemsTotalPricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
@@ -1449,7 +2599,7 @@ export type OrderCreateOrConnectWithoutUserInput = {
 export type OrderCreateWithoutOrderItemInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  itemsPrePrice: Scalars['Float']['input'];
+  itemsPrePrice?: InputMaybe<Scalars['Float']['input']>;
   itemsPrePricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
   itemsPrice: Scalars['Float']['input'];
   itemsTotalPricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
@@ -1466,11 +2616,11 @@ export type OrderCreateWithoutOrderItemInput = {
 export type OrderCreateWithoutPaymentResultInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  itemsPrePrice: Scalars['Float']['input'];
+  itemsPrePrice?: InputMaybe<Scalars['Float']['input']>;
   itemsPrePricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
   itemsPrice: Scalars['Float']['input'];
   itemsTotalPricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
-  orderItem?: InputMaybe<OrderItemCreateNestedOneWithoutOrderInput>;
+  orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutOrderInput>;
   shippingAddress?: InputMaybe<ShippingAddressCreateNestedOneWithoutOrderInput>;
   shippingPrice?: InputMaybe<Scalars['Float']['input']>;
   status?: InputMaybe<OrderStatus>;
@@ -1483,11 +2633,11 @@ export type OrderCreateWithoutPaymentResultInput = {
 export type OrderCreateWithoutShippingAddressInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  itemsPrePrice: Scalars['Float']['input'];
+  itemsPrePrice?: InputMaybe<Scalars['Float']['input']>;
   itemsPrePricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
   itemsPrice: Scalars['Float']['input'];
   itemsTotalPricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
-  orderItem?: InputMaybe<OrderItemCreateNestedOneWithoutOrderInput>;
+  orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutOrderInput>;
   paymentResult?: InputMaybe<PaymentResultCreateNestedOneWithoutOrderInput>;
   shippingPrice?: InputMaybe<Scalars['Float']['input']>;
   status?: InputMaybe<OrderStatus>;
@@ -1500,11 +2650,11 @@ export type OrderCreateWithoutShippingAddressInput = {
 export type OrderCreateWithoutUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
-  itemsPrePrice: Scalars['Float']['input'];
+  itemsPrePrice?: InputMaybe<Scalars['Float']['input']>;
   itemsPrePricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
   itemsPrice: Scalars['Float']['input'];
   itemsTotalPricePaymentSessionId?: InputMaybe<Scalars['String']['input']>;
-  orderItem?: InputMaybe<OrderItemCreateNestedOneWithoutOrderInput>;
+  orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutOrderInput>;
   paymentResult?: InputMaybe<PaymentResultCreateNestedOneWithoutOrderInput>;
   shippingAddress?: InputMaybe<ShippingAddressCreateNestedOneWithoutOrderInput>;
   shippingPrice?: InputMaybe<Scalars['Float']['input']>;
@@ -1527,10 +2677,10 @@ export type OrderGroupBy = {
   itemsPrePricePaymentSessionId?: Maybe<Scalars['String']['output']>;
   itemsPrice: Scalars['Float']['output'];
   itemsTotalPricePaymentSessionId?: Maybe<Scalars['String']['output']>;
-  shippingPrice?: Maybe<Scalars['Float']['output']>;
+  shippingPrice: Scalars['Float']['output'];
   status: OrderStatus;
-  taxPrice?: Maybe<Scalars['Float']['output']>;
-  totalPrice?: Maybe<Scalars['Float']['output']>;
+  taxPrice: Scalars['Float']['output'];
+  totalPrice: Scalars['Float']['output'];
   updatedAt: Scalars['DateTime']['output'];
   userId: Scalars['String']['output'];
 };
@@ -1584,6 +2734,17 @@ export type OrderItemCreateManyInput = {
   qty: Scalars['Int']['input'];
 };
 
+export type OrderItemCreateManyOrderInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  productId: Scalars['String']['input'];
+  qty: Scalars['Int']['input'];
+};
+
+export type OrderItemCreateManyOrderInputEnvelope = {
+  data: Array<OrderItemCreateManyOrderInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type OrderItemCreateManyProductInput = {
   id?: InputMaybe<Scalars['String']['input']>;
   orderId: Scalars['String']['input'];
@@ -1595,17 +2756,18 @@ export type OrderItemCreateManyProductInputEnvelope = {
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type OrderItemCreateNestedManyWithoutOrderInput = {
+  connect?: InputMaybe<Array<OrderItemWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<OrderItemCreateOrConnectWithoutOrderInput>>;
+  create?: InputMaybe<Array<OrderItemCreateWithoutOrderInput>>;
+  createMany?: InputMaybe<OrderItemCreateManyOrderInputEnvelope>;
+};
+
 export type OrderItemCreateNestedManyWithoutProductInput = {
   connect?: InputMaybe<Array<OrderItemWhereUniqueInput>>;
   connectOrCreate?: InputMaybe<Array<OrderItemCreateOrConnectWithoutProductInput>>;
   create?: InputMaybe<Array<OrderItemCreateWithoutProductInput>>;
   createMany?: InputMaybe<OrderItemCreateManyProductInputEnvelope>;
-};
-
-export type OrderItemCreateNestedOneWithoutOrderInput = {
-  connect?: InputMaybe<OrderItemWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<OrderItemCreateOrConnectWithoutOrderInput>;
-  create?: InputMaybe<OrderItemCreateWithoutOrderInput>;
 };
 
 export type OrderItemCreateOrConnectWithoutOrderInput = {
@@ -1704,11 +2866,6 @@ export type OrderItemOrderByWithRelationInput = {
   qty?: InputMaybe<SortOrder>;
 };
 
-export type OrderItemRelationFilter = {
-  is?: InputMaybe<OrderItemWhereInput>;
-  isNot?: InputMaybe<OrderItemWhereInput>;
-};
-
 export enum OrderItemScalarFieldEnum {
   Id = 'id',
   OrderId = 'orderId',
@@ -1757,9 +2914,28 @@ export type OrderItemUpdateManyMutationInput = {
   qty?: InputMaybe<IntFieldUpdateOperationsInput>;
 };
 
+export type OrderItemUpdateManyWithWhereWithoutOrderInput = {
+  data: OrderItemUpdateManyMutationInput;
+  where: OrderItemScalarWhereInput;
+};
+
 export type OrderItemUpdateManyWithWhereWithoutProductInput = {
   data: OrderItemUpdateManyMutationInput;
   where: OrderItemScalarWhereInput;
+};
+
+export type OrderItemUpdateManyWithoutOrderNestedInput = {
+  connect?: InputMaybe<Array<OrderItemWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<OrderItemCreateOrConnectWithoutOrderInput>>;
+  create?: InputMaybe<Array<OrderItemCreateWithoutOrderInput>>;
+  createMany?: InputMaybe<OrderItemCreateManyOrderInputEnvelope>;
+  delete?: InputMaybe<Array<OrderItemWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<OrderItemScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<OrderItemWhereUniqueInput>>;
+  set?: InputMaybe<Array<OrderItemWhereUniqueInput>>;
+  update?: InputMaybe<Array<OrderItemUpdateWithWhereUniqueWithoutOrderInput>>;
+  updateMany?: InputMaybe<Array<OrderItemUpdateManyWithWhereWithoutOrderInput>>;
+  upsert?: InputMaybe<Array<OrderItemUpsertWithWhereUniqueWithoutOrderInput>>;
 };
 
 export type OrderItemUpdateManyWithoutProductNestedInput = {
@@ -1776,14 +2952,9 @@ export type OrderItemUpdateManyWithoutProductNestedInput = {
   upsert?: InputMaybe<Array<OrderItemUpsertWithWhereUniqueWithoutProductInput>>;
 };
 
-export type OrderItemUpdateOneWithoutOrderNestedInput = {
-  connect?: InputMaybe<OrderItemWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<OrderItemCreateOrConnectWithoutOrderInput>;
-  create?: InputMaybe<OrderItemCreateWithoutOrderInput>;
-  delete?: InputMaybe<Scalars['Boolean']['input']>;
-  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
-  update?: InputMaybe<OrderItemUpdateWithoutOrderInput>;
-  upsert?: InputMaybe<OrderItemUpsertWithoutOrderInput>;
+export type OrderItemUpdateWithWhereUniqueWithoutOrderInput = {
+  data: OrderItemUpdateWithoutOrderInput;
+  where: OrderItemWhereUniqueInput;
 };
 
 export type OrderItemUpdateWithWhereUniqueWithoutProductInput = {
@@ -1803,15 +2974,16 @@ export type OrderItemUpdateWithoutProductInput = {
   qty?: InputMaybe<IntFieldUpdateOperationsInput>;
 };
 
+export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
+  create: OrderItemCreateWithoutOrderInput;
+  update: OrderItemUpdateWithoutOrderInput;
+  where: OrderItemWhereUniqueInput;
+};
+
 export type OrderItemUpsertWithWhereUniqueWithoutProductInput = {
   create: OrderItemCreateWithoutProductInput;
   update: OrderItemUpdateWithoutProductInput;
   where: OrderItemWhereUniqueInput;
-};
-
-export type OrderItemUpsertWithoutOrderInput = {
-  create: OrderItemCreateWithoutOrderInput;
-  update: OrderItemUpdateWithoutOrderInput;
 };
 
 export type OrderItemWhereInput = {
@@ -1828,7 +3000,6 @@ export type OrderItemWhereInput = {
 
 export type OrderItemWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']['input']>;
-  orderId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type OrderListRelationFilter = {
@@ -1915,10 +3086,10 @@ export type OrderOrderByWithAggregationInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<SortOrderInput>;
   itemsPrice?: InputMaybe<SortOrder>;
   itemsTotalPricePaymentSessionId?: InputMaybe<SortOrderInput>;
-  shippingPrice?: InputMaybe<SortOrderInput>;
+  shippingPrice?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
-  taxPrice?: InputMaybe<SortOrderInput>;
-  totalPrice?: InputMaybe<SortOrderInput>;
+  taxPrice?: InputMaybe<SortOrder>;
+  totalPrice?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
 };
@@ -1930,13 +3101,13 @@ export type OrderOrderByWithRelationInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<SortOrderInput>;
   itemsPrice?: InputMaybe<SortOrder>;
   itemsTotalPricePaymentSessionId?: InputMaybe<SortOrderInput>;
-  orderItem?: InputMaybe<OrderItemOrderByWithRelationInput>;
+  orderItem?: InputMaybe<OrderItemOrderByRelationAggregateInput>;
   paymentResult?: InputMaybe<PaymentResultOrderByWithRelationInput>;
   shippingAddress?: InputMaybe<ShippingAddressOrderByWithRelationInput>;
-  shippingPrice?: InputMaybe<SortOrderInput>;
+  shippingPrice?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
-  taxPrice?: InputMaybe<SortOrderInput>;
-  totalPrice?: InputMaybe<SortOrderInput>;
+  taxPrice?: InputMaybe<SortOrder>;
+  totalPrice?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   user?: InputMaybe<UserOrderByWithRelationInput>;
   userId?: InputMaybe<SortOrder>;
@@ -1972,10 +3143,10 @@ export type OrderScalarWhereInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<StringNullableFilter>;
   itemsPrice?: InputMaybe<FloatFilter>;
   itemsTotalPricePaymentSessionId?: InputMaybe<StringNullableFilter>;
-  shippingPrice?: InputMaybe<FloatNullableFilter>;
+  shippingPrice?: InputMaybe<FloatFilter>;
   status?: InputMaybe<EnumOrderStatusFilter>;
-  taxPrice?: InputMaybe<FloatNullableFilter>;
-  totalPrice?: InputMaybe<FloatNullableFilter>;
+  taxPrice?: InputMaybe<FloatFilter>;
+  totalPrice?: InputMaybe<FloatFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   userId?: InputMaybe<StringFilter>;
 };
@@ -1990,10 +3161,10 @@ export type OrderScalarWhereWithAggregatesInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<StringNullableWithAggregatesFilter>;
   itemsPrice?: InputMaybe<FloatWithAggregatesFilter>;
   itemsTotalPricePaymentSessionId?: InputMaybe<StringNullableWithAggregatesFilter>;
-  shippingPrice?: InputMaybe<FloatNullableWithAggregatesFilter>;
+  shippingPrice?: InputMaybe<FloatWithAggregatesFilter>;
   status?: InputMaybe<EnumOrderStatusWithAggregatesFilter>;
-  taxPrice?: InputMaybe<FloatNullableWithAggregatesFilter>;
-  totalPrice?: InputMaybe<FloatNullableWithAggregatesFilter>;
+  taxPrice?: InputMaybe<FloatWithAggregatesFilter>;
+  totalPrice?: InputMaybe<FloatWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   userId?: InputMaybe<StringWithAggregatesFilter>;
 };
@@ -2003,8 +3174,10 @@ export enum OrderStatus {
   Building = 'building',
   Done = 'done',
   FullPaymentSuccess = 'full_payment_success',
+  OneTimePaymentSuccess = 'one_time_payment_success',
   PendingPrePayment = 'pending_pre_payment',
-  PrePaymentPaid = 'pre_payment_paid'
+  PrePaymentPaid = 'pre_payment_paid',
+  Shipping = 'shipping'
 }
 
 export type OrderSumAggregate = {
@@ -2031,13 +3204,13 @@ export type OrderUpdateInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   itemsPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   itemsTotalPricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  orderItem?: InputMaybe<OrderItemUpdateOneWithoutOrderNestedInput>;
+  orderItem?: InputMaybe<OrderItemUpdateManyWithoutOrderNestedInput>;
   paymentResult?: InputMaybe<PaymentResultUpdateOneWithoutOrderNestedInput>;
   shippingAddress?: InputMaybe<ShippingAddressUpdateOneWithoutOrderNestedInput>;
-  shippingPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  shippingPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumOrderStatusFieldUpdateOperationsInput>;
-  taxPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
-  totalPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  taxPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  totalPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutOrdersNestedInput>;
 };
@@ -2049,10 +3222,10 @@ export type OrderUpdateManyMutationInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   itemsPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   itemsTotalPricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  shippingPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  shippingPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumOrderStatusFieldUpdateOperationsInput>;
-  taxPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
-  totalPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  taxPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  totalPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -2113,10 +3286,10 @@ export type OrderUpdateWithoutOrderItemInput = {
   itemsTotalPricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   paymentResult?: InputMaybe<PaymentResultUpdateOneWithoutOrderNestedInput>;
   shippingAddress?: InputMaybe<ShippingAddressUpdateOneWithoutOrderNestedInput>;
-  shippingPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  shippingPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumOrderStatusFieldUpdateOperationsInput>;
-  taxPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
-  totalPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  taxPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  totalPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutOrdersNestedInput>;
 };
@@ -2128,12 +3301,12 @@ export type OrderUpdateWithoutPaymentResultInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   itemsPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   itemsTotalPricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  orderItem?: InputMaybe<OrderItemUpdateOneWithoutOrderNestedInput>;
+  orderItem?: InputMaybe<OrderItemUpdateManyWithoutOrderNestedInput>;
   shippingAddress?: InputMaybe<ShippingAddressUpdateOneWithoutOrderNestedInput>;
-  shippingPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  shippingPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumOrderStatusFieldUpdateOperationsInput>;
-  taxPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
-  totalPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  taxPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  totalPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutOrdersNestedInput>;
 };
@@ -2145,12 +3318,12 @@ export type OrderUpdateWithoutShippingAddressInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   itemsPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   itemsTotalPricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  orderItem?: InputMaybe<OrderItemUpdateOneWithoutOrderNestedInput>;
+  orderItem?: InputMaybe<OrderItemUpdateManyWithoutOrderNestedInput>;
   paymentResult?: InputMaybe<PaymentResultUpdateOneWithoutOrderNestedInput>;
-  shippingPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  shippingPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumOrderStatusFieldUpdateOperationsInput>;
-  taxPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
-  totalPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  taxPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  totalPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutOrdersNestedInput>;
 };
@@ -2162,13 +3335,13 @@ export type OrderUpdateWithoutUserInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   itemsPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   itemsTotalPricePaymentSessionId?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  orderItem?: InputMaybe<OrderItemUpdateOneWithoutOrderNestedInput>;
+  orderItem?: InputMaybe<OrderItemUpdateManyWithoutOrderNestedInput>;
   paymentResult?: InputMaybe<PaymentResultUpdateOneWithoutOrderNestedInput>;
   shippingAddress?: InputMaybe<ShippingAddressUpdateOneWithoutOrderNestedInput>;
-  shippingPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  shippingPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumOrderStatusFieldUpdateOperationsInput>;
-  taxPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
-  totalPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  taxPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  totalPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -2203,13 +3376,13 @@ export type OrderWhereInput = {
   itemsPrePricePaymentSessionId?: InputMaybe<StringNullableFilter>;
   itemsPrice?: InputMaybe<FloatFilter>;
   itemsTotalPricePaymentSessionId?: InputMaybe<StringNullableFilter>;
-  orderItem?: InputMaybe<OrderItemRelationFilter>;
+  orderItem?: InputMaybe<OrderItemListRelationFilter>;
   paymentResult?: InputMaybe<PaymentResultRelationFilter>;
   shippingAddress?: InputMaybe<ShippingAddressRelationFilter>;
-  shippingPrice?: InputMaybe<FloatNullableFilter>;
+  shippingPrice?: InputMaybe<FloatFilter>;
   status?: InputMaybe<EnumOrderStatusFilter>;
-  taxPrice?: InputMaybe<FloatNullableFilter>;
-  totalPrice?: InputMaybe<FloatNullableFilter>;
+  taxPrice?: InputMaybe<FloatFilter>;
+  totalPrice?: InputMaybe<FloatFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<StringFilter>;
@@ -2428,19 +3601,33 @@ export type PaymentResultWhereUniqueInput = {
 export type Product = {
   __typename?: 'Product';
   _count?: Maybe<ProductCount>;
+  cartItem: Array<CartItem>;
   category: Category;
   categoryId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
+  custom_product_status: CustomProductStatus;
   description: Scalars['String']['output'];
   id: Scalars['String']['output'];
   images: Array<Scalars['String']['output']>;
+  minimumOrderNeededToStart: Scalars['Int']['output'];
   name: Scalars['String']['output'];
   orderItem: Array<OrderItem>;
-  orderStartPrice: Scalars['Float']['output'];
+  orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price: Scalars['Float']['output'];
   reveiws: Array<Review>;
   slug: Scalars['String']['output'];
+  type: ProductType;
   updatedAt: Scalars['DateTime']['output'];
+};
+
+
+export type ProductCartItemArgs = {
+  cursor?: InputMaybe<CartItemWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CartItemScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CartItemOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartItemWhereInput>;
 };
 
 
@@ -2465,19 +3652,27 @@ export type ProductReveiwsArgs = {
 
 export type ProductAvgAggregate = {
   __typename?: 'ProductAvgAggregate';
+  minimumOrderNeededToStart?: Maybe<Scalars['Float']['output']>;
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
 };
 
 export type ProductAvgOrderByAggregateInput = {
+  minimumOrderNeededToStart?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
 };
 
 export type ProductCount = {
   __typename?: 'ProductCount';
+  cartItem: Scalars['Int']['output'];
   orderItem: Scalars['Int']['output'];
   reveiws: Scalars['Int']['output'];
+};
+
+
+export type ProductCountCartItemArgs = {
+  where?: InputMaybe<CartItemWhereInput>;
 };
 
 
@@ -2495,53 +3690,66 @@ export type ProductCountAggregate = {
   _all: Scalars['Int']['output'];
   categoryId: Scalars['Int']['output'];
   createdAt: Scalars['Int']['output'];
+  custom_product_status: Scalars['Int']['output'];
   description: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   images: Scalars['Int']['output'];
+  minimumOrderNeededToStart: Scalars['Int']['output'];
   name: Scalars['Int']['output'];
   orderStartPrice: Scalars['Int']['output'];
   price: Scalars['Int']['output'];
   slug: Scalars['Int']['output'];
+  type: Scalars['Int']['output'];
   updatedAt: Scalars['Int']['output'];
 };
 
 export type ProductCountOrderByAggregateInput = {
   categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  custom_product_status?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   images?: InputMaybe<SortOrder>;
+  minimumOrderNeededToStart?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
+  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type ProductCreateInput = {
+  cartItem?: InputMaybe<CartItemCreateNestedManyWithoutProductInput>;
   category: CategoryCreateNestedOneWithoutProductsInput;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  custom_product_status: CustomProductStatus;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
   images?: InputMaybe<ProductCreateimagesInput>;
+  minimumOrderNeededToStart: Scalars['Int']['input'];
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutProductInput>;
-  orderStartPrice: Scalars['Float']['input'];
+  orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   reveiws?: InputMaybe<ReviewCreateNestedManyWithoutProductInput>;
   slug: Scalars['String']['input'];
+  type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type ProductCreateManyCategoryInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  custom_product_status: CustomProductStatus;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
   images?: InputMaybe<ProductCreateimagesInput>;
+  minimumOrderNeededToStart: Scalars['Int']['input'];
   name: Scalars['String']['input'];
-  orderStartPrice: Scalars['Float']['input'];
+  orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   slug: Scalars['String']['input'];
+  type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -2553,13 +3761,16 @@ export type ProductCreateManyCategoryInputEnvelope = {
 export type ProductCreateManyInput = {
   categoryId: Scalars['String']['input'];
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  custom_product_status: CustomProductStatus;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
   images?: InputMaybe<ProductCreateimagesInput>;
+  minimumOrderNeededToStart: Scalars['Int']['input'];
   name: Scalars['String']['input'];
-  orderStartPrice: Scalars['Float']['input'];
+  orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   slug: Scalars['String']['input'];
+  type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -2568,6 +3779,12 @@ export type ProductCreateNestedManyWithoutCategoryInput = {
   connectOrCreate?: InputMaybe<Array<ProductCreateOrConnectWithoutCategoryInput>>;
   create?: InputMaybe<Array<ProductCreateWithoutCategoryInput>>;
   createMany?: InputMaybe<ProductCreateManyCategoryInputEnvelope>;
+};
+
+export type ProductCreateNestedOneWithoutCartItemInput = {
+  connect?: InputMaybe<ProductWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ProductCreateOrConnectWithoutCartItemInput>;
+  create?: InputMaybe<ProductCreateWithoutCartItemInput>;
 };
 
 export type ProductCreateNestedOneWithoutOrderItemInput = {
@@ -2580,6 +3797,11 @@ export type ProductCreateNestedOneWithoutReveiwsInput = {
   connect?: InputMaybe<ProductWhereUniqueInput>;
   connectOrCreate?: InputMaybe<ProductCreateOrConnectWithoutReveiwsInput>;
   create?: InputMaybe<ProductCreateWithoutReveiwsInput>;
+};
+
+export type ProductCreateOrConnectWithoutCartItemInput = {
+  create: ProductCreateWithoutCartItemInput;
+  where: ProductWhereUniqueInput;
 };
 
 export type ProductCreateOrConnectWithoutCategoryInput = {
@@ -2597,45 +3819,75 @@ export type ProductCreateOrConnectWithoutReveiwsInput = {
   where: ProductWhereUniqueInput;
 };
 
-export type ProductCreateWithoutCategoryInput = {
+export type ProductCreateWithoutCartItemInput = {
+  category: CategoryCreateNestedOneWithoutProductsInput;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  custom_product_status: CustomProductStatus;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
   images?: InputMaybe<ProductCreateimagesInput>;
+  minimumOrderNeededToStart: Scalars['Int']['input'];
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutProductInput>;
-  orderStartPrice: Scalars['Float']['input'];
+  orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   reveiws?: InputMaybe<ReviewCreateNestedManyWithoutProductInput>;
   slug: Scalars['String']['input'];
+  type: ProductType;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type ProductCreateWithoutCategoryInput = {
+  cartItem?: InputMaybe<CartItemCreateNestedManyWithoutProductInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  custom_product_status: CustomProductStatus;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<ProductCreateimagesInput>;
+  minimumOrderNeededToStart: Scalars['Int']['input'];
+  name: Scalars['String']['input'];
+  orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutProductInput>;
+  orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
+  price: Scalars['Float']['input'];
+  reveiws?: InputMaybe<ReviewCreateNestedManyWithoutProductInput>;
+  slug: Scalars['String']['input'];
+  type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type ProductCreateWithoutOrderItemInput = {
+  cartItem?: InputMaybe<CartItemCreateNestedManyWithoutProductInput>;
   category: CategoryCreateNestedOneWithoutProductsInput;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  custom_product_status: CustomProductStatus;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
   images?: InputMaybe<ProductCreateimagesInput>;
+  minimumOrderNeededToStart: Scalars['Int']['input'];
   name: Scalars['String']['input'];
-  orderStartPrice: Scalars['Float']['input'];
+  orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   reveiws?: InputMaybe<ReviewCreateNestedManyWithoutProductInput>;
   slug: Scalars['String']['input'];
+  type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type ProductCreateWithoutReveiwsInput = {
+  cartItem?: InputMaybe<CartItemCreateNestedManyWithoutProductInput>;
   category: CategoryCreateNestedOneWithoutProductsInput;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  custom_product_status: CustomProductStatus;
   description: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
   images?: InputMaybe<ProductCreateimagesInput>;
+  minimumOrderNeededToStart: Scalars['Int']['input'];
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutProductInput>;
-  orderStartPrice: Scalars['Float']['input'];
+  orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   slug: Scalars['String']['input'];
+  type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -2652,13 +3904,16 @@ export type ProductGroupBy = {
   _sum?: Maybe<ProductSumAggregate>;
   categoryId: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
+  custom_product_status: CustomProductStatus;
   description: Scalars['String']['output'];
   id: Scalars['String']['output'];
   images?: Maybe<Array<Scalars['String']['output']>>;
+  minimumOrderNeededToStart: Scalars['Int']['output'];
   name: Scalars['String']['output'];
-  orderStartPrice: Scalars['Float']['output'];
+  orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price: Scalars['Float']['output'];
   slug: Scalars['String']['output'];
+  type: ProductType;
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -2672,24 +3927,30 @@ export type ProductMaxAggregate = {
   __typename?: 'ProductMaxAggregate';
   categoryId?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  custom_product_status?: Maybe<CustomProductStatus>;
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  minimumOrderNeededToStart?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<ProductType>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type ProductMaxOrderByAggregateInput = {
   categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  custom_product_status?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  minimumOrderNeededToStart?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
+  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
@@ -2697,24 +3958,30 @@ export type ProductMinAggregate = {
   __typename?: 'ProductMinAggregate';
   categoryId?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  custom_product_status?: Maybe<CustomProductStatus>;
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  minimumOrderNeededToStart?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<ProductType>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type ProductMinOrderByAggregateInput = {
   categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  custom_product_status?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  minimumOrderNeededToStart?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
+  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
@@ -2730,36 +3997,38 @@ export type ProductOrderByWithAggregationInput = {
   _sum?: InputMaybe<ProductSumOrderByAggregateInput>;
   categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  custom_product_status?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   images?: InputMaybe<SortOrder>;
+  minimumOrderNeededToStart?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
-  orderStartPrice?: InputMaybe<SortOrder>;
+  orderStartPrice?: InputMaybe<SortOrderInput>;
   price?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
+  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
 export type ProductOrderByWithRelationInput = {
+  cartItem?: InputMaybe<CartItemOrderByRelationAggregateInput>;
   category?: InputMaybe<CategoryOrderByWithRelationInput>;
   categoryId?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
+  custom_product_status?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   images?: InputMaybe<SortOrder>;
+  minimumOrderNeededToStart?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   orderItem?: InputMaybe<OrderItemOrderByRelationAggregateInput>;
-  orderStartPrice?: InputMaybe<SortOrder>;
+  orderStartPrice?: InputMaybe<SortOrderInput>;
   price?: InputMaybe<SortOrder>;
   reveiws?: InputMaybe<ReviewOrderByRelationAggregateInput>;
   slug?: InputMaybe<SortOrder>;
+  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
-
-export enum ProductPaymentTypes {
-  OrderStartPrice = 'orderStartPrice',
-  Totalprice = 'totalprice'
-}
 
 export type ProductRelationFilter = {
   is?: InputMaybe<ProductWhereInput>;
@@ -2769,13 +4038,16 @@ export type ProductRelationFilter = {
 export enum ProductScalarFieldEnum {
   CategoryId = 'categoryId',
   CreatedAt = 'createdAt',
+  CustomProductStatus = 'custom_product_status',
   Description = 'description',
   Id = 'id',
   Images = 'images',
+  MinimumOrderNeededToStart = 'minimumOrderNeededToStart',
   Name = 'name',
   OrderStartPrice = 'orderStartPrice',
   Price = 'price',
   Slug = 'slug',
+  Type = 'type',
   UpdatedAt = 'updatedAt'
 }
 
@@ -2785,13 +4057,16 @@ export type ProductScalarWhereInput = {
   OR?: InputMaybe<Array<ProductScalarWhereInput>>;
   categoryId?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  custom_product_status?: InputMaybe<EnumCustomProductStatusFilter>;
   description?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   images?: InputMaybe<StringNullableListFilter>;
+  minimumOrderNeededToStart?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
-  orderStartPrice?: InputMaybe<FloatFilter>;
+  orderStartPrice?: InputMaybe<FloatNullableFilter>;
   price?: InputMaybe<FloatFilter>;
   slug?: InputMaybe<StringFilter>;
+  type?: InputMaybe<EnumProductTypeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
@@ -2801,51 +4076,68 @@ export type ProductScalarWhereWithAggregatesInput = {
   OR?: InputMaybe<Array<ProductScalarWhereWithAggregatesInput>>;
   categoryId?: InputMaybe<StringWithAggregatesFilter>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  custom_product_status?: InputMaybe<EnumCustomProductStatusWithAggregatesFilter>;
   description?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
   images?: InputMaybe<StringNullableListFilter>;
+  minimumOrderNeededToStart?: InputMaybe<IntWithAggregatesFilter>;
   name?: InputMaybe<StringWithAggregatesFilter>;
-  orderStartPrice?: InputMaybe<FloatWithAggregatesFilter>;
+  orderStartPrice?: InputMaybe<FloatNullableWithAggregatesFilter>;
   price?: InputMaybe<FloatWithAggregatesFilter>;
   slug?: InputMaybe<StringWithAggregatesFilter>;
+  type?: InputMaybe<EnumProductTypeWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
 
 export type ProductSumAggregate = {
   __typename?: 'ProductSumAggregate';
+  minimumOrderNeededToStart?: Maybe<Scalars['Int']['output']>;
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
 };
 
 export type ProductSumOrderByAggregateInput = {
+  minimumOrderNeededToStart?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
 };
 
+export enum ProductType {
+  Custom = 'custom',
+  ReadyMate = 'readyMate'
+}
+
 export type ProductUpdateInput = {
+  cartItem?: InputMaybe<CartItemUpdateManyWithoutProductNestedInput>;
   category?: InputMaybe<CategoryUpdateOneRequiredWithoutProductsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  custom_product_status?: InputMaybe<EnumCustomProductStatusFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   images?: InputMaybe<ProductUpdateimagesInput>;
+  minimumOrderNeededToStart?: InputMaybe<IntFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutProductNestedInput>;
-  orderStartPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
   reveiws?: InputMaybe<ReviewUpdateManyWithoutProductNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ProductUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  custom_product_status?: InputMaybe<EnumCustomProductStatusFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   images?: InputMaybe<ProductUpdateimagesInput>;
+  minimumOrderNeededToStart?: InputMaybe<IntFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  orderStartPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -2866,6 +4158,14 @@ export type ProductUpdateManyWithoutCategoryNestedInput = {
   update?: InputMaybe<Array<ProductUpdateWithWhereUniqueWithoutCategoryInput>>;
   updateMany?: InputMaybe<Array<ProductUpdateManyWithWhereWithoutCategoryInput>>;
   upsert?: InputMaybe<Array<ProductUpsertWithWhereUniqueWithoutCategoryInput>>;
+};
+
+export type ProductUpdateOneRequiredWithoutCartItemNestedInput = {
+  connect?: InputMaybe<ProductWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ProductCreateOrConnectWithoutCartItemInput>;
+  create?: InputMaybe<ProductCreateWithoutCartItemInput>;
+  update?: InputMaybe<ProductUpdateWithoutCartItemInput>;
+  upsert?: InputMaybe<ProductUpsertWithoutCartItemInput>;
 };
 
 export type ProductUpdateOneRequiredWithoutOrderItemNestedInput = {
@@ -2889,45 +4189,75 @@ export type ProductUpdateWithWhereUniqueWithoutCategoryInput = {
   where: ProductWhereUniqueInput;
 };
 
-export type ProductUpdateWithoutCategoryInput = {
+export type ProductUpdateWithoutCartItemInput = {
+  category?: InputMaybe<CategoryUpdateOneRequiredWithoutProductsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  custom_product_status?: InputMaybe<EnumCustomProductStatusFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   images?: InputMaybe<ProductUpdateimagesInput>;
+  minimumOrderNeededToStart?: InputMaybe<IntFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutProductNestedInput>;
-  orderStartPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
   reveiws?: InputMaybe<ReviewUpdateManyWithoutProductNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type ProductUpdateWithoutCategoryInput = {
+  cartItem?: InputMaybe<CartItemUpdateManyWithoutProductNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  custom_product_status?: InputMaybe<EnumCustomProductStatusFieldUpdateOperationsInput>;
+  description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  images?: InputMaybe<ProductUpdateimagesInput>;
+  minimumOrderNeededToStart?: InputMaybe<IntFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  orderItem?: InputMaybe<OrderItemUpdateManyWithoutProductNestedInput>;
+  orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
+  price?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  reveiws?: InputMaybe<ReviewUpdateManyWithoutProductNestedInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ProductUpdateWithoutOrderItemInput = {
+  cartItem?: InputMaybe<CartItemUpdateManyWithoutProductNestedInput>;
   category?: InputMaybe<CategoryUpdateOneRequiredWithoutProductsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  custom_product_status?: InputMaybe<EnumCustomProductStatusFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   images?: InputMaybe<ProductUpdateimagesInput>;
+  minimumOrderNeededToStart?: InputMaybe<IntFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
-  orderStartPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
   reveiws?: InputMaybe<ReviewUpdateManyWithoutProductNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type ProductUpdateWithoutReveiwsInput = {
+  cartItem?: InputMaybe<CartItemUpdateManyWithoutProductNestedInput>;
   category?: InputMaybe<CategoryUpdateOneRequiredWithoutProductsNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  custom_product_status?: InputMaybe<EnumCustomProductStatusFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   images?: InputMaybe<ProductUpdateimagesInput>;
+  minimumOrderNeededToStart?: InputMaybe<IntFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutProductNestedInput>;
-  orderStartPrice?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -2940,6 +4270,11 @@ export type ProductUpsertWithWhereUniqueWithoutCategoryInput = {
   create: ProductCreateWithoutCategoryInput;
   update: ProductUpdateWithoutCategoryInput;
   where: ProductWhereUniqueInput;
+};
+
+export type ProductUpsertWithoutCartItemInput = {
+  create: ProductCreateWithoutCartItemInput;
+  update: ProductUpdateWithoutCartItemInput;
 };
 
 export type ProductUpsertWithoutOrderItemInput = {
@@ -2956,18 +4291,22 @@ export type ProductWhereInput = {
   AND?: InputMaybe<Array<ProductWhereInput>>;
   NOT?: InputMaybe<Array<ProductWhereInput>>;
   OR?: InputMaybe<Array<ProductWhereInput>>;
+  cartItem?: InputMaybe<CartItemListRelationFilter>;
   category?: InputMaybe<CategoryRelationFilter>;
   categoryId?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  custom_product_status?: InputMaybe<EnumCustomProductStatusFilter>;
   description?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   images?: InputMaybe<StringNullableListFilter>;
+  minimumOrderNeededToStart?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
   orderItem?: InputMaybe<OrderItemListRelationFilter>;
-  orderStartPrice?: InputMaybe<FloatFilter>;
+  orderStartPrice?: InputMaybe<FloatNullableFilter>;
   price?: InputMaybe<FloatFilter>;
   reveiws?: InputMaybe<ReviewListRelationFilter>;
   slug?: InputMaybe<StringFilter>;
+  type?: InputMaybe<EnumProductTypeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
@@ -2978,7 +4317,10 @@ export type ProductWhereUniqueInput = {
 
 export type Query = {
   __typename?: 'Query';
+  aggregateCart: AggregateCart;
+  aggregateCartItem: AggregateCartItem;
   aggregateCategory: AggregateCategory;
+  aggregateDefaultShippingAdress: AggregateDefaultShippingAdress;
   aggregateOrder: AggregateOrder;
   aggregateOrderItem: AggregateOrderItem;
   aggregatePaymentResult: AggregatePaymentResult;
@@ -2987,10 +4329,22 @@ export type Query = {
   aggregateShippingAddress: AggregateShippingAddress;
   aggregateUser: AggregateUser;
   aggregateUserTokens: AggregateUserTokens;
+  cart?: Maybe<Cart>;
+  cartItem?: Maybe<CartItem>;
+  cartItems: Array<CartItem>;
+  carts: Array<Cart>;
   categories: Array<Category>;
   category?: Maybe<Category>;
+  defaultShippingAdress?: Maybe<DefaultShippingAdress>;
+  defaultShippingAdresses: Array<DefaultShippingAdress>;
+  findFirstCart?: Maybe<Cart>;
+  findFirstCartItem?: Maybe<CartItem>;
+  findFirstCartItemOrThrow?: Maybe<CartItem>;
+  findFirstCartOrThrow?: Maybe<Cart>;
   findFirstCategory?: Maybe<Category>;
   findFirstCategoryOrThrow?: Maybe<Category>;
+  findFirstDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
+  findFirstDefaultShippingAdressOrThrow?: Maybe<DefaultShippingAdress>;
   findFirstOrder?: Maybe<Order>;
   findFirstOrderItem?: Maybe<OrderItem>;
   findFirstOrderItemOrThrow?: Maybe<OrderItem>;
@@ -3010,7 +4364,10 @@ export type Query = {
   findManyUserTokens: Array<UserTokens>;
   findUniqueUserTokens?: Maybe<UserTokens>;
   findUniqueUserTokensOrThrow?: Maybe<UserTokens>;
+  getCart?: Maybe<Cart>;
+  getCartItem?: Maybe<CartItem>;
   getCategory?: Maybe<Category>;
+  getDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
   getOrder?: Maybe<Order>;
   getOrderItem?: Maybe<OrderItem>;
   getPaymentResult?: Maybe<PaymentResult>;
@@ -3018,7 +4375,10 @@ export type Query = {
   getReview?: Maybe<Review>;
   getShippingAddress?: Maybe<ShippingAddress>;
   getUser?: Maybe<User>;
+  groupByCart: Array<CartGroupBy>;
+  groupByCartItem: Array<CartItemGroupBy>;
   groupByCategory: Array<CategoryGroupBy>;
+  groupByDefaultShippingAdress: Array<DefaultShippingAdressGroupBy>;
   groupByOrder: Array<OrderGroupBy>;
   groupByOrderItem: Array<OrderItemGroupBy>;
   groupByPaymentResult: Array<PaymentResultGroupBy>;
@@ -3048,12 +4408,39 @@ export type Query = {
 };
 
 
+export type QueryAggregateCartArgs = {
+  cursor?: InputMaybe<CartWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<CartOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartWhereInput>;
+};
+
+
+export type QueryAggregateCartItemArgs = {
+  cursor?: InputMaybe<CartItemWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<CartItemOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartItemWhereInput>;
+};
+
+
 export type QueryAggregateCategoryArgs = {
   cursor?: InputMaybe<CategoryWhereUniqueInput>;
   orderBy?: InputMaybe<Array<CategoryOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<CategoryWhereInput>;
+};
+
+
+export type QueryAggregateDefaultShippingAdressArgs = {
+  cursor?: InputMaybe<DefaultShippingAdressWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<DefaultShippingAdressOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<DefaultShippingAdressWhereInput>;
 };
 
 
@@ -3129,6 +4516,36 @@ export type QueryAggregateUserTokensArgs = {
 };
 
 
+export type QueryCartArgs = {
+  where: CartWhereUniqueInput;
+};
+
+
+export type QueryCartItemArgs = {
+  where: CartItemWhereUniqueInput;
+};
+
+
+export type QueryCartItemsArgs = {
+  cursor?: InputMaybe<CartItemWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CartItemScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CartItemOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartItemWhereInput>;
+};
+
+
+export type QueryCartsArgs = {
+  cursor?: InputMaybe<CartWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CartScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CartOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartWhereInput>;
+};
+
+
 export type QueryCategoriesArgs = {
   cursor?: InputMaybe<CategoryWhereUniqueInput>;
   distinct?: InputMaybe<Array<CategoryScalarFieldEnum>>;
@@ -3141,6 +4558,61 @@ export type QueryCategoriesArgs = {
 
 export type QueryCategoryArgs = {
   where: CategoryWhereUniqueInput;
+};
+
+
+export type QueryDefaultShippingAdressArgs = {
+  where: DefaultShippingAdressWhereUniqueInput;
+};
+
+
+export type QueryDefaultShippingAdressesArgs = {
+  cursor?: InputMaybe<DefaultShippingAdressWhereUniqueInput>;
+  distinct?: InputMaybe<Array<DefaultShippingAdressScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<DefaultShippingAdressOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<DefaultShippingAdressWhereInput>;
+};
+
+
+export type QueryFindFirstCartArgs = {
+  cursor?: InputMaybe<CartWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CartScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CartOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartWhereInput>;
+};
+
+
+export type QueryFindFirstCartItemArgs = {
+  cursor?: InputMaybe<CartItemWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CartItemScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CartItemOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartItemWhereInput>;
+};
+
+
+export type QueryFindFirstCartItemOrThrowArgs = {
+  cursor?: InputMaybe<CartItemWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CartItemScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CartItemOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartItemWhereInput>;
+};
+
+
+export type QueryFindFirstCartOrThrowArgs = {
+  cursor?: InputMaybe<CartWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CartScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CartOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartWhereInput>;
 };
 
 
@@ -3161,6 +4633,26 @@ export type QueryFindFirstCategoryOrThrowArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<CategoryWhereInput>;
+};
+
+
+export type QueryFindFirstDefaultShippingAdressArgs = {
+  cursor?: InputMaybe<DefaultShippingAdressWhereUniqueInput>;
+  distinct?: InputMaybe<Array<DefaultShippingAdressScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<DefaultShippingAdressOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<DefaultShippingAdressWhereInput>;
+};
+
+
+export type QueryFindFirstDefaultShippingAdressOrThrowArgs = {
+  cursor?: InputMaybe<DefaultShippingAdressWhereUniqueInput>;
+  distinct?: InputMaybe<Array<DefaultShippingAdressScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<DefaultShippingAdressOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<DefaultShippingAdressWhereInput>;
 };
 
 
@@ -3344,8 +4836,23 @@ export type QueryFindUniqueUserTokensOrThrowArgs = {
 };
 
 
+export type QueryGetCartArgs = {
+  where: CartWhereUniqueInput;
+};
+
+
+export type QueryGetCartItemArgs = {
+  where: CartItemWhereUniqueInput;
+};
+
+
 export type QueryGetCategoryArgs = {
   where: CategoryWhereUniqueInput;
+};
+
+
+export type QueryGetDefaultShippingAdressArgs = {
+  where: DefaultShippingAdressWhereUniqueInput;
 };
 
 
@@ -3384,6 +4891,26 @@ export type QueryGetUserArgs = {
 };
 
 
+export type QueryGroupByCartArgs = {
+  by: Array<CartScalarFieldEnum>;
+  having?: InputMaybe<CartScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<CartOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartWhereInput>;
+};
+
+
+export type QueryGroupByCartItemArgs = {
+  by: Array<CartItemScalarFieldEnum>;
+  having?: InputMaybe<CartItemScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<CartItemOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CartItemWhereInput>;
+};
+
+
 export type QueryGroupByCategoryArgs = {
   by: Array<CategoryScalarFieldEnum>;
   having?: InputMaybe<CategoryScalarWhereWithAggregatesInput>;
@@ -3391,6 +4918,16 @@ export type QueryGroupByCategoryArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<CategoryWhereInput>;
+};
+
+
+export type QueryGroupByDefaultShippingAdressArgs = {
+  by: Array<DefaultShippingAdressScalarFieldEnum>;
+  having?: InputMaybe<DefaultShippingAdressScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<DefaultShippingAdressOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<DefaultShippingAdressWhereInput>;
 };
 
 
@@ -4410,7 +5947,9 @@ export type User = {
   __typename?: 'User';
   _count?: Maybe<UserCount>;
   avater?: Maybe<Scalars['String']['output']>;
+  cart?: Maybe<Cart>;
   createdAt: Scalars['DateTime']['output'];
+  defaultShippingAdress?: Maybe<DefaultShippingAdress>;
   email: Scalars['String']['output'];
   firstname: Scalars['String']['output'];
   id: Scalars['String']['output'];
@@ -4499,7 +6038,9 @@ export type UserCountOrderByAggregateInput = {
 
 export type UserCreateInput = {
   avater?: InputMaybe<Scalars['String']['input']>;
+  cart?: InputMaybe<CartCreateNestedOneWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressCreateNestedOneWithoutUserInput>;
   email: Scalars['String']['input'];
   firstname: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
@@ -4527,6 +6068,18 @@ export type UserCreateManyInput = {
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type UserCreateNestedOneWithoutCartInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutCartInput>;
+  create?: InputMaybe<UserCreateWithoutCartInput>;
+};
+
+export type UserCreateNestedOneWithoutDefaultShippingAdressInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutDefaultShippingAdressInput>;
+  create?: InputMaybe<UserCreateWithoutDefaultShippingAdressInput>;
+};
+
 export type UserCreateNestedOneWithoutOrdersInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutOrdersInput>;
@@ -4539,6 +6092,16 @@ export type UserCreateNestedOneWithoutReveiwsInput = {
   create?: InputMaybe<UserCreateWithoutReveiwsInput>;
 };
 
+export type UserCreateOrConnectWithoutCartInput = {
+  create: UserCreateWithoutCartInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateOrConnectWithoutDefaultShippingAdressInput = {
+  create: UserCreateWithoutDefaultShippingAdressInput;
+  where: UserWhereUniqueInput;
+};
+
 export type UserCreateOrConnectWithoutOrdersInput = {
   create: UserCreateWithoutOrdersInput;
   where: UserWhereUniqueInput;
@@ -4549,9 +6112,45 @@ export type UserCreateOrConnectWithoutReveiwsInput = {
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateWithoutOrdersInput = {
+export type UserCreateWithoutCartInput = {
   avater?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressCreateNestedOneWithoutUserInput>;
+  email: Scalars['String']['input'];
+  firstname: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  lastname: Scalars['String']['input'];
+  orders?: InputMaybe<OrderCreateNestedManyWithoutUserInput>;
+  password: Scalars['String']['input'];
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  reveiws?: InputMaybe<ReviewCreateNestedManyWithoutUserInput>;
+  role: UserRole;
+  status?: InputMaybe<UserAccountStatus>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type UserCreateWithoutDefaultShippingAdressInput = {
+  avater?: InputMaybe<Scalars['String']['input']>;
+  cart?: InputMaybe<CartCreateNestedOneWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  email: Scalars['String']['input'];
+  firstname: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  lastname: Scalars['String']['input'];
+  orders?: InputMaybe<OrderCreateNestedManyWithoutUserInput>;
+  password: Scalars['String']['input'];
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  reveiws?: InputMaybe<ReviewCreateNestedManyWithoutUserInput>;
+  role: UserRole;
+  status?: InputMaybe<UserAccountStatus>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type UserCreateWithoutOrdersInput = {
+  avater?: InputMaybe<Scalars['String']['input']>;
+  cart?: InputMaybe<CartCreateNestedOneWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressCreateNestedOneWithoutUserInput>;
   email: Scalars['String']['input'];
   firstname: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
@@ -4566,7 +6165,9 @@ export type UserCreateWithoutOrdersInput = {
 
 export type UserCreateWithoutReveiwsInput = {
   avater?: InputMaybe<Scalars['String']['input']>;
+  cart?: InputMaybe<CartCreateNestedOneWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressCreateNestedOneWithoutUserInput>;
   email: Scalars['String']['input'];
   firstname: Scalars['String']['input'];
   id?: InputMaybe<Scalars['String']['input']>;
@@ -4686,7 +6287,9 @@ export type UserOrderByWithAggregationInput = {
 
 export type UserOrderByWithRelationInput = {
   avater?: InputMaybe<SortOrderInput>;
+  cart?: InputMaybe<CartOrderByWithRelationInput>;
   createdAt?: InputMaybe<SortOrder>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressOrderByWithRelationInput>;
   email?: InputMaybe<SortOrder>;
   firstname?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -4903,7 +6506,9 @@ export type UserTokensWhereUniqueInput = {
 
 export type UserUpdateInput = {
   avater?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  cart?: InputMaybe<CartUpdateOneWithoutUserNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressUpdateOneWithoutUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstname?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -4931,6 +6536,22 @@ export type UserUpdateManyMutationInput = {
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
+export type UserUpdateOneRequiredWithoutCartNestedInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutCartInput>;
+  create?: InputMaybe<UserCreateWithoutCartInput>;
+  update?: InputMaybe<UserUpdateWithoutCartInput>;
+  upsert?: InputMaybe<UserUpsertWithoutCartInput>;
+};
+
+export type UserUpdateOneRequiredWithoutDefaultShippingAdressNestedInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutDefaultShippingAdressInput>;
+  create?: InputMaybe<UserCreateWithoutDefaultShippingAdressInput>;
+  update?: InputMaybe<UserUpdateWithoutDefaultShippingAdressInput>;
+  upsert?: InputMaybe<UserUpsertWithoutDefaultShippingAdressInput>;
+};
+
 export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
   connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutOrdersInput>;
@@ -4947,9 +6568,45 @@ export type UserUpdateOneRequiredWithoutReveiwsNestedInput = {
   upsert?: InputMaybe<UserUpsertWithoutReveiwsInput>;
 };
 
-export type UserUpdateWithoutOrdersInput = {
+export type UserUpdateWithoutCartInput = {
   avater?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressUpdateOneWithoutUserNestedInput>;
+  email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstname?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  lastname?: InputMaybe<StringFieldUpdateOperationsInput>;
+  orders?: InputMaybe<OrderUpdateManyWithoutUserNestedInput>;
+  password?: InputMaybe<StringFieldUpdateOperationsInput>;
+  phoneNumber?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  reveiws?: InputMaybe<ReviewUpdateManyWithoutUserNestedInput>;
+  role?: InputMaybe<EnumUserRoleFieldUpdateOperationsInput>;
+  status?: InputMaybe<EnumUserAccountStatusFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type UserUpdateWithoutDefaultShippingAdressInput = {
+  avater?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  cart?: InputMaybe<CartUpdateOneWithoutUserNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  email?: InputMaybe<StringFieldUpdateOperationsInput>;
+  firstname?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  lastname?: InputMaybe<StringFieldUpdateOperationsInput>;
+  orders?: InputMaybe<OrderUpdateManyWithoutUserNestedInput>;
+  password?: InputMaybe<StringFieldUpdateOperationsInput>;
+  phoneNumber?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  reveiws?: InputMaybe<ReviewUpdateManyWithoutUserNestedInput>;
+  role?: InputMaybe<EnumUserRoleFieldUpdateOperationsInput>;
+  status?: InputMaybe<EnumUserAccountStatusFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type UserUpdateWithoutOrdersInput = {
+  avater?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  cart?: InputMaybe<CartUpdateOneWithoutUserNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressUpdateOneWithoutUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstname?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -4964,7 +6621,9 @@ export type UserUpdateWithoutOrdersInput = {
 
 export type UserUpdateWithoutReveiwsInput = {
   avater?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  cart?: InputMaybe<CartUpdateOneWithoutUserNestedInput>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressUpdateOneWithoutUserNestedInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   firstname?: InputMaybe<StringFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -4975,6 +6634,16 @@ export type UserUpdateWithoutReveiwsInput = {
   role?: InputMaybe<EnumUserRoleFieldUpdateOperationsInput>;
   status?: InputMaybe<EnumUserAccountStatusFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type UserUpsertWithoutCartInput = {
+  create: UserCreateWithoutCartInput;
+  update: UserUpdateWithoutCartInput;
+};
+
+export type UserUpsertWithoutDefaultShippingAdressInput = {
+  create: UserCreateWithoutDefaultShippingAdressInput;
+  update: UserUpdateWithoutDefaultShippingAdressInput;
 };
 
 export type UserUpsertWithoutOrdersInput = {
@@ -4992,7 +6661,9 @@ export type UserWhereInput = {
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
   avater?: InputMaybe<StringNullableFilter>;
+  cart?: InputMaybe<CartRelationFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  defaultShippingAdress?: InputMaybe<DefaultShippingAdressRelationFilter>;
   email?: InputMaybe<StringFilter>;
   firstname?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
@@ -5012,8 +6683,9 @@ export type UserWhereUniqueInput = {
 };
 
 export type CreateCheckoutSessionargs = {
+  orderId?: InputMaybe<Scalars['String']['input']>;
   paymentType: ProductPaymentTypes;
-  productId: Scalars['String']['input'];
+  productIds: Array<Scalars['String']['input']>;
   quantity: Scalars['Float']['input'];
 };
 
@@ -5032,10 +6704,16 @@ export type FileUploadResponsce = {
 
 export type PaymentSessionCreateResponse = {
   __typename?: 'paymentSessionCreateResponse';
-  id: Scalars['String']['output'];
+  id?: Maybe<Scalars['String']['output']>;
   message: Scalars['String']['output'];
   success: Scalars['Boolean']['output'];
 };
+
+export enum ProductPaymentTypes {
+  OneTimePayment = 'oneTimePayment',
+  OrderStartPrice = 'orderStartPrice',
+  Totalprice = 'totalprice'
+}
 
 export type CreateOneCategoryMutationVariables = Exact<{
   data: CategoryCreateInput;
@@ -5095,7 +6773,7 @@ export type OrdersQueryVariables = Exact<{
 }>;
 
 
-export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', createdAt: any, id: string, itemsPrePrice: number, itemsPrice: number, status: OrderStatus, taxPrice?: number | null, totalPrice?: number | null, shippingPrice?: number | null, updatedAt: any, itemsPrePricePaymentSessionId?: string | null, itemsTotalPricePaymentSessionId?: string | null, orderItem?: { __typename?: 'OrderItem', qty: number, id: string, product: { __typename?: 'Product', id: string, images: Array<string>, name: string } } | null, shippingAddress?: { __typename?: 'ShippingAddress', id: string, lat: number, lng: number, postalCode: string, fullName: string, country: string, city: string, address: string } | null, user: { __typename?: 'User', email: string, firstname: string, lastname: string, id: string } }> };
+export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', createdAt: any, id: string, itemsPrePrice: number, itemsPrice: number, status: OrderStatus, taxPrice: number, totalPrice: number, shippingPrice: number, updatedAt: any, itemsPrePricePaymentSessionId?: string | null, itemsTotalPricePaymentSessionId?: string | null, orderItem: Array<{ __typename?: 'OrderItem', qty: number, id: string, product: { __typename?: 'Product', id: string, images: Array<string>, name: string } }>, shippingAddress?: { __typename?: 'ShippingAddress', id: string, lat: number, lng: number, postalCode: string, fullName: string, country: string, city: string, address: string } | null, user: { __typename?: 'User', email: string, firstname: string, lastname: string, id: string } }> };
 
 export type UpdateOneOrderMutationVariables = Exact<{
   data: OrderUpdateInput;
@@ -5111,6 +6789,29 @@ export type CreateOneProductMutationVariables = Exact<{
 
 
 export type CreateOneProductMutation = { __typename?: 'Mutation', createOneProduct: { __typename?: 'Product', id: string } };
+
+export type ProductsQueryVariables = Exact<{
+  where?: InputMaybe<ProductWhereInput>;
+  orderBy?: InputMaybe<Array<ProductOrderByWithRelationInput> | ProductOrderByWithRelationInput>;
+  cursor?: InputMaybe<ProductWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<ProductScalarFieldEnum> | ProductScalarFieldEnum>;
+}>;
+
+
+export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', createdAt: any, custom_product_status: CustomProductStatus, id: string, images: Array<string>, minimumOrderNeededToStart: number, name: string, orderStartPrice?: number | null, price: number, type: ProductType, category: { __typename?: 'Category', name: string } }> };
+
+export type AggregateProductQueryVariables = Exact<{
+  where?: InputMaybe<ProductWhereInput>;
+  orderBy?: InputMaybe<Array<ProductOrderByWithRelationInput> | ProductOrderByWithRelationInput>;
+  cursor?: InputMaybe<ProductWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type AggregateProductQuery = { __typename?: 'Query', aggregateProduct: { __typename?: 'AggregateProduct', _count?: { __typename?: 'ProductCountAggregate', _all: number } | null } };
 
 export type AdminRegisterMutationVariables = Exact<{
   input: CreateOneUserArgsCustom;
@@ -5530,6 +7231,121 @@ export function useCreateOneProductMutation(baseOptions?: Apollo.MutationHookOpt
 export type CreateOneProductMutationHookResult = ReturnType<typeof useCreateOneProductMutation>;
 export type CreateOneProductMutationResult = Apollo.MutationResult<CreateOneProductMutation>;
 export type CreateOneProductMutationOptions = Apollo.BaseMutationOptions<CreateOneProductMutation, CreateOneProductMutationVariables>;
+export const ProductsDocument = gql`
+    query Products($where: ProductWhereInput, $orderBy: [ProductOrderByWithRelationInput!], $cursor: ProductWhereUniqueInput, $take: Int, $skip: Int, $distinct: [ProductScalarFieldEnum!]) {
+  products(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    category {
+      name
+    }
+    createdAt
+    custom_product_status
+    id
+    images
+    minimumOrderNeededToStart
+    name
+    orderStartPrice
+    price
+    type
+  }
+}
+    `;
+
+/**
+ * __useProductsQuery__
+ *
+ * To run a query within a React component, call `useProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function useProductsQuery(baseOptions?: Apollo.QueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
+      }
+export function useProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
+        }
+export function useProductsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ProductsQuery, ProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProductsQuery, ProductsQueryVariables>(ProductsDocument, options);
+        }
+export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>;
+export type ProductsLazyQueryHookResult = ReturnType<typeof useProductsLazyQuery>;
+export type ProductsSuspenseQueryHookResult = ReturnType<typeof useProductsSuspenseQuery>;
+export type ProductsQueryResult = Apollo.QueryResult<ProductsQuery, ProductsQueryVariables>;
+export const AggregateProductDocument = gql`
+    query AggregateProduct($where: ProductWhereInput, $orderBy: [ProductOrderByWithRelationInput!], $cursor: ProductWhereUniqueInput, $take: Int, $skip: Int) {
+  aggregateProduct(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+  ) {
+    _count {
+      _all
+    }
+  }
+}
+    `;
+
+/**
+ * __useAggregateProductQuery__
+ *
+ * To run a query within a React component, call `useAggregateProductQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAggregateProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAggregateProductQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useAggregateProductQuery(baseOptions?: Apollo.QueryHookOptions<AggregateProductQuery, AggregateProductQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AggregateProductQuery, AggregateProductQueryVariables>(AggregateProductDocument, options);
+      }
+export function useAggregateProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AggregateProductQuery, AggregateProductQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AggregateProductQuery, AggregateProductQueryVariables>(AggregateProductDocument, options);
+        }
+export function useAggregateProductSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<AggregateProductQuery, AggregateProductQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AggregateProductQuery, AggregateProductQueryVariables>(AggregateProductDocument, options);
+        }
+export type AggregateProductQueryHookResult = ReturnType<typeof useAggregateProductQuery>;
+export type AggregateProductLazyQueryHookResult = ReturnType<typeof useAggregateProductLazyQuery>;
+export type AggregateProductSuspenseQueryHookResult = ReturnType<typeof useAggregateProductSuspenseQuery>;
+export type AggregateProductQueryResult = Apollo.QueryResult<AggregateProductQuery, AggregateProductQueryVariables>;
 export const AdminRegisterDocument = gql`
     mutation AdminRegister($input: CreateOneUserArgsCustom!) {
   adminRegister(input: $input) {

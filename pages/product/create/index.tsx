@@ -8,7 +8,7 @@ import Card, { CardBody } from '@/components/bootstrap/Card'
 import FormGroup from '@/components/bootstrap/forms/FormGroup';
 import Textarea from '@/components/bootstrap/forms/Textarea';
 import PageWrapper from '@/layout/PageWrapper/PageWrapper';
-import { useCategoriesQuery, useCreateOneProductMutation, useUploadFileMutation } from '@/graphql/generated/schema';
+import { useCategoriesQuery, useCreateOneProductMutation, useUploadFileMutation ,ProductType, CustomProductStatus  } from '@/graphql/generated/schema';
 import Input from '@/components/bootstrap/forms/Input';
 import Button from '@/components/bootstrap/Button';
 import AuthContext from '@/context/authContext';
@@ -20,7 +20,9 @@ import Image from 'next/image'
 import Select from '@/components/bootstrap/forms/Select'
 import Option from '@/components/bootstrap/Option'
 
-export default function index({isUpdate}) {
+export default function index({ isUpdate=false }:{
+	isUpdate?:boolean
+}) {
 	const formik = useFormik({
 		enableReinitialize: true,
 
@@ -29,13 +31,16 @@ export default function index({isUpdate}) {
 			description: '',
 			slug: '',
 			images: [],
+			type:undefined,
+			custom_product_status:undefined,
+			minimumOrderNeededToStart:0,
 			category: {
 				connect: {
 					id: ""
 				}
 			},
-			price       :0,
-			orderStartPrice       :0,
+			price: 0,
+			orderStartPrice: 0,
 
 
 
@@ -60,7 +65,7 @@ export default function index({isUpdate}) {
 
 
 
-			await createProduct(values);
+			await createProduct(values as any);
 
 
 		},
@@ -71,18 +76,20 @@ export default function index({isUpdate}) {
 	const createProduct = useCallback(
 		async (data: {
 
-		    name: string;
-    description: string;
-    slug: string;
-    images: never[];
-    category: {
-        connect: {
-            id: string;
-        };
-    };
-    price: number;
-    orderStartPrice: number;
-
+			name: string;
+			description: string;
+			slug: string;
+			images: never[];
+			category: {
+				connect: {
+					id: string;
+				};
+			};
+			price: number;
+			orderStartPrice: number;
+			minimumOrderNeededToStart:number
+			type:ProductType,
+			custom_product_status:CustomProductStatus,
 		}) => {
 			try {
 
@@ -93,11 +100,12 @@ export default function index({isUpdate}) {
 					variables: {
 						data: {
 							...data,
-images: {
-	set: data.images
-},
-price:parseFloat(String(data.price)),
-orderStartPrice:parseFloat(String(data.orderStartPrice)),
+							images: {
+								set: data.images
+							},
+							price: parseFloat(String(data.price)),
+							orderStartPrice: parseFloat(String(data.orderStartPrice)),
+minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 
 						}
 					}
@@ -107,7 +115,7 @@ orderStartPrice:parseFloat(String(data.orderStartPrice)),
 					notification.success({
 						message: 'Created'
 					})
-				
+
 				} else {
 					notification.error({
 						message: 'Something went wrong'
@@ -130,50 +138,50 @@ orderStartPrice:parseFloat(String(data.orderStartPrice)),
 		</>
 	);
 	const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
+	const [previewImage, setPreviewImage] = useState('');
 	const [files, setFiles] = useState<any[]>([]);
-    const handlePreview = async (file: UploadFile) => {
+	const handlePreview = async (file: UploadFile) => {
 
-        setPreviewImage(file.url as string);
-        setPreviewOpen(true);
-    };
-    const [FileUpload, { loading: loadingUpload }] = useUploadFileMutation()
-    const handleBeforeUploadUpdate = async (file: RcFile): Promise<void> => {
+		setPreviewImage(file.url as string);
+		setPreviewOpen(true);
+	};
+	const [FileUpload, { loading: loadingUpload }] = useUploadFileMutation()
+	const handleBeforeUploadUpdate = async (file: RcFile): Promise<void> => {
 
-        try {
-            const { data } = await FileUpload({
-                variables: {
-                    file
-                },
-            });
-            if (isUpdate) {
-                // updatesetFiles([{
-                //     uid: v4(),
-                //     name: data?.uploadFile?.file as string,
-                //     status: 'done',
-                //     url: getImage(data?.uploadFile?.file as string),
-                // }])
-                // updatesetValue('image', data?.uploadFile?.file)
-            } else {
-                setFiles( (prev)=>( [ ...prev,{
-                    uid: v4(),
-                    name: data?.uploadFile?.file as string,
-                    status: 'done',
-                    url: getImage(data?.uploadFile?.file as string),
-                }]))
-				formik.setFieldValue("images" , [...formik.values.images , data?.uploadFile?.file])
-            }
+		try {
+			const { data } = await FileUpload({
+				variables: {
+					file
+				},
+			});
+			if (isUpdate) {
+				// updatesetFiles([{
+				//     uid: v4(),
+				//     name: data?.uploadFile?.file as string,
+				//     status: 'done',
+				//     url: getImage(data?.uploadFile?.file as string),
+				// }])
+				// updatesetValue('image', data?.uploadFile?.file)
+			} else {
+				setFiles((prev) => ([...prev, {
+					uid: v4(),
+					name: data?.uploadFile?.file as string,
+					status: 'done',
+					url: getImage(data?.uploadFile?.file as string),
+				}]))
+				formik.setFieldValue("images", [...formik.values.images, data?.uploadFile?.file])
+			}
 
-        } catch (error) {
-            console.log(error);
+		} catch (error) {
+			console.log(error);
 
-        }
+		}
 
 
 
-    };
+	};
 	const handleCancel = () => setPreviewOpen(false);
-const {data} = useCategoriesQuery()
+	const { data } = useCategoriesQuery()
 	return (
 		<PageWrapper>
 
@@ -244,7 +252,97 @@ const {data} = useCategoriesQuery()
 
 										/>
 									</FormGroup>
-								</div>   <div className='col-md-6'>
+								</div> 
+
+								<div className='col-md-6'>
+									<FormGroup
+										id='type'
+										label='type'
+									>
+										<Select ariaLabel='' size={'lg'} value={formik.values.type}
+											isTouched={formik.touched.type}
+											invalidFeedback={
+												formik.errors.type
+											}
+											isValid={formik.isValid}
+											onChange={formik.handleChange}
+											onBlur={formik.handleBlur}
+											onFocus={() => {
+												formik.setErrors({});
+											}} className=''
+
+											>
+											{ Object.keys(ProductType).map((key)=>
+												<Option
+													key={key}
+													// @ts-ignore
+													value={ProductType[key]}>
+													{key}
+												</Option>
+											)
+											}
+										</Select>
+									</FormGroup>
+								</div> 
+
+
+
+								<div className='col-md-6'>
+									<FormGroup
+										id='custom_product_status'
+										label='custom_product_status'
+									>
+										<Select ariaLabel=''  size={'lg'} value={formik.values.custom_product_status}
+											isTouched={formik.touched.custom_product_status}
+											invalidFeedback={
+												formik.errors.custom_product_status
+											}
+											isValid={formik.isValid}
+											onChange={formik.handleChange}
+											onBlur={formik.handleBlur}
+											onFocus={() => {
+												formik.setErrors({});
+											}} className=''
+
+										>
+											{ Object.keys(CustomProductStatus).map((key)=>
+												<Option
+													key={key}
+														// @ts-ignore
+													value={CustomProductStatus[key]}>
+													{key}
+												</Option>
+											)
+											}
+										</Select>
+									</FormGroup>
+								</div> 
+
+
+
+								<div className='col-md-6'>
+									<FormGroup
+										id='minimumOrderNeededToStart'
+										label='minimumOrderNeededToStart'
+									>
+										<Input type='text' size={'lg'} value={formik.values.minimumOrderNeededToStart}
+											isTouched={formik.touched.minimumOrderNeededToStart}
+											invalidFeedback={
+												formik.errors.minimumOrderNeededToStart
+											}
+											isValid={formik.isValid}
+											onChange={formik.handleChange}
+											onBlur={formik.handleBlur}
+											onFocus={() => {
+												formik.setErrors({});
+											}} className=''
+
+										/>
+									</FormGroup>
+								</div> 
+
+
+								  <div className='col-md-6'>
 									<FormGroup
 										id='orderStartPrice'
 										label='orderStartPrice'
@@ -264,19 +362,19 @@ const {data} = useCategoriesQuery()
 										/>
 									</FormGroup>
 								</div>
-								<div className='col-md-12'>
+								<div className='col-md-6'>
 									<FormGroup
 										id='category.connect.id'
 										label='Category'
 									>
 										<Select
-										  size={'lg'} value={formik.values.category.connect.id}
+											size={'lg'} value={formik.values.category.connect.id}
 											isTouched={formik.touched.category?.connect?.id}
 											invalidFeedback={
 												formik.errors.category?.connect?.id
 											}
-													ariaLabel='Select category'
-										placeholder='Select category'
+											ariaLabel='Select category'
+											placeholder='Select category'
 											isValid={formik.isValid}
 											onChange={formik.handleChange}
 											onBlur={formik.handleBlur}
@@ -285,13 +383,13 @@ const {data} = useCategoriesQuery()
 											}} className=''
 
 										>
-{data?.categories?.map((category) => (
-											<Option
-												key={category.id}
-												value={category.id}>
-												{category.name}
-											</Option>
-										))}
+											{data?.categories?.map((category) => (
+												<Option
+													key={category.id}
+													value={category.id}>
+													{category.name}
+												</Option>
+											))}
 
 										</Select>
 									</FormGroup>
@@ -300,26 +398,26 @@ const {data} = useCategoriesQuery()
 									<FormGroup
 										label='Images'
 									>
-										 <Spin spinning={loadingUpload}>
+										<Spin spinning={loadingUpload}>
 
-<UploadSingleImage uploadButton={uploadButton} filelist={
-	// isUpdate ? updatefiles : 
+											<UploadSingleImage uploadButton={uploadButton} filelist={
+												// isUpdate ? updatefiles : 
 
-files}
-	handlePreview={handlePreview} beforeUpload={handleBeforeUploadUpdate} handleRemove={() => {
-		if (isUpdate) {
+												files}
+												handlePreview={handlePreview} beforeUpload={handleBeforeUploadUpdate} handleRemove={() => {
+													if (isUpdate) {
 
-			// updatesetFiles([])
-			// updatesetValue('image', '')
-		} else {
+														// updatesetFiles([])
+														// updatesetValue('image', '')
+													} else {
 
-			setFiles([])
-		}
+														setFiles([])
+													}
 
 
-	}} />
-{/* <DropZone setFiles={setFiles} files={files}/> */}
-</Spin>
+												}} />
+											{/* <DropZone setFiles={setFiles} files={files}/> */}
+										</Spin>
 									</FormGroup>
 								</div>
 
@@ -346,6 +444,7 @@ files}
 										/>
 									</FormGroup>
 								</div>
+
 								<div className='cold-md-12'>
 									<div className=' d-flex justify-content-end'>
 
@@ -365,8 +464,8 @@ files}
 				</Card>
 			</div>
 			<Modal open={previewOpen} title={''} footer={null} onCancel={handleCancel}>
-                    <Image alt="example" height={300} width={500} src={previewImage} />
-                </Modal>
+				<Image alt="example" height={300} width={500} src={previewImage} />
+			</Modal>
 		</PageWrapper>
 	)
 }
