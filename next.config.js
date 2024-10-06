@@ -20,7 +20,14 @@ const nextConfig = withInterceptStdout(
 			}
 		},
 		images: {
-			disableStaticImages: true
+			disableStaticImages: true,
+			remotePatterns: [
+				{
+					protocol: "https",
+					hostname: "*",
+					pathname: "/**",
+				},
+			]
 		},
 		reactStrictMode: true,
 		swcMinify: true,

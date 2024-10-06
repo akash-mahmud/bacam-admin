@@ -8,7 +8,7 @@ export const demoPagesMenu = {
 		text: 'Pages',
 		icon: 'Extension',
 	},
-	singlePages: {
+	product: {
 		id: 'product',
 		text: 'Product',
 		path: 'product',
@@ -24,6 +24,27 @@ export const demoPagesMenu = {
 				id: 'create',
 				text: 'Create',
 				path: 'product/create',
+				icon: 'ViewArray',
+			},
+		
+		},
+	},
+	user: {
+		id: 'user',
+		text: 'User',
+		path: 'User',
+		icon: 'Article',
+		subMenu: {
+			users:{
+				id: 'users',
+				text: 'Users',
+				path: '/user',
+				icon: 'ViewArray',
+			},
+			employee: {
+				id: 'employee',
+				text: 'Employee',
+				path: 'user/employee',
 				icon: 'ViewArray',
 			},
 		

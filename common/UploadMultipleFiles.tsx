@@ -11,6 +11,7 @@ interface IPropType{
     filelist: UploadFile<any>[]
     handlePreview?: ((file: UploadFile<any>) => void) | undefined
 handleRemove: ((file: UploadFile<any>) => boolean | void | Promise<boolean | void>) | undefined
+accept?:string
 }
 function UploadMultipleFiles({beforeUpload , uploadButton ,filelist, handlePreview , handleRemove , accept=undefined}:IPropType) {
   return (

@@ -160,6 +160,7 @@ const Modal: FC<IModalProps> = ({
 			document.body.classList.remove('modal-open');
 		};
 	});
+console.log(isOpen);
 
 	// Backdrop close function
 	const closeModal = (event: { target: any }) => {

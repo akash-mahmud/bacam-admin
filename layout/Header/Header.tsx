@@ -144,34 +144,7 @@ const Header: FC<IHeaderProps> = ({
 					</div>
 				</div>
 			</header>
-			<header
-				ref={refHeader}
-				className={classNames('header', {
-					'header-left-open': leftMenuStatus,
-					'header-right-open': rightMenuStatus,
-				})}>
-				<div className='container-fluid'>
-					<div className='row d-flex align-items-center'>
-						{children}
-						{(leftMenuStatus || rightMenuStatus) && (
-							<Portal>
-								<div
-									role='presentation'
-									className={classNames('header-overlay', {
-										'header-overlay-left-menu': leftMenuStatus,
-										'header-overlay-right-menu': rightMenuStatus,
-									})}
-									onClick={() => {
-										setAsideStatus(false);
-										setLeftMenuStatus(false);
-										setRightMenuStatus(false);
-									}}
-								/>
-							</Portal>
-						)}
-					</div>
-				</div>
-			</header>
+	
 		</Mounted>
 	);
 };

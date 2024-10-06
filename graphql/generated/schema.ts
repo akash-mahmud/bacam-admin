@@ -56,6 +56,13 @@ export type AggregateDefaultShippingAdress = {
   _sum?: Maybe<DefaultShippingAdressSumAggregate>;
 };
 
+export type AggregateEmployee = {
+  __typename?: 'AggregateEmployee';
+  _count?: Maybe<EmployeeCountAggregate>;
+  _max?: Maybe<EmployeeMaxAggregate>;
+  _min?: Maybe<EmployeeMinAggregate>;
+};
+
 export type AggregateOrder = {
   __typename?: 'AggregateOrder';
   _avg?: Maybe<OrderAvgAggregate>;
@@ -1278,6 +1285,198 @@ export type DefaultShippingAdressWhereUniqueInput = {
   userId?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Employee = {
+  __typename?: 'Employee';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  image: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  role: EmployeeRole;
+  shortDescription: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type EmployeeCountAggregate = {
+  __typename?: 'EmployeeCountAggregate';
+  _all: Scalars['Int']['output'];
+  createdAt: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  image: Scalars['Int']['output'];
+  name: Scalars['Int']['output'];
+  role: Scalars['Int']['output'];
+  shortDescription: Scalars['Int']['output'];
+  updatedAt: Scalars['Int']['output'];
+};
+
+export type EmployeeCountOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  image?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  role?: InputMaybe<SortOrder>;
+  shortDescription?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeeCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  image: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  role: EmployeeRole;
+  shortDescription: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type EmployeeCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  image: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  role: EmployeeRole;
+  shortDescription: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type EmployeeGroupBy = {
+  __typename?: 'EmployeeGroupBy';
+  _count?: Maybe<EmployeeCountAggregate>;
+  _max?: Maybe<EmployeeMaxAggregate>;
+  _min?: Maybe<EmployeeMinAggregate>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  image: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  role: EmployeeRole;
+  shortDescription: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type EmployeeMaxAggregate = {
+  __typename?: 'EmployeeMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  role?: Maybe<EmployeeRole>;
+  shortDescription?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type EmployeeMaxOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  image?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  role?: InputMaybe<SortOrder>;
+  shortDescription?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeeMinAggregate = {
+  __typename?: 'EmployeeMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  role?: Maybe<EmployeeRole>;
+  shortDescription?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type EmployeeMinOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  image?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  role?: InputMaybe<SortOrder>;
+  shortDescription?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeeOrderByWithAggregationInput = {
+  _count?: InputMaybe<EmployeeCountOrderByAggregateInput>;
+  _max?: InputMaybe<EmployeeMaxOrderByAggregateInput>;
+  _min?: InputMaybe<EmployeeMinOrderByAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  image?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  role?: InputMaybe<SortOrder>;
+  shortDescription?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeeOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  image?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  role?: InputMaybe<SortOrder>;
+  shortDescription?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export enum EmployeeScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Id = 'id',
+  Image = 'image',
+  Name = 'name',
+  Role = 'role',
+  ShortDescription = 'shortDescription',
+  UpdatedAt = 'updatedAt'
+}
+
+export type EmployeeScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<EmployeeScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<EmployeeScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<EmployeeScalarWhereWithAggregatesInput>>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  image?: InputMaybe<StringWithAggregatesFilter>;
+  name?: InputMaybe<StringWithAggregatesFilter>;
+  role?: InputMaybe<EnumemployeeRoleWithAggregatesFilter>;
+  shortDescription?: InputMaybe<StringWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+};
+
+export type EmployeeUpdateInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  role?: InputMaybe<EnumemployeeRoleFieldUpdateOperationsInput>;
+  shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type EmployeeUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  role?: InputMaybe<EnumemployeeRoleFieldUpdateOperationsInput>;
+  shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type EmployeeWhereInput = {
+  AND?: InputMaybe<Array<EmployeeWhereInput>>;
+  NOT?: InputMaybe<Array<EmployeeWhereInput>>;
+  OR?: InputMaybe<Array<EmployeeWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  image?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  role?: InputMaybe<EnumemployeeRoleFilter>;
+  shortDescription?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type EmployeeWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type EnumCustomProductStatusFieldUpdateOperationsInput = {
   set?: InputMaybe<CustomProductStatus>;
 };
@@ -1381,6 +1580,27 @@ export type EnumUserRoleWithAggregatesFilter = {
   in?: InputMaybe<Array<UserRole>>;
   not?: InputMaybe<NestedEnumUserRoleWithAggregatesFilter>;
   notIn?: InputMaybe<Array<UserRole>>;
+};
+
+export type EnumemployeeRoleFieldUpdateOperationsInput = {
+  set?: InputMaybe<EmployeeRole>;
+};
+
+export type EnumemployeeRoleFilter = {
+  equals?: InputMaybe<EmployeeRole>;
+  in?: InputMaybe<Array<EmployeeRole>>;
+  not?: InputMaybe<NestedEnumemployeeRoleFilter>;
+  notIn?: InputMaybe<Array<EmployeeRole>>;
+};
+
+export type EnumemployeeRoleWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumemployeeRoleFilter>;
+  _min?: InputMaybe<NestedEnumemployeeRoleFilter>;
+  equals?: InputMaybe<EmployeeRole>;
+  in?: InputMaybe<Array<EmployeeRole>>;
+  not?: InputMaybe<NestedEnumemployeeRoleWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<EmployeeRole>>;
 };
 
 export type FloatFieldUpdateOperationsInput = {
@@ -1498,6 +1718,7 @@ export type Mutation = {
   createManyCartItem: AffectedRowsOutput;
   createManyCategory: AffectedRowsOutput;
   createManyDefaultShippingAdress: AffectedRowsOutput;
+  createManyEmployee: AffectedRowsOutput;
   createManyOrder: AffectedRowsOutput;
   createManyOrderItem: AffectedRowsOutput;
   createManyPaymentResult: AffectedRowsOutput;
@@ -1510,6 +1731,7 @@ export type Mutation = {
   createOneCartItem: CartItem;
   createOneCategory: Category;
   createOneDefaultShippingAdress: DefaultShippingAdress;
+  createOneEmployee: Employee;
   createOneOrder: Order;
   createOneOrderItem: OrderItem;
   createOnePaymentResult: PaymentResult;
@@ -1522,6 +1744,7 @@ export type Mutation = {
   deleteManyCartItem: AffectedRowsOutput;
   deleteManyCategory: AffectedRowsOutput;
   deleteManyDefaultShippingAdress: AffectedRowsOutput;
+  deleteManyEmployee: AffectedRowsOutput;
   deleteManyOrder: AffectedRowsOutput;
   deleteManyOrderItem: AffectedRowsOutput;
   deleteManyPaymentResult: AffectedRowsOutput;
@@ -1534,6 +1757,7 @@ export type Mutation = {
   deleteOneCartItem?: Maybe<CartItem>;
   deleteOneCategory?: Maybe<Category>;
   deleteOneDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
+  deleteOneEmployee?: Maybe<Employee>;
   deleteOneOrder?: Maybe<Order>;
   deleteOneOrderItem?: Maybe<OrderItem>;
   deleteOnePaymentResult?: Maybe<PaymentResult>;
@@ -1553,6 +1777,7 @@ export type Mutation = {
   updateManyCartItem: AffectedRowsOutput;
   updateManyCategory: AffectedRowsOutput;
   updateManyDefaultShippingAdress: AffectedRowsOutput;
+  updateManyEmployee: AffectedRowsOutput;
   updateManyOrder: AffectedRowsOutput;
   updateManyOrderItem: AffectedRowsOutput;
   updateManyPaymentResult: AffectedRowsOutput;
@@ -1565,6 +1790,7 @@ export type Mutation = {
   updateOneCartItem?: Maybe<CartItem>;
   updateOneCategory?: Maybe<Category>;
   updateOneDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
+  updateOneEmployee?: Maybe<Employee>;
   updateOneOrder?: Maybe<Order>;
   updateOneOrderItem?: Maybe<OrderItem>;
   updateOnePaymentResult?: Maybe<PaymentResult>;
@@ -1579,6 +1805,7 @@ export type Mutation = {
   upsertOneCartItem: CartItem;
   upsertOneCategory: Category;
   upsertOneDefaultShippingAdress: DefaultShippingAdress;
+  upsertOneEmployee: Employee;
   upsertOneOrder: Order;
   upsertOneOrderItem: OrderItem;
   upsertOnePaymentResult: PaymentResult;
@@ -1627,6 +1854,12 @@ export type MutationCreateManyCategoryArgs = {
 
 export type MutationCreateManyDefaultShippingAdressArgs = {
   data: Array<DefaultShippingAdressCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManyEmployeeArgs = {
+  data: Array<EmployeeCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -1699,6 +1932,11 @@ export type MutationCreateOneDefaultShippingAdressArgs = {
 };
 
 
+export type MutationCreateOneEmployeeArgs = {
+  data: EmployeeCreateInput;
+};
+
+
 export type MutationCreateOneOrderArgs = {
   data: OrderCreateInput;
 };
@@ -1759,6 +1997,11 @@ export type MutationDeleteManyDefaultShippingAdressArgs = {
 };
 
 
+export type MutationDeleteManyEmployeeArgs = {
+  where?: InputMaybe<EmployeeWhereInput>;
+};
+
+
 export type MutationDeleteManyOrderArgs = {
   where?: InputMaybe<OrderWhereInput>;
 };
@@ -1816,6 +2059,11 @@ export type MutationDeleteOneCategoryArgs = {
 
 export type MutationDeleteOneDefaultShippingAdressArgs = {
   where: DefaultShippingAdressWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneEmployeeArgs = {
+  where: EmployeeWhereUniqueInput;
 };
 
 
@@ -1909,6 +2157,12 @@ export type MutationUpdateManyDefaultShippingAdressArgs = {
 };
 
 
+export type MutationUpdateManyEmployeeArgs = {
+  data: EmployeeUpdateManyMutationInput;
+  where?: InputMaybe<EmployeeWhereInput>;
+};
+
+
 export type MutationUpdateManyOrderArgs = {
   data: OrderUpdateManyMutationInput;
   where?: InputMaybe<OrderWhereInput>;
@@ -1978,6 +2232,12 @@ export type MutationUpdateOneCategoryArgs = {
 export type MutationUpdateOneDefaultShippingAdressArgs = {
   data: DefaultShippingAdressUpdateInput;
   where: DefaultShippingAdressWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneEmployeeArgs = {
+  data: EmployeeUpdateInput;
+  where: EmployeeWhereUniqueInput;
 };
 
 
@@ -2065,6 +2325,13 @@ export type MutationUpsertOneDefaultShippingAdressArgs = {
   create: DefaultShippingAdressCreateInput;
   update: DefaultShippingAdressUpdateInput;
   where: DefaultShippingAdressWhereUniqueInput;
+};
+
+
+export type MutationUpsertOneEmployeeArgs = {
+  create: EmployeeCreateInput;
+  update: EmployeeUpdateInput;
+  where: EmployeeWhereUniqueInput;
 };
 
 
@@ -2236,6 +2503,23 @@ export type NestedEnumUserRoleWithAggregatesFilter = {
   in?: InputMaybe<Array<UserRole>>;
   not?: InputMaybe<NestedEnumUserRoleWithAggregatesFilter>;
   notIn?: InputMaybe<Array<UserRole>>;
+};
+
+export type NestedEnumemployeeRoleFilter = {
+  equals?: InputMaybe<EmployeeRole>;
+  in?: InputMaybe<Array<EmployeeRole>>;
+  not?: InputMaybe<NestedEnumemployeeRoleFilter>;
+  notIn?: InputMaybe<Array<EmployeeRole>>;
+};
+
+export type NestedEnumemployeeRoleWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumemployeeRoleFilter>;
+  _min?: InputMaybe<NestedEnumemployeeRoleFilter>;
+  equals?: InputMaybe<EmployeeRole>;
+  in?: InputMaybe<Array<EmployeeRole>>;
+  not?: InputMaybe<NestedEnumemployeeRoleWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<EmployeeRole>>;
 };
 
 export type NestedFloatFilter = {
@@ -4321,6 +4605,7 @@ export type Query = {
   aggregateCartItem: AggregateCartItem;
   aggregateCategory: AggregateCategory;
   aggregateDefaultShippingAdress: AggregateDefaultShippingAdress;
+  aggregateEmployee: AggregateEmployee;
   aggregateOrder: AggregateOrder;
   aggregateOrderItem: AggregateOrderItem;
   aggregatePaymentResult: AggregatePaymentResult;
@@ -4337,6 +4622,8 @@ export type Query = {
   category?: Maybe<Category>;
   defaultShippingAdress?: Maybe<DefaultShippingAdress>;
   defaultShippingAdresses: Array<DefaultShippingAdress>;
+  employee?: Maybe<Employee>;
+  employees: Array<Employee>;
   findFirstCart?: Maybe<Cart>;
   findFirstCartItem?: Maybe<CartItem>;
   findFirstCartItemOrThrow?: Maybe<CartItem>;
@@ -4345,6 +4632,8 @@ export type Query = {
   findFirstCategoryOrThrow?: Maybe<Category>;
   findFirstDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
   findFirstDefaultShippingAdressOrThrow?: Maybe<DefaultShippingAdress>;
+  findFirstEmployee?: Maybe<Employee>;
+  findFirstEmployeeOrThrow?: Maybe<Employee>;
   findFirstOrder?: Maybe<Order>;
   findFirstOrderItem?: Maybe<OrderItem>;
   findFirstOrderItemOrThrow?: Maybe<OrderItem>;
@@ -4368,6 +4657,7 @@ export type Query = {
   getCartItem?: Maybe<CartItem>;
   getCategory?: Maybe<Category>;
   getDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
+  getEmployee?: Maybe<Employee>;
   getOrder?: Maybe<Order>;
   getOrderItem?: Maybe<OrderItem>;
   getPaymentResult?: Maybe<PaymentResult>;
@@ -4379,6 +4669,7 @@ export type Query = {
   groupByCartItem: Array<CartItemGroupBy>;
   groupByCategory: Array<CategoryGroupBy>;
   groupByDefaultShippingAdress: Array<DefaultShippingAdressGroupBy>;
+  groupByEmployee: Array<EmployeeGroupBy>;
   groupByOrder: Array<OrderGroupBy>;
   groupByOrderItem: Array<OrderItemGroupBy>;
   groupByPaymentResult: Array<PaymentResultGroupBy>;
@@ -4441,6 +4732,15 @@ export type QueryAggregateDefaultShippingAdressArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<DefaultShippingAdressWhereInput>;
+};
+
+
+export type QueryAggregateEmployeeArgs = {
+  cursor?: InputMaybe<EmployeeWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<EmployeeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeeWhereInput>;
 };
 
 
@@ -4576,6 +4876,21 @@ export type QueryDefaultShippingAdressesArgs = {
 };
 
 
+export type QueryEmployeeArgs = {
+  where: EmployeeWhereUniqueInput;
+};
+
+
+export type QueryEmployeesArgs = {
+  cursor?: InputMaybe<EmployeeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<EmployeeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<EmployeeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeeWhereInput>;
+};
+
+
 export type QueryFindFirstCartArgs = {
   cursor?: InputMaybe<CartWhereUniqueInput>;
   distinct?: InputMaybe<Array<CartScalarFieldEnum>>;
@@ -4653,6 +4968,26 @@ export type QueryFindFirstDefaultShippingAdressOrThrowArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<DefaultShippingAdressWhereInput>;
+};
+
+
+export type QueryFindFirstEmployeeArgs = {
+  cursor?: InputMaybe<EmployeeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<EmployeeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<EmployeeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeeWhereInput>;
+};
+
+
+export type QueryFindFirstEmployeeOrThrowArgs = {
+  cursor?: InputMaybe<EmployeeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<EmployeeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<EmployeeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeeWhereInput>;
 };
 
 
@@ -4856,6 +5191,11 @@ export type QueryGetDefaultShippingAdressArgs = {
 };
 
 
+export type QueryGetEmployeeArgs = {
+  where: EmployeeWhereUniqueInput;
+};
+
+
 export type QueryGetOrderArgs = {
   where: OrderWhereUniqueInput;
 };
@@ -4928,6 +5268,16 @@ export type QueryGroupByDefaultShippingAdressArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<DefaultShippingAdressWhereInput>;
+};
+
+
+export type QueryGroupByEmployeeArgs = {
+  by: Array<EmployeeScalarFieldEnum>;
+  having?: InputMaybe<EmployeeScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<EmployeeOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeeWhereInput>;
 };
 
 
@@ -6686,7 +7036,7 @@ export type CreateCheckoutSessionargs = {
   orderId?: InputMaybe<Scalars['String']['input']>;
   paymentType: ProductPaymentTypes;
   productIds: Array<Scalars['String']['input']>;
-  quantity: Scalars['Float']['input'];
+  quantity?: InputMaybe<Scalars['Float']['input']>;
 };
 
 export type DefaultResponsce = {
@@ -6694,6 +7044,10 @@ export type DefaultResponsce = {
   message: Scalars['String']['output'];
   success: Scalars['Boolean']['output'];
 };
+
+export enum EmployeeRole {
+  Analyst = 'analyst'
+}
 
 export type FileUploadResponsce = {
   __typename?: 'fileUploadResponsce';
@@ -6755,6 +7109,33 @@ export type CategoriesQueryVariables = Exact<{
 
 
 export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string }> };
+
+export type EmployeesQueryVariables = Exact<{
+  where?: InputMaybe<EmployeeWhereInput>;
+  orderBy?: InputMaybe<Array<EmployeeOrderByWithRelationInput> | EmployeeOrderByWithRelationInput>;
+  cursor?: InputMaybe<EmployeeWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<EmployeeScalarFieldEnum> | EmployeeScalarFieldEnum>;
+}>;
+
+
+export type EmployeesQuery = { __typename?: 'Query', employees: Array<{ __typename?: 'Employee', id: string, image: string, name: string, role: EmployeeRole, shortDescription: string }> };
+
+export type CreateOneEmployeeMutationVariables = Exact<{
+  data: EmployeeCreateInput;
+}>;
+
+
+export type CreateOneEmployeeMutation = { __typename?: 'Mutation', createOneEmployee: { __typename?: 'Employee', id: string } };
+
+export type UpdateOneEmployeeMutationVariables = Exact<{
+  data: EmployeeUpdateInput;
+  where: EmployeeWhereUniqueInput;
+}>;
+
+
+export type UpdateOneEmployeeMutation = { __typename?: 'Mutation', updateOneEmployee?: { __typename?: 'Employee', id: string } | null };
 
 export type UploadFileMutationVariables = Exact<{
   file: Scalars['Upload']['input'];
@@ -7042,6 +7423,129 @@ export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
 export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
 export type CategoriesSuspenseQueryHookResult = ReturnType<typeof useCategoriesSuspenseQuery>;
 export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
+export const EmployeesDocument = gql`
+    query Employees($where: EmployeeWhereInput, $orderBy: [EmployeeOrderByWithRelationInput!], $cursor: EmployeeWhereUniqueInput, $take: Int, $skip: Int, $distinct: [EmployeeScalarFieldEnum!]) {
+  employees(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    id
+    image
+    name
+    role
+    shortDescription
+  }
+}
+    `;
+
+/**
+ * __useEmployeesQuery__
+ *
+ * To run a query within a React component, call `useEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEmployeesQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function useEmployeesQuery(baseOptions?: Apollo.QueryHookOptions<EmployeesQuery, EmployeesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EmployeesQuery, EmployeesQueryVariables>(EmployeesDocument, options);
+      }
+export function useEmployeesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmployeesQuery, EmployeesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EmployeesQuery, EmployeesQueryVariables>(EmployeesDocument, options);
+        }
+export function useEmployeesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<EmployeesQuery, EmployeesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<EmployeesQuery, EmployeesQueryVariables>(EmployeesDocument, options);
+        }
+export type EmployeesQueryHookResult = ReturnType<typeof useEmployeesQuery>;
+export type EmployeesLazyQueryHookResult = ReturnType<typeof useEmployeesLazyQuery>;
+export type EmployeesSuspenseQueryHookResult = ReturnType<typeof useEmployeesSuspenseQuery>;
+export type EmployeesQueryResult = Apollo.QueryResult<EmployeesQuery, EmployeesQueryVariables>;
+export const CreateOneEmployeeDocument = gql`
+    mutation CreateOneEmployee($data: EmployeeCreateInput!) {
+  createOneEmployee(data: $data) {
+    id
+  }
+}
+    `;
+export type CreateOneEmployeeMutationFn = Apollo.MutationFunction<CreateOneEmployeeMutation, CreateOneEmployeeMutationVariables>;
+
+/**
+ * __useCreateOneEmployeeMutation__
+ *
+ * To run a mutation, you first call `useCreateOneEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOneEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOneEmployeeMutation, { data, loading, error }] = useCreateOneEmployeeMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOneEmployeeMutation(baseOptions?: Apollo.MutationHookOptions<CreateOneEmployeeMutation, CreateOneEmployeeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOneEmployeeMutation, CreateOneEmployeeMutationVariables>(CreateOneEmployeeDocument, options);
+      }
+export type CreateOneEmployeeMutationHookResult = ReturnType<typeof useCreateOneEmployeeMutation>;
+export type CreateOneEmployeeMutationResult = Apollo.MutationResult<CreateOneEmployeeMutation>;
+export type CreateOneEmployeeMutationOptions = Apollo.BaseMutationOptions<CreateOneEmployeeMutation, CreateOneEmployeeMutationVariables>;
+export const UpdateOneEmployeeDocument = gql`
+    mutation UpdateOneEmployee($data: EmployeeUpdateInput!, $where: EmployeeWhereUniqueInput!) {
+  updateOneEmployee(data: $data, where: $where) {
+    id
+  }
+}
+    `;
+export type UpdateOneEmployeeMutationFn = Apollo.MutationFunction<UpdateOneEmployeeMutation, UpdateOneEmployeeMutationVariables>;
+
+/**
+ * __useUpdateOneEmployeeMutation__
+ *
+ * To run a mutation, you first call `useUpdateOneEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOneEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOneEmployeeMutation, { data, loading, error }] = useUpdateOneEmployeeMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUpdateOneEmployeeMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOneEmployeeMutation, UpdateOneEmployeeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOneEmployeeMutation, UpdateOneEmployeeMutationVariables>(UpdateOneEmployeeDocument, options);
+      }
+export type UpdateOneEmployeeMutationHookResult = ReturnType<typeof useUpdateOneEmployeeMutation>;
+export type UpdateOneEmployeeMutationResult = Apollo.MutationResult<UpdateOneEmployeeMutation>;
+export type UpdateOneEmployeeMutationOptions = Apollo.BaseMutationOptions<UpdateOneEmployeeMutation, UpdateOneEmployeeMutationVariables>;
 export const UploadFileDocument = gql`
     mutation UploadFile($file: Upload!) {
   uploadFile(file: $file) {

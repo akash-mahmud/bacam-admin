@@ -12,9 +12,8 @@ const Footer: FC<IFooterProps> = ({ children }) => {
 	root?.style.setProperty('--footer-height', `${height}px`);
 
 	return (
-		<footer ref={ref} className='footer'>
-			{children}
-		</footer>
+<>
+</>
 	);
 };
 

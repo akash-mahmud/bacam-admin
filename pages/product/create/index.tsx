@@ -8,7 +8,7 @@ import Card, { CardBody } from '@/components/bootstrap/Card'
 import FormGroup from '@/components/bootstrap/forms/FormGroup';
 import Textarea from '@/components/bootstrap/forms/Textarea';
 import PageWrapper from '@/layout/PageWrapper/PageWrapper';
-import { useCategoriesQuery, useCreateOneProductMutation, useUploadFileMutation ,ProductType, CustomProductStatus  } from '@/graphql/generated/schema';
+import { useCategoriesQuery, useCreateOneProductMutation, useUploadFileMutation, ProductType, CustomProductStatus } from '@/graphql/generated/schema';
 import Input from '@/components/bootstrap/forms/Input';
 import Button from '@/components/bootstrap/Button';
 import AuthContext from '@/context/authContext';
@@ -19,9 +19,14 @@ import UploadSingleImage from "@/common/UploadMultipleFiles";
 import Image from 'next/image'
 import Select from '@/components/bootstrap/forms/Select'
 import Option from '@/components/bootstrap/Option'
-
-export default function index({ isUpdate=false }:{
-	isUpdate?:boolean
+export	const uploadButton = (
+	<>
+		+
+		<div style={{ marginTop: 8 }}>Upload</div>
+	</>
+);
+export default function index({ isUpdate = false }: {
+	isUpdate?: boolean
 }) {
 	const formik = useFormik({
 		enableReinitialize: true,
@@ -31,9 +36,9 @@ export default function index({ isUpdate=false }:{
 			description: '',
 			slug: '',
 			images: [],
-			type:undefined,
-			custom_product_status:undefined,
-			minimumOrderNeededToStart:0,
+			type: undefined,
+			custom_product_status: undefined,
+			minimumOrderNeededToStart: 0,
 			category: {
 				connect: {
 					id: ""
@@ -87,9 +92,9 @@ export default function index({ isUpdate=false }:{
 			};
 			price: number;
 			orderStartPrice: number;
-			minimumOrderNeededToStart:number
-			type:ProductType,
-			custom_product_status:CustomProductStatus,
+			minimumOrderNeededToStart: number
+			type: ProductType,
+			custom_product_status: CustomProductStatus,
 		}) => {
 			try {
 
@@ -105,7 +110,7 @@ export default function index({ isUpdate=false }:{
 							},
 							price: parseFloat(String(data.price)),
 							orderStartPrice: parseFloat(String(data.orderStartPrice)),
-minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
+							minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 
 						}
 					}
@@ -131,12 +136,7 @@ minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 		},
 		[user],
 	)
-	const uploadButton = (
-		<>
-			+
-			<div style={{ marginTop: 8 }}>Upload</div>
-		</>
-	);
+
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
 	const [files, setFiles] = useState<any[]>([]);
@@ -252,7 +252,7 @@ minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 
 										/>
 									</FormGroup>
-								</div> 
+								</div>
 
 								<div className='col-md-6'>
 									<FormGroup
@@ -271,8 +271,8 @@ minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 												formik.setErrors({});
 											}} className=''
 
-											>
-											{ Object.keys(ProductType).map((key)=>
+										>
+											{Object.keys(ProductType).map((key) =>
 												<Option
 													key={key}
 													// @ts-ignore
@@ -283,7 +283,7 @@ minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 											}
 										</Select>
 									</FormGroup>
-								</div> 
+								</div>
 
 
 
@@ -292,7 +292,7 @@ minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 										id='custom_product_status'
 										label='custom_product_status'
 									>
-										<Select ariaLabel=''  size={'lg'} value={formik.values.custom_product_status}
+										<Select ariaLabel='' size={'lg'} value={formik.values.custom_product_status}
 											isTouched={formik.touched.custom_product_status}
 											invalidFeedback={
 												formik.errors.custom_product_status
@@ -305,10 +305,10 @@ minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 											}} className=''
 
 										>
-											{ Object.keys(CustomProductStatus).map((key)=>
+											{Object.keys(CustomProductStatus).map((key) =>
 												<Option
 													key={key}
-														// @ts-ignore
+													// @ts-ignore
 													value={CustomProductStatus[key]}>
 													{key}
 												</Option>
@@ -316,7 +316,7 @@ minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 											}
 										</Select>
 									</FormGroup>
-								</div> 
+								</div>
 
 
 
@@ -339,10 +339,10 @@ minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
 
 										/>
 									</FormGroup>
-								</div> 
+								</div>
 
 
-								  <div className='col-md-6'>
+								<div className='col-md-6'>
 									<FormGroup
 										id='orderStartPrice'
 										label='orderStartPrice'
