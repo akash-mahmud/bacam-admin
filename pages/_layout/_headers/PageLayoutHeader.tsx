@@ -3,7 +3,6 @@ import Header, { HeaderLeft } from '../../../layout/Header/Header';
 import Navigation from '../../../layout/Navigation/Navigation';
 import { pageLayoutTypesPagesMenu } from '../../../menu';
 import useDeviceScreen from '../../../hooks/useDeviceScreen';
-import CommonHeaderRight from './CommonHeaderRight';
 
 const PageLayoutHeader = () => {
 	// @ts-ignore
@@ -22,7 +21,6 @@ const PageLayoutHeader = () => {
 					}
 				/>
 			</HeaderLeft>
-			<CommonHeaderRight />
 		</Header>
 	);
 };

@@ -10,12 +10,10 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { atomOneLight } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import SyntaxHighlighter from 'react-syntax-highlighter';
+
 import TagWrapper from '../TagWrapper';
 import Icon from '../icon/Icon';
 import Button from './Button';
-import PrismCode from '../extras/PrismCode';
 import { TColor } from '../../type/color-type';
 import { TIcons } from '../../type/icons-type';
 import { TCardBorderSize, TCardShadow, TCardSize } from '../../type/card-type';
@@ -249,46 +247,7 @@ interface ICardCodeViewProps {
 	isPrismJs?: boolean;
 	className?: string;
 }
-export const CardCodeView: FC<ICardCodeViewProps> = memo(
-	({ children, language = 'jsx', customStyle, isPrismJs = true, className }) => {
-		if (isPrismJs) {
-			return (
-				<PrismCode
-					code={children}
-					language={language}
-					className={classNames('my-0', className)}
-					style={customStyle}
-				/>
-			);
-		}
-		return (
-			<SyntaxHighlighter
-				language={language}
-				style={atomOneLight}
-				customStyle={{
-					borderRadius: 13,
-					backgroundColor: 'var(--bs-light)',
-					fontSize: '1rem',
-					padding: '1.5rem 2rem',
-					...customStyle,
-				}}
-				wrapLongLines
-				PreTag='code'
-				className={classNames('shadow-sm', className)}>
-				{children}
-			</SyntaxHighlighter>
-		);
-	},
-);
-CardCodeView.displayName = 'CardCodeView';
-CardCodeView.propTypes = {
-	children: PropTypes.string.isRequired,
-	language: PropTypes.string,
-	isPrismJs: PropTypes.bool,
-	className: PropTypes.string,
-	// eslint-disable-next-line react/forbid-prop-types
-	customStyle: PropTypes.object,
-};
+
 
 interface ICardFooterLeftProps extends HTMLAttributes<HTMLElement> {
 	tag?: string | null;

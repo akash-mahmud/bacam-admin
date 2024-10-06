@@ -3,7 +3,6 @@ import Header, { HeaderLeft } from '../../../layout/Header/Header';
 import Navigation from '../../../layout/Navigation/Navigation';
 import { componentPagesMenu, pageLayoutTypesPagesMenu } from '../../../menu';
 import useDeviceScreen from '../../../hooks/useDeviceScreen';
-import CommonHeaderRight from './CommonHeaderRight';
 
 const DefaultHeader = () => {
 	const deviceScreen = useDeviceScreen();
@@ -19,7 +18,6 @@ const DefaultHeader = () => {
 					}
 				/>
 			</HeaderLeft>
-			<CommonHeaderRight />
 		</Header>
 	);
 };

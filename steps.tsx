@@ -1039,13 +1039,7 @@ const steps = [
 	 * Documentation
 	 * @step 21
 	 */
-	{
-		selector: getTargetName('documentation'),
-		content: () => <DocTour />,
-		highlightedSelectors: ['#aside-menu-two'],
-		mutationObservables: ['#aside-menu-two', '#aside-demo-pages', '.aside-body'],
-		resizeObservables: ['#aside-menu-two', '#aside-demo-pages', '.aside-body'],
-	},
+
 	/**
 	 * Last
 	 * @step 22

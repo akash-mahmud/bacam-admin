@@ -2,12 +2,10 @@ import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 import { FormikHelpers, useFormik } from 'formik';
 import Card, {
-	CardActions,
 	CardBody,
 	CardHeader,
-    CardLabel,
-    CardTitle,
-
+	CardLabel,
+	CardTitle,
 } from '../../components/bootstrap/Card';
 import Button from '../../components/bootstrap/Button';
 import { priceFormat } from '../../helpers/helpers';
@@ -28,14 +26,12 @@ import Textarea from '../../components/bootstrap/forms/Textarea';
 import Checks from '../../components/bootstrap/forms/Checks';
 import Popovers from '../../components/bootstrap/Popovers';
 import data from '../data/dummyEventsData';
-import USERS from '../data/userDummyData';
-import EVENT_STATUS from '../data/enumEventStatus';
 import Avatar from '../../components/Avatar';
 import useDarkMode from '../../hooks/useDarkMode';
-import { OrderStatus, SortOrder, useCategoriesQuery,  useOrdersQuery,  useUpdateOneCategoryMutation, useUpdateOneOrderMutation } from '@/graphql/generated/schema';
-import { notification, Spin } from 'antd';
+import { OrderStatus, SortOrder, useOrdersQuery, useUpdateOneOrderMutation } from '@/graphql/generated/schema';
+import { Spin } from 'antd';
 import dayjs from 'dayjs';
-import { dataPagination, PER_COUNT } from '@/components/PaginationButtons';
+import { PER_COUNT } from '@/components/PaginationButtons';
 import useSortableData from '@/hooks/useSortableData';
 import { getImage } from '@/utils/getImage';
 
@@ -65,7 +61,7 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 		async onSubmit<Values>(
 			values: Values,
 			formikHelpers: FormikHelpers<Values>,
-		)  {
+		) {
 			// await UpdateCategory({
 			// 	variables:{
 			// 		where:{
@@ -84,211 +80,202 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 			return undefined;
 		},
 		initialValues: {
-		
-            name: '',
+
+			name: '',
 			slug: '',
 		},
 	});
 
-
-
-
-
-const [UpdateOrder, {loading:updateOneOrderLoading}] = useUpdateOneOrderMutation()
-
-const [currentPage, setCurrentPage] = useState(1);
-const [perPage, setPerPage] = useState(PER_COUNT['5']);
-const {data:orderData, loading, refetch} = useOrdersQuery({
-	variables:{
-		orderBy:{
-			createdAt: SortOrder.Desc
+	const [UpdateOrder, { loading: updateOneOrderLoading }] = useUpdateOneOrderMutation()
+	const { data: orderData, loading, refetch } = useOrdersQuery({
+		variables: {
+			orderBy: {
+				createdAt: SortOrder.Desc
+			}
 		}
-	}
-})
-const orders = orderData?.orders
+	})
+	const orders = orderData?.orders
 	return (
 		<>
 
 			<Card stretch={isFluid}>
-				
+
 				<CardBody className='table-responsive' isScrollable={isFluid}>
-		<Spin spinning={updateOneOrderLoading||loading}>
-                <table className='table table-modern'>
-						<thead>
-							<tr>
-								<td style={{ width: 60 }} />
-                                <td />
-								<th
-									onClick={() => requestSort('date')}
-									className='cursor-pointer text-decoration-underline'>
-									OrderedAt
-									<Icon
-										size='lg'
-										className={getClassNamesFor('date')}
-										icon='FilterList'
-									/>
-								</th>
-								<th>Customer</th>
-								<th>Product</th>
-                                <th>Status</th>
-
-								<th>Quantity</th>
-								<th>shippingAddress</th>
-								
-								<th>tax</th>
-								<th>itemsPrePrice</th>
-								<th>itemsPrice</th>
-								<th>shippingPrice</th>
-								<th>totalPrice</th>
-                                <th>itemsPrePricePaymentSessionId</th>
-								<th>itemsTotalPricePaymentSessionId</th>
-							
-							</tr>
-						</thead>
-						<tbody>
-							{orders?.map((item) => (
-								<tr key={item.id}>
-									<td>
-										<Button
-											isOutline={!darkModeStatus}
-											color='dark'
-											isLight={darkModeStatus}
-											className={classNames({
-												'border-light': !darkModeStatus,
-											})}
-											icon='Info'
-											onClick={handleUpcomingDetails}
-											aria-label='Detailed information'
+					<Spin spinning={updateOneOrderLoading || loading}>
+						<table className='table table-modern'>
+							<thead>
+								<tr>
+									<td style={{ width: 60 }} />
+									<td />
+									<th
+										onClick={() => requestSort('date')}
+										className='cursor-pointer text-decoration-underline'>
+										OrderedAt
+										<Icon
+											size='lg'
+											className={getClassNamesFor('date')}
+											icon='FilterList'
 										/>
-									</td>
-                                    <td>
-										<Button
-											isOutline={!darkModeStatus}
-											color='dark'
-											isLight={darkModeStatus}
-											className={classNames('text-nowrap', {
-												'border-light': !darkModeStatus,
-											})}
-											icon='Edit'
-											onClick={handleUpcomingEdit}>
-											Edit
-										</Button>
-									</td>
-									<td>
-										<div className='d-flex align-items-center'>
-											<span
-												className={classNames(
-													'badge',
-													'border border-2',
-													[`border-${themeStatus}`],
-													'rounded-circle',
-													'bg-success',
-													'p-2 me-2',
-													// `bg-${item.status.color}`,
-												)}>
-												<span className='visually-hidden'>
-													{item.status}
-												</span>
-											</span>
-											<span className='text-nowrap'>
-												{dayjs(item.createdAt).format(
-													'MMM Do YYYY, h:mm a',
-												)}
-											</span>
-										</div>
-									</td>
-									<td>
-										<div>
-											<div>{`${item.user.firstname} ${item.user.lastname }`}</div>
-											<div className='small text-muted'>
-												{item.user.email}
-											</div>
-										</div>
-									</td>
-									<td>
-										<div className='d-flex flex-column '>
-											<div className='flex-shrink-0 '>
-                                              
-                                                    	<Avatar  
-													src={getImage( item.orderItem?.product.images[0]??"")??""}
-													size={36}
-											
-                                                
-											/>
-											</div>
-											<div className='flex-grow-1 ms-3 mt-4 d-flex align-items-center text-nowrap'>
-												{`${item.orderItem?.product.name}`}
-											</div>
-										</div>
-									</td>
-                                    <td>
-										<Dropdown>
-											<DropdownToggle hasIcon={false}>
-												<Button
-													isLink
-													// color={item.status.color}
-													icon='Circle'
-													className='text-nowrap'>
-													{item.status}
-												</Button>
-											</DropdownToggle>
-											<DropdownMenu >
-												{Object.keys(OrderStatus).map((key) => (
-													<DropdownItem onClick={async()=> {
-                                                        await UpdateOrder({
-                                                            variables:{
-                                                                where:{
-                                                                    id:item.id
-                                                                },
-                                                                data:{
-                                                                    status:{
-																		// @ts-ignore
-                                                                        set: OrderStatus[key]
-                                                                    }
-                                                                }
-                                                            }
-                                                        })
-                                                        await refetch()
-                                                    }} key={key}>
-														<div>
-															<Icon
-																icon='Circle'
-															/>
-														{/*  @ts-ignore */}
+									</th>
+									<th>Customer</th>
+									<th>Product</th>
+									<th>Status</th>
 
-															{OrderStatus[key]}
-														</div>
-													</DropdownItem>
-												))}
-											</DropdownMenu>
-										</Dropdown>
-									</td>
-                                    <td>{item.orderItem?.qty}</td>
+									<th>Quantity</th>
+									<th>shippingAddress</th>
 
-									<td>
-                                        <Button>
-                                            View
-                                        </Button>
-                                    </td>
-                                
-									<td>{ priceFormat(item.taxPrice??0)}</td>
-									<td>{ priceFormat(item.itemsPrePrice??0)}</td>
-									<td>{ priceFormat(item.itemsPrice??0)}</td>
-									<td>{ priceFormat(item.shippingPrice??0)}</td>
-									<td>{ priceFormat(item.totalPrice??0)}</td>
-								
-								    <td>{item.itemsPrePricePaymentSessionId}</td>
-                                    <td>{item.itemsTotalPricePaymentSessionId}</td>
-								
+									<th>tax</th>
+									<th>itemsPrePrice</th>
+									<th>itemsPrice</th>
+									<th>shippingPrice</th>
+									<th>totalPrice</th>
+									<th>itemsPrePricePaymentSessionId</th>
+									<th>itemsTotalPricePaymentSessionId</th>
+
 								</tr>
-							))}
-						</tbody>
-					</table>
-				</Spin>
+							</thead>
+							<tbody>
+								{orders?.map((item) => (
+									<tr key={item.id}>
+										<td>
+											<Button
+												isOutline={!darkModeStatus}
+												color='dark'
+												isLight={darkModeStatus}
+												className={classNames({
+													'border-light': !darkModeStatus,
+												})}
+												icon='Info'
+												onClick={handleUpcomingDetails}
+												aria-label='Detailed information'
+											/>
+										</td>
+										<td>
+											<Button
+												isOutline={!darkModeStatus}
+												color='dark'
+												isLight={darkModeStatus}
+												className={classNames('text-nowrap', {
+													'border-light': !darkModeStatus,
+												})}
+												icon='Edit'
+												onClick={handleUpcomingEdit}>
+												Edit
+											</Button>
+										</td>
+										<td>
+											<div className='d-flex align-items-center'>
+												<span
+													className={classNames(
+														'badge',
+														'border border-2',
+														[`border-${themeStatus}`],
+														'rounded-circle',
+														'bg-success',
+														'p-2 me-2',
+														// `bg-${item.status.color}`,
+													)}>
+													<span className='visually-hidden'>
+														{item.status}
+													</span>
+												</span>
+												<span className='text-nowrap'>
+													{dayjs(item.createdAt).format(
+														'MMM Do YYYY, h:mm a',
+													)}
+												</span>
+											</div>
+										</td>
+										<td>
+											<div>
+												<div>{`${item.user.firstname} ${item.user.lastname}`}</div>
+												<div className='small text-muted'>
+													{item.user.email}
+												</div>
+											</div>
+										</td>
+										<td>
+											<div className='d-flex flex-column '>
+												<div className='flex-shrink-0 '>
+
+													<Avatar
+														src={getImage(item.orderItem[0].product?.images[0] ?? "") ?? ""}
+														size={36}
+
+
+													/>
+												</div>
+												<div className='flex-grow-1 ms-3 mt-4 d-flex align-items-center text-nowrap'>
+													{`${item.orderItem[0].product.name}`}
+												</div>
+											</div>
+										</td>
+										<td>
+											<Dropdown>
+												<DropdownToggle hasIcon={false}>
+													<Button
+														isLink
+														// color={item.status.color}
+														icon='Circle'
+														className='text-nowrap'>
+														{item.status}
+													</Button>
+												</DropdownToggle>
+												<DropdownMenu >
+													{Object.keys(OrderStatus).map((key) => (
+														<DropdownItem onClick={async () => {
+															await UpdateOrder({
+																variables: {
+																	where: {
+																		id: item.id
+																	},
+																	data: {
+																		status: {
+																			// @ts-ignore
+																			set: OrderStatus[key]
+																		}
+																	}
+																}
+															})
+															await refetch()
+														}} key={key}>
+															<div>
+																<Icon
+																	icon='Circle'
+																/>
+																{/*  @ts-ignore */}
+
+																{OrderStatus[key]}
+															</div>
+														</DropdownItem>
+													))}
+												</DropdownMenu>
+											</Dropdown>
+										</td>
+										<td>{item.orderItem?.qty}</td>
+
+										<td>
+											<Button>
+												View
+											</Button>
+										</td>
+
+										<td>{priceFormat(item.taxPrice ?? 0)}</td>
+										<td>{priceFormat(item.itemsPrePrice ?? 0)}</td>
+										<td>{priceFormat(item.itemsPrice ?? 0)}</td>
+										<td>{priceFormat(item.shippingPrice ?? 0)}</td>
+										<td>{priceFormat(item.totalPrice ?? 0)}</td>
+
+										<td>{item.itemsPrePricePaymentSessionId}</td>
+										<td>{item.itemsTotalPricePaymentSessionId}</td>
+
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</Spin>
 				</CardBody>
 			</Card>
-
-
 
 			<OffCanvas
 				setOpen={setUpcomingEventsEditOffcanvas}
