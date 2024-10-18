@@ -1,32 +1,34 @@
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 import { FormikHelpers, useFormik } from 'formik';
-import Card, {
-	CardActions,
-	CardBody,
-	CardHeader,
-
-} from '../../components/bootstrap/Card';
-import Button from '../../components/bootstrap/Button';
-
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+} from '@/components/bootstrap/Modal';
+import {
+	SortOrder,
+	useCreateOneEmployeeCategoryMutation,
+	useEmployeeCategoriesQuery,
+	useUpdateOneEmployeeCategoryMutation,
+} from '@/graphql/generated/schema';
+import Card, { CardHeader, CardActions, CardBody } from '@/components/bootstrap/Card';
+import FormGroup from '@/components/bootstrap/forms/FormGroup';
 import OffCanvas, {
-	OffCanvasBody,
 	OffCanvasHeader,
 	OffCanvasTitle,
-} from '../../components/bootstrap/OffCanvas';
-import FormGroup from '../../components/bootstrap/forms/FormGroup';
-import Input from '../../components/bootstrap/forms/Input';
-
-import  {  PER_COUNT } from '../../components/PaginationButtons';
-import useDarkMode from '../../hooks/useDarkMode';
-import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@/components/bootstrap/Modal';
-import { SortOrder, useCategoriesQuery, useCreateOneCategoryMutation, useUpdateOneCategoryMutation } from '@/graphql/generated/schema';
+	OffCanvasBody,
+} from '@/components/bootstrap/OffCanvas';
+import useDarkMode from '@/hooks/useDarkMode';
 import { notification, Spin } from 'antd';
+import Button from '@/components/bootstrap/Button';
+import Input from '@/components/bootstrap/forms/Input';
 
 interface ICategoryTableProps {
 	isFluid?: boolean;
 }
-const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
+const EmployeeCategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	const { themeStatus, darkModeStatus } = useDarkMode();
 
 	// BEGIN :: Upcoming Events
@@ -36,38 +38,34 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	};
 
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
-	const [updatedataState, setupdatedataState] = useState({})
-	const handleUpcomingEdit = (item: { __typename?: "Category"; id: string; name: string; }) => {
+	const [updatedataState, setupdatedataState] = useState({});
+	const handleUpcomingEdit = (item: { __typename?: 'Category'; id: string; name: string }) => {
 		setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
-		setupdatedataState(item)
-		formik.setFieldValue('name', item.name)
+		setupdatedataState(item);
+		formik.setFieldValue('name', item.name);
 	};
 	// END :: Upcoming Events
 
 	const formik = useFormik({
-		async onSubmit<Values>(
-			values: Values,
-			formikHelpers: FormikHelpers<Values>,
-		) {
+		async onSubmit<Values>(values: Values, formikHelpers: FormikHelpers<Values>) {
 			await UpdateCategory({
 				variables: {
 					where: {
 						// @ts-ignore
-						id: updatedataState.id
+						id: updatedataState.id,
 					},
 					data: {
 						name: {
-							set: values.name
-						}
-					}
-				}
-			})
-			setUpcomingEventsEditOffcanvas(false)
-			refetch()
+							set: values.name,
+						},
+					},
+				},
+			});
+			setUpcomingEventsEditOffcanvas(false);
+			refetch();
 			return undefined;
 		},
 		initialValues: {
-
 			name: '',
 			slug: '',
 		},
@@ -78,69 +76,65 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			values: Values,
 			formikHelpers: FormikHelpers<Values>,
 		): void | Promise<any> {
-			createData(values)
+			createData(values);
 			return undefined;
 		},
 		initialValues: {
-
 			name: '',
 			slug: '',
 		},
 	});
-	const [currentPage, setCurrentPage] = useState(1);
-	const [perPage, setPerPage] = useState(PER_COUNT['5']);
+
 	const [createModal, setcreateModal] = useState(false);
 	const onOpenCreateModal = () => {
-		setcreateModal(true)
-	}
+		setcreateModal(true);
+	};
 	const onCloseCreateModal = () => {
-		setcreateModal(false)
+		setcreateModal(false);
+	};
 
-	}
-
-	const [CreateCategory, { loading: categoryCreateLoading }] = useCreateOneCategoryMutation()
-	const [UpdateCategory, { loading: updatecategoryCreateLoading }] = useUpdateOneCategoryMutation()
+	const [CreateCategory, { loading: categoryCreateLoading }] =
+		useCreateOneEmployeeCategoryMutation();
+	const [UpdateCategory, { loading: updatecategoryCreateLoading }] =
+		useUpdateOneEmployeeCategoryMutation();
 
 	const createData = async (data: any) => {
 		const { data: res } = await CreateCategory({
 			variables: {
-				data: data
-			}
-		})
-		if (res?.createOneCategory.id) {
+				data: data,
+			},
+		});
+		if (res?.createOneEmployeeCategory.id) {
 			notification.success({
-				message: "created"
-			})
-			onCloseCreateModal()
+				message: 'created',
+			});
+			refetch();
+			onCloseCreateModal();
 		} else {
 			notification.error({
-				message: "something went wrong"
-			})
+				message: 'something went wrong',
+			});
 		}
-	}
-	const { data, loading, refetch } = useCategoriesQuery({
+	};
+	const { data, loading, refetch } = useEmployeeCategoriesQuery({
 		variables: {
 			orderBy: {
-				createdAt: SortOrder.Desc
-			}
-		}
-	})
-	const categories = data?.categories
+				createdAt: SortOrder.Desc,
+			},
+		},
+	});
+	const categories = data?.employeeCategories;
 	return (
 		<>
-
 			<Card stretch={isFluid}>
 				{/* <Spin spinning={updatecategoryCreateLoading||loading}> */}
 				<CardHeader borderSize={1}>
-
-					<CardActions >
+					<CardActions>
 						<Button
 							color='info'
 							icon='CloudDownload'
 							isLight
-							onClick={onOpenCreateModal}
-
-						>
+							onClick={onOpenCreateModal}>
 							Create
 						</Button>
 					</CardActions>
@@ -149,7 +143,6 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 					<table className='table table-modern'>
 						<thead>
 							<tr>
-
 								<th>Id</th>
 								<th>Name</th>
 
@@ -159,12 +152,8 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 						<tbody>
 							{categories?.map((item) => (
 								<tr key={item.id}>
-
-
-
 									<td>{item.id}</td>
 									<td>{item.name}</td>
-
 
 									<td>
 										<Button
@@ -187,15 +176,12 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 				{/* </Spin> */}
 			</Card>
 
-
-
 			<OffCanvas
 				setOpen={setUpcomingEventsEditOffcanvas}
 				isOpen={upcomingEventsEditOffcanvas}
 				titleId='upcomingEdit'
 				isBodyScroll
 				placement='end'>
-
 				<OffCanvasHeader setOpen={setUpcomingEventsEditOffcanvas}>
 					<OffCanvasTitle id='upcomingEdit'>Edit Categories</OffCanvasTitle>
 				</OffCanvasHeader>
@@ -203,104 +189,73 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 					<div className='row g-4'>
 						<div className='col-12'>
 							<FormGroup id='name' label='name'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.name}
-								/>
+								<Input onChange={formik.handleChange} value={formik.values.name} />
 							</FormGroup>
 						</div>
-
-
-
 					</div>
 				</OffCanvasBody>
 				<div className='row m-0'>
 					<div className='col-12 p-3'>
-						<Button
-							color='info'
-							className='w-100'
-							onClick={formik.handleSubmit}>
+						<Button color='info' className='w-100' onClick={formik.handleSubmit}>
 							Save
 						</Button>
 					</div>
 				</div>
 			</OffCanvas>
 
-
-
 			<Modal
-				id={"createCategory"}
+				id={'createCategory'}
 				isOpen={createModal} // Example: state
 				setIsOpen={setcreateModal}
 				isScrollable={true}
-				isCentered={true}
-			>
+				isCentered={true}>
 				<Spin spinning={categoryCreateLoading}>
-
 					<ModalHeader
 						setIsOpen={setcreateModal} // Example: setState
 					>
-						<ModalTitle id='create-category'>
-							Create Category
-						</ModalTitle>
+						<ModalTitle id='create-category'>Create Category</ModalTitle>
 					</ModalHeader>
-					<ModalBody >
-
-						<form className='row g-4' >
-
+					<ModalBody>
+						<form className='row g-4'>
 							<div className='col-md-12'>
-								<FormGroup
-									id='name'
-									label='Name'
-								>
-									<Input type='text' size={'lg'} value={formikCreateForm.values.name}
+								<FormGroup id='name' label='Name'>
+									<Input
+										type='text'
+										size={'lg'}
+										value={formikCreateForm.values.name}
 										isTouched={formikCreateForm.touched.name}
-										invalidFeedback={
-											formikCreateForm.errors.name
-										}
+										invalidFeedback={formikCreateForm.errors.name}
 										isValid={formikCreateForm.isValid}
 										onChange={formikCreateForm.handleChange}
 										onBlur={formikCreateForm.handleBlur}
 										onFocus={() => {
 											formikCreateForm.setErrors({});
 										}}
-
 									/>
 								</FormGroup>
 							</div>
 							<div className='col-md-12'>
-								<FormGroup
-									id='slug'
-									label='slug'
-								>
-									<Input type='text' size={'lg'} value={formikCreateForm.values.slug}
+								<FormGroup id='slug' label='slug'>
+									<Input
+										type='text'
+										size={'lg'}
+										value={formikCreateForm.values.slug}
 										isTouched={formikCreateForm.touched.slug}
-										invalidFeedback={
-											formikCreateForm.errors.slug
-										}
+										invalidFeedback={formikCreateForm.errors.slug}
 										isValid={formikCreateForm.isValid}
 										onChange={formikCreateForm.handleChange}
 										onBlur={formikCreateForm.handleBlur}
 										onFocus={() => {
 											formikCreateForm.setErrors({});
-										}} className=''
-
+										}}
+										className=''
 									/>
 								</FormGroup>
 							</div>
-
-
-
-
 						</form>
 					</ModalBody>
-					<ModalFooter >
-						<Button
-							color='info'
-							icon='save'
-							onClick={formikCreateForm.handleSubmit}
-
-						>
+					<ModalFooter>
+						<Button color='info' icon='save' onClick={formikCreateForm.handleSubmit}>
 							Save
 						</Button>
 					</ModalFooter>
@@ -310,4 +265,4 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	);
 };
 
-export default CategoryTable;
+export default EmployeeCategoryTable;

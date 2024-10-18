@@ -1,0 +1,44 @@
+query EmployeeCategories(
+	$where: EmployeeCategoryWhereInput
+	$orderBy: [EmployeeCategoryOrderByWithRelationInput!]
+	$cursor: EmployeeCategoryWhereUniqueInput
+	$take: Int
+	$skip: Int
+	$distinct: [EmployeeCategoryScalarFieldEnum!]
+) {
+	employeeCategories(
+		where: $where
+		orderBy: $orderBy
+		cursor: $cursor
+		take: $take
+		skip: $skip
+		distinct: $distinct
+	) {
+		name
+		id
+	}
+}
+
+query EmployeeCategory($where: EmployeeCategoryWhereUniqueInput!) {
+	employeeCategory(where: $where) {
+		name
+	}
+}
+
+mutation CreateOneEmployeeCategory($data: EmployeeCategoryCreateInput!) {
+	createOneEmployeeCategory(data: $data) {
+		id
+	}
+}
+
+mutation DeleteOneEmployeeCategory($where: EmployeeCategoryWhereUniqueInput!) {
+	deleteOneEmployeeCategory(where: $where) {
+		id
+	}
+}
+
+mutation UpdateOneEmployeeCategory($data: EmployeeCategoryUpdateInput!, $where: EmployeeCategoryWhereUniqueInput!) {
+  updateOneEmployeeCategory(data: $data, where: $where) {
+    id
+  }
+}

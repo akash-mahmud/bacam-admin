@@ -1,6 +1,6 @@
-export const summaryPageTopMenu = {}
+export const summaryPageTopMenu = {};
 
-export const dashboardPagesMenu = {}
+export const dashboardPagesMenu = {};
 
 export const demoPagesMenu = {
 	pages: {
@@ -14,7 +14,7 @@ export const demoPagesMenu = {
 		path: 'product',
 		icon: 'Article',
 		subMenu: {
-			view:{
+			view: {
 				id: 'all',
 				text: 'View',
 				path: 'product',
@@ -26,7 +26,6 @@ export const demoPagesMenu = {
 				path: 'product/create',
 				icon: 'ViewArray',
 			},
-		
 		},
 	},
 	user: {
@@ -35,7 +34,7 @@ export const demoPagesMenu = {
 		path: 'User',
 		icon: 'Article',
 		subMenu: {
-			users:{
+			users: {
 				id: 'users',
 				text: 'Users',
 				path: '/user',
@@ -47,28 +46,37 @@ export const demoPagesMenu = {
 				path: 'user/employee',
 				icon: 'ViewArray',
 			},
-		
+			employeeCategory: {
+				id: 'employeeCategory',
+				text: 'Category',
+				path: 'user/employee/category',
+				icon: 'ViewArray',
+			},
+			employeeSubCategory: {
+				id: 'employeeSubCategory',
+				text: 'Sub Category',
+				path: 'user/employee/category/subcategory',
+				icon: 'ViewArray',
+			},
 		},
 	},
-	category:{
+	category: {
 		id: 'category',
 		text: 'Category',
 		path: 'category',
 		icon: 'Article',
 	},
-	orders:{
+	orders: {
 		id: 'order',
 		text: 'Orders',
 		path: 'order',
 		icon: 'BookOnline',
 	},
-
-
 };
 
-export const pageLayoutTypesPagesMenu = {}
+export const pageLayoutTypesPagesMenu = {};
 
-export const componentPagesMenu = {}
+export const componentPagesMenu = {};
 
 export const productsMenu = {
 	companyA: { id: 'companyA', text: 'Company A', path: 'grid-pages/products', subMenu: null },

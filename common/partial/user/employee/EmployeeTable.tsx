@@ -1,30 +1,34 @@
-
 import Avatar from '@/components/Avatar';
 import Button from '@/components/bootstrap/Button';
 import Card, { CardHeader, CardActions, CardBody } from '@/components/bootstrap/Card';
 import FormGroup from '@/components/bootstrap/forms/FormGroup';
 import Input from '@/components/bootstrap/forms/Input';
-import Select from '@/components/bootstrap/forms/Select';
 import Textarea from '@/components/bootstrap/forms/Textarea';
 import { ModalBody, ModalFooter } from '@/components/bootstrap/Modal';
-import OffCanvas, { OffCanvasHeader, OffCanvasTitle, OffCanvasBody } from '@/components/bootstrap/OffCanvas';
-import Option from '@/components/bootstrap/Option';
-import { Employee, EmployeeRole, SortOrder, useCreateOneCategoryMutation, useCreateOneEmployeeMutation, useEmployeesQuery, useUpdateOneCategoryMutation, useUpdateOneEmployeeMutation, useUploadFileMutation } from '@/graphql/generated/schema';
+import OffCanvas, {
+	OffCanvasHeader,
+	OffCanvasTitle,
+	OffCanvasBody,
+} from '@/components/bootstrap/OffCanvas';
+import {
+	Employee,
+	SortOrder,
+	useCreateOneEmployeeMutation,
+	useEmployeesQuery,
+	useUpdateOneEmployeeMutation,
+	useUploadFileMutation,
+} from '@/graphql/generated/schema';
 import useDarkMode from '@/hooks/useDarkMode';
 import { Modal, notification, Spin, UploadFile } from 'antd';
 import classNames from 'classnames';
 import { useFormik, FormikHelpers } from 'formik';
 import { FC, useState } from 'react';
-import UploadSingleImage from "@/common/UploadMultipleFiles";
+import UploadSingleImage from '@/common/UploadMultipleFiles';
 import { uploadButton } from '@/pages/product/create';
 import { RcFile } from 'antd/es/upload';
 import { getImage } from '@/utils/getImage';
 import { v4 } from 'uuid';
 import Image from 'next/image';
-
-
-
-
 
 interface ICategoryTableProps {
 	isFluid?: boolean;
@@ -41,65 +45,54 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	};
 
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
-	const [updatedataState, setupdatedataState] = useState({})
+	const [updatedataState, setupdatedataState] = useState({});
 	const handleUpcomingEdit = (item: Employee) => {
 		setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
-		setupdatedataState(item)
-		formik.setFieldValue('name', item.name)
-		formik.setFieldValue('image', item.image)
-		formik.setFieldValue('role', item.role)
-		formik.setFieldValue('shortDescription', item.shortDescription)
-		setFiles(() => ([ {
-			uid: v4(),
-			status: 'done',
-			url: !item.image.includes("https") ? getImage(item.image) : item.image,
-		}]))
+		setupdatedataState(item);
+		formik.setFieldValue('name', item.name);
+		formik.setFieldValue('image', item.image);
+		formik.setFieldValue('shortDescription', item.shortDescription);
+		setFiles(() => [
+			{
+				uid: v4(),
+				status: 'done',
+				url: !item.image.includes('https') ? getImage(item.image) : item.image,
+			},
+		]);
 	};
 	// END :: Upcoming Events
 
 	const formik = useFormik({
-		async onSubmit(
-			values: {
-				name: string
-				image: string,
-				role: EmployeeRole,
-				shortDescription: string,
-			},
-		) {
+		async onSubmit(values: { name: string; image: string; shortDescription: string }) {
 			await Update({
 				variables: {
 					where: {
 						// @ts-ignore
-						id: updatedataState.id
+						id: updatedataState.id,
 					},
 					data: {
 						name: {
-							set: values.name
+							set: values.name,
 						},
 
 						image: {
-							set: values.image
-						},
-						role: {
-							set: values.role
+							set: values.image,
 						},
 
 						shortDescription: {
-							set: values.shortDescription
+							set: values.shortDescription,
 						},
-					}
-				}
-			})
-			setUpcomingEventsEditOffcanvas(false)
-			refetch()
+					},
+				},
+			});
+			setUpcomingEventsEditOffcanvas(false);
+			refetch();
 			return undefined;
 		},
 		initialValues: {
-
 			name: '',
 			image: '',
-			role: EmployeeRole.Analyst,
-			shortDescription: "",
+			shortDescription: '',
 		},
 	});
 
@@ -108,102 +101,92 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			values: Values,
 			formikHelpers: FormikHelpers<Values>,
 		): void | Promise<any> {
-			createData(values)
+			createData(values);
 			return undefined;
 		},
 		initialValues: {
-
 			name: '',
 			image: '',
-			role: EmployeeRole.Analyst,
-			shortDescription: "",
+			shortDescription: '',
 		},
 	});
 	const handlePreview = async (file: UploadFile) => {
-
 		setPreviewImage(file.url as string);
 		setPreviewOpen(true);
 	};
-	const [FileUpload, { loading: loadingUpload }] = useUploadFileMutation()
+	const [FileUpload, { loading: loadingUpload }] = useUploadFileMutation();
 	const handleBeforeUploadUpdate = async (file: RcFile): Promise<void> => {
-
 		try {
 			const { data } = await FileUpload({
 				variables: {
-					file
+					file,
 				},
 			});
 
-			setFiles((prev) => ([...prev, {
-				uid: v4(),
-				name: data?.uploadFile?.file as string,
-				status: 'done',
-				url: getImage(data?.uploadFile?.file as string),
-			}]))
-			formikCreateForm.setFieldValue("image", data?.uploadFile?.file)
-
+			setFiles((prev) => [
+				...prev,
+				{
+					uid: v4(),
+					name: data?.uploadFile?.file as string,
+					status: 'done',
+					url: getImage(data?.uploadFile?.file as string),
+				},
+			]);
+			formikCreateForm.setFieldValue('image', data?.uploadFile?.file);
 		} catch (error) {
 			console.log(error);
-
 		}
-
-
-
 	};
 	const handleCancel = () => setPreviewOpen(false);
 	const [createModal, setcreateModal] = useState(false);
 	const onOpenCreateModal = () => {
-		setcreateModal(true)
-	}
+		setcreateModal(true);
+	};
 	const onCloseCreateModal = () => {
-		setcreateModal(false)
-		formikCreateForm.resetForm()
-		setFiles([])
-	}
+		setcreateModal(false);
+		formikCreateForm.resetForm();
+		setFiles([]);
+	};
 
-	const [Create, { loading: createLoading }] = useCreateOneEmployeeMutation()
-	const [Update, { loading: updateLoading }] = useUpdateOneEmployeeMutation()
+	const [Create, { loading: createLoading }] = useCreateOneEmployeeMutation();
+	const [Update, { loading: updateLoading }] = useUpdateOneEmployeeMutation();
 
 	const createData = async (data: any) => {
 		const { data: res } = await Create({
 			variables: {
-				data: data
-			}
-		})
+				data: data,
+			},
+		});
 		if (res?.createOneEmployee.id) {
 			notification.success({
-				message: "created"
-			})
-			onCloseCreateModal()
+				message: 'created',
+			});
+			onCloseCreateModal();
 		} else {
 			notification.error({
-				message: "something went wrong"
-			})
+				message: 'something went wrong',
+			});
 		}
-	}
+	};
 	const { data, loading, refetch } = useEmployeesQuery({
 		variables: {
 			orderBy: {
-				createdAt: SortOrder.Desc
-			}
-		}
-	})
-	const employees = data?.employees
+				createdAt: SortOrder.Desc,
+			},
+		},
+	});
+	const employees = data?.employees;
 	return (
 		<>
-
 			<Card stretch={isFluid}>
 				{/* <Spin spinning={updatecategoryCreateLoading||loading}> */}
 				<CardHeader borderSize={1}>
-
-					<CardActions >
+					<CardActions>
 						<Button
 							color='info'
 							icon='CloudDownload'
 							isLight
-							onClick={onOpenCreateModal}
-
-						>
+							onClick={onOpenCreateModal}>
 							Create
 						</Button>
 					</CardActions>
@@ -212,9 +195,7 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 					<table className='table table-modern'>
 						<thead>
 							<tr>
-
 								<th>Name</th>
-								<th>role</th>
 								<th>Image</th>
 								<th>Action</th>
 							</tr>
@@ -222,13 +203,16 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 						<tbody>
 							{employees?.map((item) => (
 								<tr key={item.id}>
-
-
-
 									<td>{item.name}</td>
-									<td>{item.role}</td>
 									<td>
-										<Avatar src={(!item.image.includes("https")) ? getImage(item.image) : item.image} size={40} />
+										<Avatar
+											src={
+												!item.image.includes('https')
+													? getImage(item.image)
+													: item.image
+											}
+											size={40}
+										/>
 									</td>
 									<td>
 										<Button
@@ -252,180 +236,119 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			</Card>
 
 			<OffCanvas
-				setOpen={(arg:boolean)=> {
-					setUpcomingEventsEditOffcanvas(arg)
-					formik.resetForm()
-					setFiles([])
+				setOpen={(arg: boolean) => {
+					setUpcomingEventsEditOffcanvas(arg);
+					formik.resetForm();
+					setFiles([]);
 				}}
 				isOpen={upcomingEventsEditOffcanvas}
 				titleId='upcomingEdit'
 				isBodyScroll
 				placement='end'>
-<Spin spinning={updateLoading}>
+				<Spin spinning={updateLoading}>
+					<OffCanvasHeader setOpen={setUpcomingEventsEditOffcanvas}>
+						<OffCanvasTitle id='upcomingEdit'>Edit Employees</OffCanvasTitle>
+					</OffCanvasHeader>
+					<OffCanvasBody>
+						<div className='row g-4'>
+							<div className='col-12'>
+								<FormGroup id='name' label='name'>
+									<Input
+										onChange={formik.handleChange}
+										value={formik.values.name}
+									/>
+								</FormGroup>
+							</div>
 
-				<OffCanvasHeader setOpen={setUpcomingEventsEditOffcanvas}>
-					<OffCanvasTitle id='upcomingEdit'>Edit Employees</OffCanvasTitle>
-				</OffCanvasHeader>
-				<OffCanvasBody>
-					<div className='row g-4'>
-						<div className='col-12'>
-							<FormGroup id='name' label='name'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.name}
-								/>
-							</FormGroup>
-						</div>
-
-						<div className='col-md-12'>
-							<FormGroup
-								id='shortDescription'
-								label='Short description'
-							>
-								<Textarea rows={6} size={'lg'} value={formik.values.shortDescription}
-									isTouched={formik.touched.shortDescription}
-									invalidFeedback={
-										formik.errors.shortDescription
-									}
-									isValid={formik.isValid}
-									onChange={formik.handleChange}
-									onBlur={formik.handleBlur}
-									onFocus={() => {
-										formik.setErrors({});
-									}} className=''
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-md-12'>
-							<FormGroup
-								id='role'
-								label='Role'
-							>
-								<Select ariaLabel='role' size={'lg'} value={formik.values.role}
-									isTouched={formik.touched.role}
-									invalidFeedback={
-										formik.errors.role
-									}
-									isValid={formik.isValid}
-									onChange={formik.handleChange}
-									onBlur={formik.handleBlur}
-									onFocus={() => {
-										formik.setErrors({});
-									}}
-									className=''
-
-								>
-									<Option value={EmployeeRole.Analyst}>
-										{EmployeeRole.Analyst}
-									</Option>
-								</Select>
-
-							</FormGroup>
-						</div>
-
-
-						<div className='col-md-12'>
-
-							<FormGroup
-								label='Images'
-							>
-								<Spin spinning={loadingUpload}>
-
-									<UploadSingleImage uploadButton={uploadButton} filelist={
-										// isUpdate ? updatefiles : 
-
-										files}
-										handlePreview={handlePreview} beforeUpload={handleBeforeUploadUpdate} handleRemove={() => {
-											// if (isUpdate) {
-
-											// 	// updatesetFiles([])
-											// 	// updatesetValue('image', '')
-											// } else {
-
-											setFiles([])
-											// }
-
-
-										}} />
-								</Spin>
-							</FormGroup>
-						</div>
-
-					</div>
-				</OffCanvasBody>
-				<div className='row m-0'>
-					<div className='col-12 p-3'>
-						<Button
-							color='info'
-							className='w-100'
-							onClick={formik.handleSubmit}>
-							Save
-						</Button>
-					</div>
-				</div>
-
-</Spin>
-			</OffCanvas>
-
-
-
-			<Modal footer={null}
-				open={createModal} // Example: state
-				onCancel={onCloseCreateModal}
-			>
-				<></>
-				<Spin spinning={createLoading}>
-					<ModalBody className='' >
-						<form className='row g-4' >
 							<div className='col-md-12'>
-								<FormGroup
-									id='name'
-									label='Name'
-								>
-									<Input type='text' size={'lg'} value={formik.values.name}
-										isTouched={formik.touched.name}
-										invalidFeedback={
-											formik.errors.name
-										}
+								<FormGroup id='shortDescription' label='Short description'>
+									<Textarea
+										rows={6}
+										size={'lg'}
+										value={formik.values.shortDescription}
+										isTouched={formik.touched.shortDescription}
+										invalidFeedback={formik.errors.shortDescription}
 										isValid={formik.isValid}
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
 										onFocus={() => {
 											formik.setErrors({});
 										}}
+										className=''
+									/>
+								</FormGroup>
+							</div>
 
-									/>
+							<div className='col-md-12'>
+								<FormGroup label='Images'>
+									<Spin spinning={loadingUpload}>
+										<UploadSingleImage
+											uploadButton={uploadButton}
+											filelist={
+												// isUpdate ? updatefiles :
+
+												files
+											}
+											handlePreview={handlePreview}
+											beforeUpload={handleBeforeUploadUpdate}
+											handleRemove={() => {
+												// if (isUpdate) {
+
+												// 	// updatesetFiles([])
+												// 	// updatesetValue('image', '')
+												// } else {
+
+												setFiles([]);
+												// }
+											}}
+										/>
+									</Spin>
 								</FormGroup>
 							</div>
+						</div>
+					</OffCanvasBody>
+					<div className='row m-0'>
+						<div className='col-12 p-3'>
+							<Button color='info' className='w-100' onClick={formik.handleSubmit}>
+								Save
+							</Button>
+						</div>
+					</div>
+				</Spin>
+			</OffCanvas>
+
+			<Modal
+				footer={null}
+				open={createModal} // Example: state
+				onCancel={onCloseCreateModal}>
+				<></>
+				<Spin spinning={createLoading}>
+					<ModalBody className=''>
+						<form className='row g-4'>
 							<div className='col-md-12'>
-								<FormGroup
-									id='shortDescription'
-									label='Short description'
-								>
-									<Textarea size={'lg'} value={formik.values.shortDescription}
-										isTouched={formikCreateForm.touched.shortDescription}
-										invalidFeedback={
-											formikCreateForm.errors.shortDescription
-										}
-										isValid={formikCreateForm.isValid}
-										onChange={formikCreateForm.handleChange}
-										onBlur={formikCreateForm.handleBlur}
+								<FormGroup id='name' label='Name'>
+									<Input
+										type='text'
+										size={'lg'}
+										value={formik.values.name}
+										isTouched={formik.touched.name}
+										invalidFeedback={formik.errors.name}
+										isValid={formik.isValid}
+										onChange={formik.handleChange}
+										onBlur={formik.handleBlur}
 										onFocus={() => {
-											formikCreateForm.setErrors({});
-										}} className=''
+											formik.setErrors({});
+										}}
 									/>
 								</FormGroup>
 							</div>
 							<div className='col-md-12'>
-								<FormGroup
-									id='role'
-									label='Role'
-								>
-									<Select ariaLabel='role' size={'lg'} value={formikCreateForm.values.role}
-										isTouched={formikCreateForm.touched.role}
-										invalidFeedback={
-											formikCreateForm.errors.role
-										}
+								<FormGroup id='shortDescription' label='Short description'>
+									<Textarea
+										size={'lg'}
+										value={formik.values.shortDescription}
+										isTouched={formikCreateForm.touched.shortDescription}
+										invalidFeedback={formikCreateForm.errors.shortDescription}
 										isValid={formikCreateForm.isValid}
 										onChange={formikCreateForm.handleChange}
 										onBlur={formikCreateForm.handleBlur}
@@ -433,65 +356,50 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 											formikCreateForm.setErrors({});
 										}}
 										className=''
-
-									>
-										<Option value={EmployeeRole.Analyst}>
-											{EmployeeRole.Analyst}
-										</Option>
-									</Select>
-
+									/>
 								</FormGroup>
 							</div>
 
-
 							<div className='col-md-12'>
-
-								<FormGroup
-									label='Images'
-								>
+								<FormGroup label='Images'>
 									<Spin spinning={loadingUpload}>
+										<UploadSingleImage
+											uploadButton={uploadButton}
+											filelist={
+												// isUpdate ? updatefiles :
 
-										<UploadSingleImage uploadButton={uploadButton} filelist={
-											// isUpdate ? updatefiles : 
-
-											files}
-											handlePreview={handlePreview} beforeUpload={handleBeforeUploadUpdate} handleRemove={() => {
+												files
+											}
+											handlePreview={handlePreview}
+											beforeUpload={handleBeforeUploadUpdate}
+											handleRemove={() => {
 												// if (isUpdate) {
 
 												// 	// updatesetFiles([])
 												// 	// updatesetValue('image', '')
 												// } else {
 
-												setFiles([])
+												setFiles([]);
 												// }
-
-
-											}} />
+											}}
+										/>
 									</Spin>
 								</FormGroup>
 							</div>
 						</form>
 					</ModalBody>
-					<ModalFooter >
-						<Button
-							color='info'
-							icon='save'
-							onClick={formikCreateForm.handleSubmit}
-
-						>
+					<ModalFooter>
+						<Button color='info' icon='save' onClick={formikCreateForm.handleSubmit}>
 							Save
 						</Button>
 					</ModalFooter>
 				</Spin>
 			</Modal>
 
-			<Modal open={previewOpen} footer={null} onCancel={handleCancel}
-			>
-
+			<Modal open={previewOpen} footer={null} onCancel={handleCancel}>
 				<ModalBody>
 					<div className='d-flex justify-content-center'>
-
-						<Image alt="example" height={300} width={300} src={previewImage} />
+						<Image alt='example' height={300} width={300} src={previewImage} />
 					</div>
 				</ModalBody>
 			</Modal>
