@@ -14,7 +14,9 @@ import {
 	Employee,
 	SortOrder,
 	useCreateOneEmployeeMutation,
+	useEmployeeCategoriesQuery,
 	useEmployeesQuery,
+	useEmployeeSubCategoriesQuery,
 	useUpdateOneEmployeeMutation,
 	useUploadFileMutation,
 } from '@/graphql/generated/schema';
@@ -29,6 +31,8 @@ import { RcFile } from 'antd/es/upload';
 import { getImage } from '@/utils/getImage';
 import { v4 } from 'uuid';
 import Image from 'next/image';
+import Select from '@/components/bootstrap/forms/Select';
+import Option from '@/components/bootstrap/Option';
 
 interface ICategoryTableProps {
 	isFluid?: boolean;
@@ -52,6 +56,8 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 		formik.setFieldValue('name', item.name);
 		formik.setFieldValue('image', item.image);
 		formik.setFieldValue('shortDescription', item.shortDescription);
+		formik.setFieldValue('employeeCategory', item.employeeCategoryId);
+		formik.setFieldValue('employeeSubCategory', item.employeeSubCategoryId);
 		setFiles(() => [
 			{
 				uid: v4(),
@@ -63,7 +69,7 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	// END :: Upcoming Events
 
 	const formik = useFormik({
-		async onSubmit(values: { name: string; image: string; shortDescription: string }) {
+		async onSubmit(values: any) {
 			await Update({
 				variables: {
 					where: {
@@ -74,7 +80,16 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 						name: {
 							set: values.name,
 						},
-
+						employeeCategory: {
+							connect: {
+								id: values.employeeCategory,
+							},
+						},
+						employeeSubCategory: {
+							connect: {
+								id: values?.employeeSubCategory,
+							},
+						},
 						image: {
 							set: values.image,
 						},
@@ -93,6 +108,8 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			name: '',
 			image: '',
 			shortDescription: '',
+			employeeCategory: '',
+			employeeSubCategory: '',
 		},
 	});
 
@@ -108,6 +125,8 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			name: '',
 			image: '',
 			shortDescription: '',
+			employeeCategory: '',
+			employeeSubCategory: '',
 		},
 	});
 	const handlePreview = async (file: UploadFile) => {
@@ -152,20 +171,37 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	const [Update, { loading: updateLoading }] = useUpdateOneEmployeeMutation();
 
 	const createData = async (data: any) => {
-		const { data: res } = await Create({
-			variables: {
-				data: data,
-			},
-		});
-		if (res?.createOneEmployee.id) {
-			notification.success({
-				message: 'created',
+		try {
+			const { data: res } = await Create({
+				variables: {
+					data: {
+						...data,
+						employeeCategory: {
+							connect: {
+								id: data.employeeCategory,
+							},
+						},
+						employeeSubCategory: {
+							connect: {
+								id: data?.employeeSubCategory,
+							},
+						},
+					},
+				},
 			});
-			onCloseCreateModal();
-		} else {
-			notification.error({
-				message: 'something went wrong',
-			});
+			if (res?.createOneEmployee.id) {
+				notification.success({
+					message: 'created',
+				});
+				onCloseCreateModal();
+				refetch();
+			} else {
+				notification.error({
+					message: 'something went wrong',
+				});
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 	const { data, loading, refetch } = useEmployeesQuery({
@@ -175,7 +211,33 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			},
 		},
 	});
+	const {
+		data: catData,
+		loading: loadingcat,
+		refetch: refetchCat,
+	} = useEmployeeCategoriesQuery({
+		variables: {
+			orderBy: {
+				createdAt: SortOrder.Desc,
+			},
+		},
+	});
+	const {
+		data: subCatData,
+		loading: subCatLoading,
+		refetch: subCatRefetch,
+	} = useEmployeeSubCategoriesQuery({
+		variables: {
+			orderBy: {
+				createdAt: SortOrder.Desc,
+			},
+		},
+	});
 	const employees = data?.employees;
+
+	const categories = catData?.employeeCategories;
+	const subcategories = subCatData?.employeeSubCategories;
+
 	return (
 		<>
 			<Card stretch={isFluid}>
@@ -259,7 +321,50 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 									/>
 								</FormGroup>
 							</div>
-
+							<div className='col-md-12'>
+								<FormGroup id='employeeCategory' label='Category'>
+									<Select
+										placeholder='Select category'
+										ariaLabel=''
+										value={formik.values.employeeCategory}
+										isTouched={formik.touched.employeeCategory}
+										invalidFeedback={formik.errors.employeeCategory}
+										isValid={formik.isValid}
+										onChange={formik.handleChange}
+										onBlur={formik.handleBlur}
+										onFocus={() => {
+											formik.setErrors({});
+										}}
+										className=''>
+										{categories?.map((category) => (
+											<Option value={category.id}>{category.name}</Option>
+										))}
+									</Select>
+								</FormGroup>
+							</div>
+							<div className='col-md-12'>
+								<FormGroup id='employeeSubCategory' label='Subcategory'>
+									<Select
+										placeholder='Select subcategory'
+										ariaLabel=''
+										value={formik.values.employeeSubCategory}
+										isTouched={formik.touched.employeeSubCategory}
+										invalidFeedback={formik.errors.employeeSubCategory}
+										isValid={formik.isValid}
+										onChange={formik.handleChange}
+										onBlur={formik.handleBlur}
+										onFocus={() => {
+											formik.setErrors({});
+										}}
+										className=''>
+										{subcategories?.map((subcategory) => (
+											<Option value={subcategory.id}>
+												{subcategory.name}
+											</Option>
+										))}
+									</Select>
+								</FormGroup>
+							</div>
 							<div className='col-md-12'>
 								<FormGroup id='shortDescription' label='Short description'>
 									<Textarea
@@ -330,23 +435,69 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 									<Input
 										type='text'
 										size={'lg'}
-										value={formik.values.name}
-										isTouched={formik.touched.name}
-										invalidFeedback={formik.errors.name}
-										isValid={formik.isValid}
-										onChange={formik.handleChange}
-										onBlur={formik.handleBlur}
+										value={formikCreateForm.values.name}
+										isTouched={formikCreateForm.touched.name}
+										invalidFeedback={formikCreateForm.errors.name}
+										isValid={formikCreateForm.isValid}
+										onChange={formikCreateForm.handleChange}
+										onBlur={formikCreateForm.handleBlur}
 										onFocus={() => {
-											formik.setErrors({});
+											formikCreateForm.setErrors({});
 										}}
 									/>
+								</FormGroup>
+							</div>
+							<div className='col-md-12'>
+								<FormGroup id='employeeCategory' label='Category'>
+									<Select
+										placeholder='Select category'
+										ariaLabel=''
+										value={formikCreateForm.values.employeeCategory}
+										isTouched={formikCreateForm.touched.employeeCategory}
+										invalidFeedback={formikCreateForm.errors.employeeCategory}
+										isValid={formikCreateForm.isValid}
+										onChange={formikCreateForm.handleChange}
+										onBlur={formikCreateForm.handleBlur}
+										onFocus={() => {
+											formikCreateForm.setErrors({});
+										}}
+										className=''>
+										{categories?.map((category) => (
+											<Option value={category.id}>{category.name}</Option>
+										))}
+									</Select>
+								</FormGroup>
+							</div>
+							<div className='col-md-12'>
+								<FormGroup id='employeeSubCategory' label='Subcategory'>
+									<Select
+										placeholder='Select subcategory'
+										ariaLabel=''
+										value={formikCreateForm.values.employeeSubCategory}
+										isTouched={formikCreateForm.touched.employeeSubCategory}
+										invalidFeedback={
+											formikCreateForm.errors.employeeSubCategory
+										}
+										isValid={formikCreateForm.isValid}
+										onChange={formikCreateForm.handleChange}
+										onBlur={formikCreateForm.handleBlur}
+										onFocus={() => {
+											formikCreateForm.setErrors({});
+										}}
+										className=''>
+										{subcategories?.map((subcategory) => (
+											<Option value={subcategory.id}>
+												{subcategory.name}
+											</Option>
+										))}
+									</Select>
 								</FormGroup>
 							</div>
 							<div className='col-md-12'>
 								<FormGroup id='shortDescription' label='Short description'>
 									<Textarea
 										size={'lg'}
-										value={formik.values.shortDescription}
+										value={formikCreateForm.values.shortDescription}
 										isTouched={formikCreateForm.touched.shortDescription}
 										invalidFeedback={formikCreateForm.errors.shortDescription}
 										isValid={formikCreateForm.isValid}

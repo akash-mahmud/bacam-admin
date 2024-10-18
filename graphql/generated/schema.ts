@@ -8221,7 +8221,7 @@ export type EmployeesQueryVariables = Exact<{
 }>;
 
 
-export type EmployeesQuery = { __typename?: 'Query', employees: Array<{ __typename?: 'Employee', id: string, image: string, name: string, shortDescription: string }> };
+export type EmployeesQuery = { __typename?: 'Query', employees: Array<{ __typename?: 'Employee', id: string, image: string, name: string, employeeCategoryId?: string | null, employeeSubCategoryId?: string | null, shortDescription: string }> };
 
 export type CreateOneEmployeeMutationVariables = Exact<{
   data: EmployeeCreateInput;
@@ -8634,6 +8634,8 @@ export const EmployeesDocument = gql`
     id
     image
     name
+    employeeCategoryId
+    employeeSubCategoryId
     shortDescription
   }
 }
