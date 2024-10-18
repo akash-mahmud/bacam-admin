@@ -33,7 +33,7 @@ mutation AdminLogin($password: String!, $email: String!) {
 }
 
 mutation RefreshToken {
-  refreshToken
+  adminRefreshToken
 }
 
 
@@ -50,6 +50,3 @@ mutation UpdateProfile($input: UpdateOneUserArgsCustom!, $passwordInput: UpdateP
 # mutation EmailVerification($token: String!) {
 #   emailVerification(token: $token)
 # }
-
-
-

@@ -16,6 +16,7 @@ interface IProductTableRowProps extends Product {
 	selectOnChange: any;
 	selectChecked: any;
 	selectName: string;
+	openUpdateCanvas:(id:string) => void
 }
 const ProductTableRow: FC<IProductTableRowProps> = ({
 	id,
@@ -27,6 +28,7 @@ const ProductTableRow: FC<IProductTableRowProps> = ({
 	custom_product_status,
 	orderStartPrice,
 	price,
+	openUpdateCanvas,
 	selectOnChange,
 	selectChecked,
 	selectName,
@@ -79,7 +81,7 @@ const ProductTableRow: FC<IProductTableRowProps> = ({
 
 
 			<td className='text-end'>
-				<Button
+				<Button onClick={() => openUpdateCanvas(id)}
 					color='dark'
 					isLight
 					icon='Edit'

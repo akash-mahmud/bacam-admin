@@ -1712,6 +1712,7 @@ export type LoginResponsce = {
 export type Mutation = {
   __typename?: 'Mutation';
   adminLogin?: Maybe<LoginResponsce>;
+  adminRefreshToken?: Maybe<Scalars['String']['output']>;
   adminRegister?: Maybe<DefaultResponsce>;
   createCheckoutSession?: Maybe<PaymentSessionCreateResponse>;
   createManyCart: AffectedRowsOutput;
@@ -7194,6 +7195,13 @@ export type AggregateProductQueryVariables = Exact<{
 
 export type AggregateProductQuery = { __typename?: 'Query', aggregateProduct: { __typename?: 'AggregateProduct', _count?: { __typename?: 'ProductCountAggregate', _all: number } | null } };
 
+export type ProductForUpdateQueryVariables = Exact<{
+  where: ProductWhereUniqueInput;
+}>;
+
+
+export type ProductForUpdateQuery = { __typename?: 'Query', product?: { __typename?: 'Product', categoryId: string, custom_product_status: CustomProductStatus, description: string, id: string, images: Array<string>, minimumOrderNeededToStart: number, name: string, orderStartPrice?: number | null, price: number, type: ProductType, slug: string } | null };
+
 export type AdminRegisterMutationVariables = Exact<{
   input: CreateOneUserArgsCustom;
 }>;
@@ -7217,7 +7225,7 @@ export type AdminLoginMutation = { __typename?: 'Mutation', adminLogin?: { __typ
 export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RefreshTokenMutation = { __typename?: 'Mutation', refreshToken?: string | null };
+export type RefreshTokenMutation = { __typename?: 'Mutation', adminRefreshToken?: string | null };
 
 export type UpdateProfileMutationVariables = Exact<{
   input: UpdateOneUserArgsCustom;
@@ -7850,6 +7858,56 @@ export type AggregateProductQueryHookResult = ReturnType<typeof useAggregateProd
 export type AggregateProductLazyQueryHookResult = ReturnType<typeof useAggregateProductLazyQuery>;
 export type AggregateProductSuspenseQueryHookResult = ReturnType<typeof useAggregateProductSuspenseQuery>;
 export type AggregateProductQueryResult = Apollo.QueryResult<AggregateProductQuery, AggregateProductQueryVariables>;
+export const ProductForUpdateDocument = gql`
+    query ProductForUpdate($where: ProductWhereUniqueInput!) {
+  product(where: $where) {
+    categoryId
+    custom_product_status
+    description
+    id
+    images
+    minimumOrderNeededToStart
+    name
+    orderStartPrice
+    price
+    type
+    slug
+  }
+}
+    `;
+
+/**
+ * __useProductForUpdateQuery__
+ *
+ * To run a query within a React component, call `useProductForUpdateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductForUpdateQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductForUpdateQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useProductForUpdateQuery(baseOptions: Apollo.QueryHookOptions<ProductForUpdateQuery, ProductForUpdateQueryVariables> & ({ variables: ProductForUpdateQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProductForUpdateQuery, ProductForUpdateQueryVariables>(ProductForUpdateDocument, options);
+      }
+export function useProductForUpdateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductForUpdateQuery, ProductForUpdateQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProductForUpdateQuery, ProductForUpdateQueryVariables>(ProductForUpdateDocument, options);
+        }
+export function useProductForUpdateSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ProductForUpdateQuery, ProductForUpdateQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProductForUpdateQuery, ProductForUpdateQueryVariables>(ProductForUpdateDocument, options);
+        }
+export type ProductForUpdateQueryHookResult = ReturnType<typeof useProductForUpdateQuery>;
+export type ProductForUpdateLazyQueryHookResult = ReturnType<typeof useProductForUpdateLazyQuery>;
+export type ProductForUpdateSuspenseQueryHookResult = ReturnType<typeof useProductForUpdateSuspenseQuery>;
+export type ProductForUpdateQueryResult = Apollo.QueryResult<ProductForUpdateQuery, ProductForUpdateQueryVariables>;
 export const AdminRegisterDocument = gql`
     mutation AdminRegister($input: CreateOneUserArgsCustom!) {
   adminRegister(input: $input) {
@@ -7973,7 +8031,7 @@ export type AdminLoginMutationResult = Apollo.MutationResult<AdminLoginMutation>
 export type AdminLoginMutationOptions = Apollo.BaseMutationOptions<AdminLoginMutation, AdminLoginMutationVariables>;
 export const RefreshTokenDocument = gql`
     mutation RefreshToken {
-  refreshToken
+  adminRefreshToken
 }
     `;
 export type RefreshTokenMutationFn = Apollo.MutationFunction<RefreshTokenMutation, RefreshTokenMutationVariables>;

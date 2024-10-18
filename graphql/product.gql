@@ -29,3 +29,18 @@ query AggregateProduct($where: ProductWhereInput, $orderBy: [ProductOrderByWithR
     }
   }
 }
+query ProductForUpdate($where: ProductWhereUniqueInput!) {
+  product(where: $where) {
+    categoryId
+    custom_product_status
+    description
+    id
+    images
+    minimumOrderNeededToStart
+    name
+    orderStartPrice
+    price
+    type
+    slug
+  }
+}

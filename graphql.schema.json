@@ -16390,6 +16390,18 @@
             "deprecationReason": null
           },
           {
+            "name": "adminRefreshToken",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "adminRegister",
             "description": null,
             "args": [

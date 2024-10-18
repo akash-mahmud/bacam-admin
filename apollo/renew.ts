@@ -23,7 +23,7 @@ export const refreshToken = async (): Promise<string | null> => {
     mutation: RefreshTokenDocument
   })
 
-  const newAccessToken = data?.refreshToken
+  const newAccessToken = data?.adminRefreshToken
 
   return newAccessToken
 };
