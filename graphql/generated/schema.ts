@@ -3900,7 +3900,9 @@ export type Product = {
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price: Scalars['Float']['output'];
   reveiws: Array<Review>;
+  shortdescription: Scalars['String']['output'];
   slug: Scalars['String']['output'];
+  stock: Scalars['Int']['output'];
   type: ProductType;
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -3940,12 +3942,14 @@ export type ProductAvgAggregate = {
   minimumOrderNeededToStart?: Maybe<Scalars['Float']['output']>;
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
+  stock?: Maybe<Scalars['Float']['output']>;
 };
 
 export type ProductAvgOrderByAggregateInput = {
   minimumOrderNeededToStart?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
+  stock?: InputMaybe<SortOrder>;
 };
 
 export type ProductCount = {
@@ -3983,7 +3987,9 @@ export type ProductCountAggregate = {
   name: Scalars['Int']['output'];
   orderStartPrice: Scalars['Int']['output'];
   price: Scalars['Int']['output'];
+  shortdescription: Scalars['Int']['output'];
   slug: Scalars['Int']['output'];
+  stock: Scalars['Int']['output'];
   type: Scalars['Int']['output'];
   updatedAt: Scalars['Int']['output'];
 };
@@ -3999,7 +4005,9 @@ export type ProductCountOrderByAggregateInput = {
   name?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
+  shortdescription?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
+  stock?: InputMaybe<SortOrder>;
   type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -4018,7 +4026,9 @@ export type ProductCreateInput = {
   orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   reveiws?: InputMaybe<ReviewCreateNestedManyWithoutProductInput>;
+  shortdescription?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
+  stock?: InputMaybe<Scalars['Int']['input']>;
   type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -4033,7 +4043,9 @@ export type ProductCreateManyCategoryInput = {
   name: Scalars['String']['input'];
   orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
+  shortdescription?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
+  stock?: InputMaybe<Scalars['Int']['input']>;
   type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -4054,7 +4066,9 @@ export type ProductCreateManyInput = {
   name: Scalars['String']['input'];
   orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
+  shortdescription?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
+  stock?: InputMaybe<Scalars['Int']['input']>;
   type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -4117,7 +4131,9 @@ export type ProductCreateWithoutCartItemInput = {
   orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   reveiws?: InputMaybe<ReviewCreateNestedManyWithoutProductInput>;
+  shortdescription?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
+  stock?: InputMaybe<Scalars['Int']['input']>;
   type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -4135,7 +4151,9 @@ export type ProductCreateWithoutCategoryInput = {
   orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   reveiws?: InputMaybe<ReviewCreateNestedManyWithoutProductInput>;
+  shortdescription?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
+  stock?: InputMaybe<Scalars['Int']['input']>;
   type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -4153,7 +4171,9 @@ export type ProductCreateWithoutOrderItemInput = {
   orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
   reveiws?: InputMaybe<ReviewCreateNestedManyWithoutProductInput>;
+  shortdescription?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
+  stock?: InputMaybe<Scalars['Int']['input']>;
   type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -4171,7 +4191,9 @@ export type ProductCreateWithoutReveiwsInput = {
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutProductInput>;
   orderStartPrice?: InputMaybe<Scalars['Float']['input']>;
   price: Scalars['Float']['input'];
+  shortdescription?: InputMaybe<Scalars['String']['input']>;
   slug: Scalars['String']['input'];
+  stock?: InputMaybe<Scalars['Int']['input']>;
   type: ProductType;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -4197,7 +4219,9 @@ export type ProductGroupBy = {
   name: Scalars['String']['output'];
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price: Scalars['Float']['output'];
+  shortdescription: Scalars['String']['output'];
   slug: Scalars['String']['output'];
+  stock: Scalars['Int']['output'];
   type: ProductType;
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -4219,7 +4243,9 @@ export type ProductMaxAggregate = {
   name?: Maybe<Scalars['String']['output']>;
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
+  shortdescription?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
+  stock?: Maybe<Scalars['Int']['output']>;
   type?: Maybe<ProductType>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -4234,7 +4260,9 @@ export type ProductMaxOrderByAggregateInput = {
   name?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
+  shortdescription?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
+  stock?: InputMaybe<SortOrder>;
   type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -4250,7 +4278,9 @@ export type ProductMinAggregate = {
   name?: Maybe<Scalars['String']['output']>;
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
+  shortdescription?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
+  stock?: Maybe<Scalars['Int']['output']>;
   type?: Maybe<ProductType>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -4265,7 +4295,9 @@ export type ProductMinOrderByAggregateInput = {
   name?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
+  shortdescription?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
+  stock?: InputMaybe<SortOrder>;
   type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -4290,7 +4322,9 @@ export type ProductOrderByWithAggregationInput = {
   name?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrderInput>;
   price?: InputMaybe<SortOrder>;
+  shortdescription?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
+  stock?: InputMaybe<SortOrder>;
   type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -4310,7 +4344,9 @@ export type ProductOrderByWithRelationInput = {
   orderStartPrice?: InputMaybe<SortOrderInput>;
   price?: InputMaybe<SortOrder>;
   reveiws?: InputMaybe<ReviewOrderByRelationAggregateInput>;
+  shortdescription?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
+  stock?: InputMaybe<SortOrder>;
   type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -4331,7 +4367,9 @@ export enum ProductScalarFieldEnum {
   Name = 'name',
   OrderStartPrice = 'orderStartPrice',
   Price = 'price',
+  Shortdescription = 'shortdescription',
   Slug = 'slug',
+  Stock = 'stock',
   Type = 'type',
   UpdatedAt = 'updatedAt'
 }
@@ -4350,7 +4388,9 @@ export type ProductScalarWhereInput = {
   name?: InputMaybe<StringFilter>;
   orderStartPrice?: InputMaybe<FloatNullableFilter>;
   price?: InputMaybe<FloatFilter>;
+  shortdescription?: InputMaybe<StringFilter>;
   slug?: InputMaybe<StringFilter>;
+  stock?: InputMaybe<IntFilter>;
   type?: InputMaybe<EnumProductTypeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
@@ -4369,7 +4409,9 @@ export type ProductScalarWhereWithAggregatesInput = {
   name?: InputMaybe<StringWithAggregatesFilter>;
   orderStartPrice?: InputMaybe<FloatNullableWithAggregatesFilter>;
   price?: InputMaybe<FloatWithAggregatesFilter>;
+  shortdescription?: InputMaybe<StringWithAggregatesFilter>;
   slug?: InputMaybe<StringWithAggregatesFilter>;
+  stock?: InputMaybe<IntWithAggregatesFilter>;
   type?: InputMaybe<EnumProductTypeWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
@@ -4379,12 +4421,14 @@ export type ProductSumAggregate = {
   minimumOrderNeededToStart?: Maybe<Scalars['Int']['output']>;
   orderStartPrice?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
+  stock?: Maybe<Scalars['Int']['output']>;
 };
 
 export type ProductSumOrderByAggregateInput = {
   minimumOrderNeededToStart?: InputMaybe<SortOrder>;
   orderStartPrice?: InputMaybe<SortOrder>;
   price?: InputMaybe<SortOrder>;
+  stock?: InputMaybe<SortOrder>;
 };
 
 export enum ProductType {
@@ -4406,7 +4450,9 @@ export type ProductUpdateInput = {
   orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
   reveiws?: InputMaybe<ReviewUpdateManyWithoutProductNestedInput>;
+  shortdescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  stock?: InputMaybe<IntFieldUpdateOperationsInput>;
   type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -4421,7 +4467,9 @@ export type ProductUpdateManyMutationInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  shortdescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  stock?: InputMaybe<IntFieldUpdateOperationsInput>;
   type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -4487,7 +4535,9 @@ export type ProductUpdateWithoutCartItemInput = {
   orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
   reveiws?: InputMaybe<ReviewUpdateManyWithoutProductNestedInput>;
+  shortdescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  stock?: InputMaybe<IntFieldUpdateOperationsInput>;
   type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -4505,7 +4555,9 @@ export type ProductUpdateWithoutCategoryInput = {
   orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
   reveiws?: InputMaybe<ReviewUpdateManyWithoutProductNestedInput>;
+  shortdescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  stock?: InputMaybe<IntFieldUpdateOperationsInput>;
   type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -4523,7 +4575,9 @@ export type ProductUpdateWithoutOrderItemInput = {
   orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
   reveiws?: InputMaybe<ReviewUpdateManyWithoutProductNestedInput>;
+  shortdescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  stock?: InputMaybe<IntFieldUpdateOperationsInput>;
   type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -4541,7 +4595,9 @@ export type ProductUpdateWithoutReveiwsInput = {
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutProductNestedInput>;
   orderStartPrice?: InputMaybe<NullableFloatFieldUpdateOperationsInput>;
   price?: InputMaybe<FloatFieldUpdateOperationsInput>;
+  shortdescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  stock?: InputMaybe<IntFieldUpdateOperationsInput>;
   type?: InputMaybe<EnumProductTypeFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -4590,7 +4646,9 @@ export type ProductWhereInput = {
   orderStartPrice?: InputMaybe<FloatNullableFilter>;
   price?: InputMaybe<FloatFilter>;
   reveiws?: InputMaybe<ReviewListRelationFilter>;
+  shortdescription?: InputMaybe<StringFilter>;
   slug?: InputMaybe<StringFilter>;
+  stock?: InputMaybe<IntFilter>;
   type?: InputMaybe<EnumProductTypeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
@@ -7182,7 +7240,7 @@ export type ProductsQueryVariables = Exact<{
 }>;
 
 
-export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', createdAt: any, custom_product_status: CustomProductStatus, id: string, images: Array<string>, minimumOrderNeededToStart: number, name: string, orderStartPrice?: number | null, price: number, type: ProductType, category: { __typename?: 'Category', name: string } }> };
+export type ProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', createdAt: any, custom_product_status: CustomProductStatus, id: string, images: Array<string>, minimumOrderNeededToStart: number, name: string, orderStartPrice?: number | null, price: number, type: ProductType, stock: number, category: { __typename?: 'Category', name: string } }> };
 
 export type AggregateProductQueryVariables = Exact<{
   where?: InputMaybe<ProductWhereInput>;
@@ -7200,7 +7258,15 @@ export type ProductForUpdateQueryVariables = Exact<{
 }>;
 
 
-export type ProductForUpdateQuery = { __typename?: 'Query', product?: { __typename?: 'Product', categoryId: string, custom_product_status: CustomProductStatus, description: string, id: string, images: Array<string>, minimumOrderNeededToStart: number, name: string, orderStartPrice?: number | null, price: number, type: ProductType, slug: string } | null };
+export type ProductForUpdateQuery = { __typename?: 'Query', product?: { __typename?: 'Product', categoryId: string, custom_product_status: CustomProductStatus, description: string, id: string, images: Array<string>, minimumOrderNeededToStart: number, name: string, orderStartPrice?: number | null, shortdescription: string, stock: number, price: number, type: ProductType, slug: string } | null };
+
+export type UpdateOneProductMutationVariables = Exact<{
+  data: ProductUpdateInput;
+  where: ProductWhereUniqueInput;
+}>;
+
+
+export type UpdateOneProductMutation = { __typename?: 'Mutation', updateOneProduct?: { __typename?: 'Product', id: string } | null };
 
 export type AdminRegisterMutationVariables = Exact<{
   input: CreateOneUserArgsCustom;
@@ -7765,6 +7831,7 @@ export const ProductsDocument = gql`
     orderStartPrice
     price
     type
+    stock
   }
 }
     `;
@@ -7869,6 +7936,8 @@ export const ProductForUpdateDocument = gql`
     minimumOrderNeededToStart
     name
     orderStartPrice
+    shortdescription
+    stock
     price
     type
     slug
@@ -7908,6 +7977,40 @@ export type ProductForUpdateQueryHookResult = ReturnType<typeof useProductForUpd
 export type ProductForUpdateLazyQueryHookResult = ReturnType<typeof useProductForUpdateLazyQuery>;
 export type ProductForUpdateSuspenseQueryHookResult = ReturnType<typeof useProductForUpdateSuspenseQuery>;
 export type ProductForUpdateQueryResult = Apollo.QueryResult<ProductForUpdateQuery, ProductForUpdateQueryVariables>;
+export const UpdateOneProductDocument = gql`
+    mutation UpdateOneProduct($data: ProductUpdateInput!, $where: ProductWhereUniqueInput!) {
+  updateOneProduct(data: $data, where: $where) {
+    id
+  }
+}
+    `;
+export type UpdateOneProductMutationFn = Apollo.MutationFunction<UpdateOneProductMutation, UpdateOneProductMutationVariables>;
+
+/**
+ * __useUpdateOneProductMutation__
+ *
+ * To run a mutation, you first call `useUpdateOneProductMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOneProductMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOneProductMutation, { data, loading, error }] = useUpdateOneProductMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUpdateOneProductMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOneProductMutation, UpdateOneProductMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOneProductMutation, UpdateOneProductMutationVariables>(UpdateOneProductDocument, options);
+      }
+export type UpdateOneProductMutationHookResult = ReturnType<typeof useUpdateOneProductMutation>;
+export type UpdateOneProductMutationResult = Apollo.MutationResult<UpdateOneProductMutation>;
+export type UpdateOneProductMutationOptions = Apollo.BaseMutationOptions<UpdateOneProductMutation, UpdateOneProductMutationVariables>;
 export const AdminRegisterDocument = gql`
     mutation AdminRegister($input: CreateOneUserArgsCustom!) {
   adminRegister(input: $input) {

@@ -1,46 +1,73 @@
 mutation CreateOneProduct($data: ProductCreateInput!) {
-  createOneProduct(data: $data) {
-    id
-  }
+	createOneProduct(data: $data) {
+		id
+	}
 }
 
-query Products($where: ProductWhereInput, $orderBy: [ProductOrderByWithRelationInput!], $cursor: ProductWhereUniqueInput, $take: Int, $skip: Int, $distinct: [ProductScalarFieldEnum!]) {
-  products(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
-    category {
-      name
-    }
-    createdAt
-    custom_product_status
-    id
-    images
-    minimumOrderNeededToStart
-    name
-    orderStartPrice
-    price
-    type
-  }
+query Products(
+	$where: ProductWhereInput
+	$orderBy: [ProductOrderByWithRelationInput!]
+	$cursor: ProductWhereUniqueInput
+	$take: Int
+	$skip: Int
+	$distinct: [ProductScalarFieldEnum!]
+) {
+	products(
+		where: $where
+		orderBy: $orderBy
+		cursor: $cursor
+		take: $take
+		skip: $skip
+		distinct: $distinct
+	) {
+		category {
+			name
+		}
+		createdAt
+		custom_product_status
+		id
+		images
+		minimumOrderNeededToStart
+		name
+		orderStartPrice
+		price
+		type
+    stock
+	}
 }
 
-
-query AggregateProduct($where: ProductWhereInput, $orderBy: [ProductOrderByWithRelationInput!], $cursor: ProductWhereUniqueInput, $take: Int, $skip: Int) {
-  aggregateProduct(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip) {
-    _count {
-      _all
-    }
-  }
+query AggregateProduct(
+	$where: ProductWhereInput
+	$orderBy: [ProductOrderByWithRelationInput!]
+	$cursor: ProductWhereUniqueInput
+	$take: Int
+	$skip: Int
+) {
+	aggregateProduct(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip) {
+		_count {
+			_all
+		}
+	}
 }
 query ProductForUpdate($where: ProductWhereUniqueInput!) {
-  product(where: $where) {
-    categoryId
-    custom_product_status
-    description
+	product(where: $where) {
+		categoryId
+		custom_product_status
+		description
+		id
+		images
+		minimumOrderNeededToStart
+		name
+		orderStartPrice
+		shortdescription
+		stock
+		price
+		type
+		slug
+	}
+}
+mutation UpdateOneProduct($data: ProductUpdateInput!, $where: ProductWhereUniqueInput!) {
+  updateOneProduct(data: $data, where: $where) {
     id
-    images
-    minimumOrderNeededToStart
-    name
-    orderStartPrice
-    price
-    type
-    slug
   }
 }

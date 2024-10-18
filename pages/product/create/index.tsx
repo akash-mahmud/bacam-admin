@@ -1,21 +1,23 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react';
 
-import { useFormik } from 'formik'
+import { useFormik } from 'formik';
 
-import { notification, Spin } from 'antd'
-import Card, { CardBody } from '@/components/bootstrap/Card'
+import { notification, Spin } from 'antd';
+import Card, { CardBody } from '@/components/bootstrap/Card';
 
 import PageWrapper from '@/layout/PageWrapper/PageWrapper';
-import { useCreateOneProductMutation, ProductType, CustomProductStatus } from '@/graphql/generated/schema';
+import {
+	useCreateOneProductMutation,
+	ProductType,
+	CustomProductStatus,
+} from '@/graphql/generated/schema';
 
 import AuthContext from '@/context/authContext';
 
-
-import ProductForm from '@/common/partial/product/ProductForm'
+import ProductForm from '@/common/partial/product/ProductForm';
 export const uploadButton = (
 	<>
-		+
-		<div style={{ marginTop: 8 }}>Upload</div>
+		+<div style={{ marginTop: 8 }}>Upload</div>
 	</>
 );
 export default function index() {
@@ -26,40 +28,33 @@ export default function index() {
 			name: '',
 			description: '',
 			slug: '',
+			shortdescription: '',
 			images: [],
 			type: ProductType.Custom,
 			custom_product_status: CustomProductStatus.Started,
 			minimumOrderNeededToStart: 0,
 			category: {
 				connect: {
-					id: ""
-				}
+					id: '',
+				},
 			},
 			price: 0,
 			orderStartPrice: 0,
-
-
-
+			stock: 0,
 		},
 
 		validateOnChange: false,
 
 		onSubmit: async (values) => {
-
-
-
 			await createProduct(values as any);
-
-
 		},
 	});
-	const [CreateProduct, { loading }] = useCreateOneProductMutation()
-	const { user, authorize } = useContext(AuthContext)
+	const [CreateProduct, { loading }] = useCreateOneProductMutation();
+	const { user, authorize } = useContext(AuthContext);
 	const [files, setFiles] = useState<any[]>([]);
 
 	const createProduct = useCallback(
 		async (data: {
-
 			name: string;
 			description: string;
 			slug: string;
@@ -71,69 +66,61 @@ export default function index() {
 			};
 			price: number;
 			orderStartPrice: number;
-			minimumOrderNeededToStart: number
-			type: ProductType,
-			custom_product_status: CustomProductStatus,
+			shortdescription: string;
+			stock: number;
+			minimumOrderNeededToStart: number;
+			type: ProductType;
+			custom_product_status: CustomProductStatus;
 		}) => {
 			try {
-
-
-
-
 				const { data: res } = await CreateProduct({
 					variables: {
 						data: {
 							...data,
 							images: {
-								set: data.images
+								set: data.images,
 							},
 							price: parseFloat(String(data.price)),
+							stock: parseFloat(String(data.stock)),
 							orderStartPrice: parseFloat(String(data.orderStartPrice)),
-							minimumOrderNeededToStart: parseFloat(String(data.minimumOrderNeededToStart)),
-
-						}
-					}
-				})
+							minimumOrderNeededToStart: parseFloat(
+								String(data.minimumOrderNeededToStart),
+							),
+						},
+					},
+				});
 
 				if (res?.createOneProduct.id) {
 					notification.success({
-						message: 'Created'
-					})
-					formik.resetForm()
-					setFiles([])
-
+						message: 'Created',
+					});
+					formik.resetForm();
+					setFiles([]);
 				} else {
 					notification.error({
-						message: 'Something went wrong'
-					})
-
+						message: 'Something went wrong',
+					});
 				}
 			} catch (error) {
 				notification.error({
-					message: 'Something went wrong'
-				})
+					message: 'Something went wrong',
+				});
 			}
-
 		},
 		[user],
-	)
-
+	);
 
 	return (
 		<PageWrapper>
-
 			<div>
 				<Card stretch>
-
 					<CardBody>
 						<Spin spinning={loading}>
-
 							<ProductForm formik={formik} files={files} setFiles={setFiles} />
 						</Spin>
 					</CardBody>
 				</Card>
 			</div>
-
 		</PageWrapper>
-	)
+	);
 }
