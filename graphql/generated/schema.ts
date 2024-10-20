@@ -77,6 +77,13 @@ export type AggregateEmployeeSubCategory = {
   _min?: Maybe<EmployeeSubCategoryMinAggregate>;
 };
 
+export type AggregateMainCategory = {
+  __typename?: 'AggregateMainCategory';
+  _count?: Maybe<MainCategoryCountAggregate>;
+  _max?: Maybe<MainCategoryMaxAggregate>;
+  _min?: Maybe<MainCategoryMinAggregate>;
+};
+
 export type AggregateOrder = {
   __typename?: 'AggregateOrder';
   _avg?: Maybe<OrderAvgAggregate>;
@@ -676,6 +683,8 @@ export type Category = {
   _count?: Maybe<CategoryCount>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
+  mainCategory?: Maybe<MainCategory>;
+  mainCategoryId?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   products: Array<Product>;
   slug: Scalars['String']['output'];
@@ -707,6 +716,7 @@ export type CategoryCountAggregate = {
   _all: Scalars['Int']['output'];
   createdAt: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
+  mainCategoryId: Scalars['Int']['output'];
   name: Scalars['Int']['output'];
   slug: Scalars['Int']['output'];
   updatedAt: Scalars['Int']['output'];
@@ -715,6 +725,7 @@ export type CategoryCountAggregate = {
 export type CategoryCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  mainCategoryId?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -723,6 +734,7 @@ export type CategoryCountOrderByAggregateInput = {
 export type CategoryCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  mainCategory?: InputMaybe<MainCategoryCreateNestedOneWithoutCategoriesInput>;
   name: Scalars['String']['input'];
   products?: InputMaybe<ProductCreateNestedManyWithoutCategoryInput>;
   slug: Scalars['String']['input'];
@@ -732,9 +744,30 @@ export type CategoryCreateInput = {
 export type CategoryCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  mainCategoryId?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   slug: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type CategoryCreateManyMainCategoryInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type CategoryCreateManyMainCategoryInputEnvelope = {
+  data: Array<CategoryCreateManyMainCategoryInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CategoryCreateNestedManyWithoutMainCategoryInput = {
+  connect?: InputMaybe<Array<CategoryWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CategoryCreateOrConnectWithoutMainCategoryInput>>;
+  create?: InputMaybe<Array<CategoryCreateWithoutMainCategoryInput>>;
+  createMany?: InputMaybe<CategoryCreateManyMainCategoryInputEnvelope>;
 };
 
 export type CategoryCreateNestedOneWithoutProductsInput = {
@@ -743,14 +776,29 @@ export type CategoryCreateNestedOneWithoutProductsInput = {
   create?: InputMaybe<CategoryCreateWithoutProductsInput>;
 };
 
+export type CategoryCreateOrConnectWithoutMainCategoryInput = {
+  create: CategoryCreateWithoutMainCategoryInput;
+  where: CategoryWhereUniqueInput;
+};
+
 export type CategoryCreateOrConnectWithoutProductsInput = {
   create: CategoryCreateWithoutProductsInput;
   where: CategoryWhereUniqueInput;
 };
 
+export type CategoryCreateWithoutMainCategoryInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  products?: InputMaybe<ProductCreateNestedManyWithoutCategoryInput>;
+  slug: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
 export type CategoryCreateWithoutProductsInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  mainCategory?: InputMaybe<MainCategoryCreateNestedOneWithoutCategoriesInput>;
   name: Scalars['String']['input'];
   slug: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -763,15 +811,23 @@ export type CategoryGroupBy = {
   _min?: Maybe<CategoryMinAggregate>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
+  mainCategoryId?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type CategoryListRelationFilter = {
+  every?: InputMaybe<CategoryWhereInput>;
+  none?: InputMaybe<CategoryWhereInput>;
+  some?: InputMaybe<CategoryWhereInput>;
 };
 
 export type CategoryMaxAggregate = {
   __typename?: 'CategoryMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  mainCategoryId?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -780,6 +836,7 @@ export type CategoryMaxAggregate = {
 export type CategoryMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  mainCategoryId?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -789,6 +846,7 @@ export type CategoryMinAggregate = {
   __typename?: 'CategoryMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  mainCategoryId?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -797,9 +855,14 @@ export type CategoryMinAggregate = {
 export type CategoryMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  mainCategoryId?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type CategoryOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
 };
 
 export type CategoryOrderByWithAggregationInput = {
@@ -808,6 +871,7 @@ export type CategoryOrderByWithAggregationInput = {
   _min?: InputMaybe<CategoryMinOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  mainCategoryId?: InputMaybe<SortOrderInput>;
   name?: InputMaybe<SortOrder>;
   slug?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -816,6 +880,8 @@ export type CategoryOrderByWithAggregationInput = {
 export type CategoryOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
+  mainCategory?: InputMaybe<MainCategoryOrderByWithRelationInput>;
+  mainCategoryId?: InputMaybe<SortOrderInput>;
   name?: InputMaybe<SortOrder>;
   products?: InputMaybe<ProductOrderByRelationAggregateInput>;
   slug?: InputMaybe<SortOrder>;
@@ -830,10 +896,23 @@ export type CategoryRelationFilter = {
 export enum CategoryScalarFieldEnum {
   CreatedAt = 'createdAt',
   Id = 'id',
+  MainCategoryId = 'mainCategoryId',
   Name = 'name',
   Slug = 'slug',
   UpdatedAt = 'updatedAt'
 }
+
+export type CategoryScalarWhereInput = {
+  AND?: InputMaybe<Array<CategoryScalarWhereInput>>;
+  NOT?: InputMaybe<Array<CategoryScalarWhereInput>>;
+  OR?: InputMaybe<Array<CategoryScalarWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  mainCategoryId?: InputMaybe<StringNullableFilter>;
+  name?: InputMaybe<StringFilter>;
+  slug?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
 
 export type CategoryScalarWhereWithAggregatesInput = {
   AND?: InputMaybe<Array<CategoryScalarWhereWithAggregatesInput>>;
@@ -841,6 +920,7 @@ export type CategoryScalarWhereWithAggregatesInput = {
   OR?: InputMaybe<Array<CategoryScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
+  mainCategoryId?: InputMaybe<StringNullableWithAggregatesFilter>;
   name?: InputMaybe<StringWithAggregatesFilter>;
   slug?: InputMaybe<StringWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
@@ -849,6 +929,7 @@ export type CategoryScalarWhereWithAggregatesInput = {
 export type CategoryUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  mainCategory?: InputMaybe<MainCategoryUpdateOneWithoutCategoriesNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   products?: InputMaybe<ProductUpdateManyWithoutCategoryNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -863,6 +944,25 @@ export type CategoryUpdateManyMutationInput = {
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
+export type CategoryUpdateManyWithWhereWithoutMainCategoryInput = {
+  data: CategoryUpdateManyMutationInput;
+  where: CategoryScalarWhereInput;
+};
+
+export type CategoryUpdateManyWithoutMainCategoryNestedInput = {
+  connect?: InputMaybe<Array<CategoryWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CategoryCreateOrConnectWithoutMainCategoryInput>>;
+  create?: InputMaybe<Array<CategoryCreateWithoutMainCategoryInput>>;
+  createMany?: InputMaybe<CategoryCreateManyMainCategoryInputEnvelope>;
+  delete?: InputMaybe<Array<CategoryWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<CategoryScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<CategoryWhereUniqueInput>>;
+  set?: InputMaybe<Array<CategoryWhereUniqueInput>>;
+  update?: InputMaybe<Array<CategoryUpdateWithWhereUniqueWithoutMainCategoryInput>>;
+  updateMany?: InputMaybe<Array<CategoryUpdateManyWithWhereWithoutMainCategoryInput>>;
+  upsert?: InputMaybe<Array<CategoryUpsertWithWhereUniqueWithoutMainCategoryInput>>;
+};
+
 export type CategoryUpdateOneRequiredWithoutProductsNestedInput = {
   connect?: InputMaybe<CategoryWhereUniqueInput>;
   connectOrCreate?: InputMaybe<CategoryCreateOrConnectWithoutProductsInput>;
@@ -871,12 +971,33 @@ export type CategoryUpdateOneRequiredWithoutProductsNestedInput = {
   upsert?: InputMaybe<CategoryUpsertWithoutProductsInput>;
 };
 
-export type CategoryUpdateWithoutProductsInput = {
+export type CategoryUpdateWithWhereUniqueWithoutMainCategoryInput = {
+  data: CategoryUpdateWithoutMainCategoryInput;
+  where: CategoryWhereUniqueInput;
+};
+
+export type CategoryUpdateWithoutMainCategoryInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  products?: InputMaybe<ProductUpdateManyWithoutCategoryNestedInput>;
   slug?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type CategoryUpdateWithoutProductsInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  mainCategory?: InputMaybe<MainCategoryUpdateOneWithoutCategoriesNestedInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type CategoryUpsertWithWhereUniqueWithoutMainCategoryInput = {
+  create: CategoryCreateWithoutMainCategoryInput;
+  update: CategoryUpdateWithoutMainCategoryInput;
+  where: CategoryWhereUniqueInput;
 };
 
 export type CategoryUpsertWithoutProductsInput = {
@@ -890,6 +1011,8 @@ export type CategoryWhereInput = {
   OR?: InputMaybe<Array<CategoryWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<StringFilter>;
+  mainCategory?: InputMaybe<MainCategoryRelationFilter>;
+  mainCategoryId?: InputMaybe<StringNullableFilter>;
   name?: InputMaybe<StringFilter>;
   products?: InputMaybe<ProductListRelationFilter>;
   slug?: InputMaybe<StringFilter>;
@@ -2546,6 +2669,238 @@ export type LoginResponsce = {
   user?: Maybe<UserForResponsce>;
 };
 
+export type MainCategory = {
+  __typename?: 'MainCategory';
+  _count?: Maybe<MainCategoryCount>;
+  categories: Array<Category>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+
+export type MainCategoryCategoriesArgs = {
+  cursor?: InputMaybe<CategoryWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CategoryScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CategoryOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<CategoryWhereInput>;
+};
+
+export type MainCategoryCount = {
+  __typename?: 'MainCategoryCount';
+  categories: Scalars['Int']['output'];
+};
+
+
+export type MainCategoryCountCategoriesArgs = {
+  where?: InputMaybe<CategoryWhereInput>;
+};
+
+export type MainCategoryCountAggregate = {
+  __typename?: 'MainCategoryCountAggregate';
+  _all: Scalars['Int']['output'];
+  createdAt: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  name: Scalars['Int']['output'];
+  slug: Scalars['Int']['output'];
+  updatedAt: Scalars['Int']['output'];
+};
+
+export type MainCategoryCountOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type MainCategoryCreateInput = {
+  categories?: InputMaybe<CategoryCreateNestedManyWithoutMainCategoryInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type MainCategoryCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type MainCategoryCreateNestedOneWithoutCategoriesInput = {
+  connect?: InputMaybe<MainCategoryWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<MainCategoryCreateOrConnectWithoutCategoriesInput>;
+  create?: InputMaybe<MainCategoryCreateWithoutCategoriesInput>;
+};
+
+export type MainCategoryCreateOrConnectWithoutCategoriesInput = {
+  create: MainCategoryCreateWithoutCategoriesInput;
+  where: MainCategoryWhereUniqueInput;
+};
+
+export type MainCategoryCreateWithoutCategoriesInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type MainCategoryGroupBy = {
+  __typename?: 'MainCategoryGroupBy';
+  _count?: Maybe<MainCategoryCountAggregate>;
+  _max?: Maybe<MainCategoryMaxAggregate>;
+  _min?: Maybe<MainCategoryMinAggregate>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type MainCategoryMaxAggregate = {
+  __typename?: 'MainCategoryMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type MainCategoryMaxOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type MainCategoryMinAggregate = {
+  __typename?: 'MainCategoryMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type MainCategoryMinOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type MainCategoryOrderByWithAggregationInput = {
+  _count?: InputMaybe<MainCategoryCountOrderByAggregateInput>;
+  _max?: InputMaybe<MainCategoryMaxOrderByAggregateInput>;
+  _min?: InputMaybe<MainCategoryMinOrderByAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type MainCategoryOrderByWithRelationInput = {
+  categories?: InputMaybe<CategoryOrderByRelationAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type MainCategoryRelationFilter = {
+  is?: InputMaybe<MainCategoryWhereInput>;
+  isNot?: InputMaybe<MainCategoryWhereInput>;
+};
+
+export enum MainCategoryScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Id = 'id',
+  Name = 'name',
+  Slug = 'slug',
+  UpdatedAt = 'updatedAt'
+}
+
+export type MainCategoryScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<MainCategoryScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<MainCategoryScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<MainCategoryScalarWhereWithAggregatesInput>>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  name?: InputMaybe<StringWithAggregatesFilter>;
+  slug?: InputMaybe<StringWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+};
+
+export type MainCategoryUpdateInput = {
+  categories?: InputMaybe<CategoryUpdateManyWithoutMainCategoryNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type MainCategoryUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type MainCategoryUpdateOneWithoutCategoriesNestedInput = {
+  connect?: InputMaybe<MainCategoryWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<MainCategoryCreateOrConnectWithoutCategoriesInput>;
+  create?: InputMaybe<MainCategoryCreateWithoutCategoriesInput>;
+  delete?: InputMaybe<Scalars['Boolean']['input']>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
+  update?: InputMaybe<MainCategoryUpdateWithoutCategoriesInput>;
+  upsert?: InputMaybe<MainCategoryUpsertWithoutCategoriesInput>;
+};
+
+export type MainCategoryUpdateWithoutCategoriesInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type MainCategoryUpsertWithoutCategoriesInput = {
+  create: MainCategoryCreateWithoutCategoriesInput;
+  update: MainCategoryUpdateWithoutCategoriesInput;
+};
+
+export type MainCategoryWhereInput = {
+  AND?: InputMaybe<Array<MainCategoryWhereInput>>;
+  NOT?: InputMaybe<Array<MainCategoryWhereInput>>;
+  OR?: InputMaybe<Array<MainCategoryWhereInput>>;
+  categories?: InputMaybe<CategoryListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  slug?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type MainCategoryWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   adminLogin?: Maybe<LoginResponsce>;
@@ -2559,6 +2914,7 @@ export type Mutation = {
   createManyEmployee: AffectedRowsOutput;
   createManyEmployeeCategory: AffectedRowsOutput;
   createManyEmployeeSubCategory: AffectedRowsOutput;
+  createManyMainCategory: AffectedRowsOutput;
   createManyOrder: AffectedRowsOutput;
   createManyOrderItem: AffectedRowsOutput;
   createManyPaymentResult: AffectedRowsOutput;
@@ -2574,6 +2930,7 @@ export type Mutation = {
   createOneEmployee: Employee;
   createOneEmployeeCategory: EmployeeCategory;
   createOneEmployeeSubCategory: EmployeeSubCategory;
+  createOneMainCategory: MainCategory;
   createOneOrder: Order;
   createOneOrderItem: OrderItem;
   createOnePaymentResult: PaymentResult;
@@ -2589,6 +2946,7 @@ export type Mutation = {
   deleteManyEmployee: AffectedRowsOutput;
   deleteManyEmployeeCategory: AffectedRowsOutput;
   deleteManyEmployeeSubCategory: AffectedRowsOutput;
+  deleteManyMainCategory: AffectedRowsOutput;
   deleteManyOrder: AffectedRowsOutput;
   deleteManyOrderItem: AffectedRowsOutput;
   deleteManyPaymentResult: AffectedRowsOutput;
@@ -2604,6 +2962,7 @@ export type Mutation = {
   deleteOneEmployee?: Maybe<Employee>;
   deleteOneEmployeeCategory?: Maybe<EmployeeCategory>;
   deleteOneEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
+  deleteOneMainCategory?: Maybe<MainCategory>;
   deleteOneOrder?: Maybe<Order>;
   deleteOneOrderItem?: Maybe<OrderItem>;
   deleteOnePaymentResult?: Maybe<PaymentResult>;
@@ -2626,6 +2985,7 @@ export type Mutation = {
   updateManyEmployee: AffectedRowsOutput;
   updateManyEmployeeCategory: AffectedRowsOutput;
   updateManyEmployeeSubCategory: AffectedRowsOutput;
+  updateManyMainCategory: AffectedRowsOutput;
   updateManyOrder: AffectedRowsOutput;
   updateManyOrderItem: AffectedRowsOutput;
   updateManyPaymentResult: AffectedRowsOutput;
@@ -2641,6 +3001,7 @@ export type Mutation = {
   updateOneEmployee?: Maybe<Employee>;
   updateOneEmployeeCategory?: Maybe<EmployeeCategory>;
   updateOneEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
+  updateOneMainCategory?: Maybe<MainCategory>;
   updateOneOrder?: Maybe<Order>;
   updateOneOrderItem?: Maybe<OrderItem>;
   updateOnePaymentResult?: Maybe<PaymentResult>;
@@ -2658,6 +3019,7 @@ export type Mutation = {
   upsertOneEmployee: Employee;
   upsertOneEmployeeCategory: EmployeeCategory;
   upsertOneEmployeeSubCategory: EmployeeSubCategory;
+  upsertOneMainCategory: MainCategory;
   upsertOneOrder: Order;
   upsertOneOrderItem: OrderItem;
   upsertOnePaymentResult: PaymentResult;
@@ -2724,6 +3086,12 @@ export type MutationCreateManyEmployeeCategoryArgs = {
 
 export type MutationCreateManyEmployeeSubCategoryArgs = {
   data: Array<EmployeeSubCategoryCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManyMainCategoryArgs = {
+  data: Array<MainCategoryCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -2811,6 +3179,11 @@ export type MutationCreateOneEmployeeSubCategoryArgs = {
 };
 
 
+export type MutationCreateOneMainCategoryArgs = {
+  data: MainCategoryCreateInput;
+};
+
+
 export type MutationCreateOneOrderArgs = {
   data: OrderCreateInput;
 };
@@ -2886,6 +3259,11 @@ export type MutationDeleteManyEmployeeSubCategoryArgs = {
 };
 
 
+export type MutationDeleteManyMainCategoryArgs = {
+  where?: InputMaybe<MainCategoryWhereInput>;
+};
+
+
 export type MutationDeleteManyOrderArgs = {
   where?: InputMaybe<OrderWhereInput>;
 };
@@ -2958,6 +3336,11 @@ export type MutationDeleteOneEmployeeCategoryArgs = {
 
 export type MutationDeleteOneEmployeeSubCategoryArgs = {
   where: EmployeeSubCategoryWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneMainCategoryArgs = {
+  where: MainCategoryWhereUniqueInput;
 };
 
 
@@ -3069,6 +3452,12 @@ export type MutationUpdateManyEmployeeSubCategoryArgs = {
 };
 
 
+export type MutationUpdateManyMainCategoryArgs = {
+  data: MainCategoryUpdateManyMutationInput;
+  where?: InputMaybe<MainCategoryWhereInput>;
+};
+
+
 export type MutationUpdateManyOrderArgs = {
   data: OrderUpdateManyMutationInput;
   where?: InputMaybe<OrderWhereInput>;
@@ -3156,6 +3545,12 @@ export type MutationUpdateOneEmployeeCategoryArgs = {
 export type MutationUpdateOneEmployeeSubCategoryArgs = {
   data: EmployeeSubCategoryUpdateInput;
   where: EmployeeSubCategoryWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneMainCategoryArgs = {
+  data: MainCategoryUpdateInput;
+  where: MainCategoryWhereUniqueInput;
 };
 
 
@@ -3264,6 +3659,13 @@ export type MutationUpsertOneEmployeeSubCategoryArgs = {
   create: EmployeeSubCategoryCreateInput;
   update: EmployeeSubCategoryUpdateInput;
   where: EmployeeSubCategoryWhereUniqueInput;
+};
+
+
+export type MutationUpsertOneMainCategoryArgs = {
+  create: MainCategoryCreateInput;
+  update: MainCategoryUpdateInput;
+  where: MainCategoryWhereUniqueInput;
 };
 
 
@@ -5581,6 +5983,7 @@ export type Query = {
   aggregateEmployee: AggregateEmployee;
   aggregateEmployeeCategory: AggregateEmployeeCategory;
   aggregateEmployeeSubCategory: AggregateEmployeeSubCategory;
+  aggregateMainCategory: AggregateMainCategory;
   aggregateOrder: AggregateOrder;
   aggregateOrderItem: AggregateOrderItem;
   aggregatePaymentResult: AggregatePaymentResult;
@@ -5617,6 +6020,8 @@ export type Query = {
   findFirstEmployeeOrThrow?: Maybe<Employee>;
   findFirstEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
   findFirstEmployeeSubCategoryOrThrow?: Maybe<EmployeeSubCategory>;
+  findFirstMainCategory?: Maybe<MainCategory>;
+  findFirstMainCategoryOrThrow?: Maybe<MainCategory>;
   findFirstOrder?: Maybe<Order>;
   findFirstOrderItem?: Maybe<OrderItem>;
   findFirstOrderItemOrThrow?: Maybe<OrderItem>;
@@ -5643,6 +6048,7 @@ export type Query = {
   getEmployee?: Maybe<Employee>;
   getEmployeeCategory?: Maybe<EmployeeCategory>;
   getEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
+  getMainCategory?: Maybe<MainCategory>;
   getOrder?: Maybe<Order>;
   getOrderItem?: Maybe<OrderItem>;
   getPaymentResult?: Maybe<PaymentResult>;
@@ -5657,6 +6063,7 @@ export type Query = {
   groupByEmployee: Array<EmployeeGroupBy>;
   groupByEmployeeCategory: Array<EmployeeCategoryGroupBy>;
   groupByEmployeeSubCategory: Array<EmployeeSubCategoryGroupBy>;
+  groupByMainCategory: Array<MainCategoryGroupBy>;
   groupByOrder: Array<OrderGroupBy>;
   groupByOrderItem: Array<OrderItemGroupBy>;
   groupByPaymentResult: Array<PaymentResultGroupBy>;
@@ -5666,6 +6073,8 @@ export type Query = {
   groupByUser: Array<UserGroupBy>;
   groupByUserTokens: Array<UserTokensGroupBy>;
   healthCheck: Scalars['String']['output'];
+  mainCategories: Array<MainCategory>;
+  mainCategory?: Maybe<MainCategory>;
   me?: Maybe<UserForResponsce>;
   meAdmin?: Maybe<UserForResponsce>;
   myOrders: Array<Order>;
@@ -5746,6 +6155,15 @@ export type QueryAggregateEmployeeSubCategoryArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<EmployeeSubCategoryWhereInput>;
+};
+
+
+export type QueryAggregateMainCategoryArgs = {
+  cursor?: InputMaybe<MainCategoryWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<MainCategoryOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MainCategoryWhereInput>;
 };
 
 
@@ -6066,6 +6484,26 @@ export type QueryFindFirstEmployeeSubCategoryOrThrowArgs = {
 };
 
 
+export type QueryFindFirstMainCategoryArgs = {
+  cursor?: InputMaybe<MainCategoryWhereUniqueInput>;
+  distinct?: InputMaybe<Array<MainCategoryScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<MainCategoryOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MainCategoryWhereInput>;
+};
+
+
+export type QueryFindFirstMainCategoryOrThrowArgs = {
+  cursor?: InputMaybe<MainCategoryWhereUniqueInput>;
+  distinct?: InputMaybe<Array<MainCategoryScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<MainCategoryOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MainCategoryWhereInput>;
+};
+
+
 export type QueryFindFirstOrderArgs = {
   cursor?: InputMaybe<OrderWhereUniqueInput>;
   distinct?: InputMaybe<Array<OrderScalarFieldEnum>>;
@@ -6281,6 +6719,11 @@ export type QueryGetEmployeeSubCategoryArgs = {
 };
 
 
+export type QueryGetMainCategoryArgs = {
+  where: MainCategoryWhereUniqueInput;
+};
+
+
 export type QueryGetOrderArgs = {
   where: OrderWhereUniqueInput;
 };
@@ -6386,6 +6829,16 @@ export type QueryGroupByEmployeeSubCategoryArgs = {
 };
 
 
+export type QueryGroupByMainCategoryArgs = {
+  by: Array<MainCategoryScalarFieldEnum>;
+  having?: InputMaybe<MainCategoryScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<MainCategoryOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MainCategoryWhereInput>;
+};
+
+
 export type QueryGroupByOrderArgs = {
   by: Array<OrderScalarFieldEnum>;
   having?: InputMaybe<OrderScalarWhereWithAggregatesInput>;
@@ -6463,6 +6916,21 @@ export type QueryGroupByUserTokensArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<UserTokensWhereInput>;
+};
+
+
+export type QueryMainCategoriesArgs = {
+  cursor?: InputMaybe<MainCategoryWhereUniqueInput>;
+  distinct?: InputMaybe<Array<MainCategoryScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<MainCategoryOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<MainCategoryWhereInput>;
+};
+
+
+export type QueryMainCategoryArgs = {
+  where: MainCategoryWhereUniqueInput;
 };
 
 
@@ -8209,7 +8677,7 @@ export type CategoriesQueryVariables = Exact<{
 }>;
 
 
-export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string }> };
+export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string, mainCategoryId?: string | null }> };
 
 export type EmployeesQueryVariables = Exact<{
   where?: InputMaybe<EmployeeWhereInput>;
@@ -8319,6 +8787,47 @@ export type UpdateOneEmployeeSubCategoryMutationVariables = Exact<{
 
 
 export type UpdateOneEmployeeSubCategoryMutation = { __typename?: 'Mutation', updateOneEmployeeSubCategory?: { __typename?: 'EmployeeSubCategory', id: string } | null };
+
+export type MainCategoriesQueryVariables = Exact<{
+  where?: InputMaybe<MainCategoryWhereInput>;
+  orderBy?: InputMaybe<Array<MainCategoryOrderByWithRelationInput> | MainCategoryOrderByWithRelationInput>;
+  cursor?: InputMaybe<MainCategoryWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<MainCategoryScalarFieldEnum> | MainCategoryScalarFieldEnum>;
+}>;
+
+
+export type MainCategoriesQuery = { __typename?: 'Query', mainCategories: Array<{ __typename?: 'MainCategory', name: string, slug: string, id: string }> };
+
+export type MainCategoryQueryVariables = Exact<{
+  where: MainCategoryWhereUniqueInput;
+}>;
+
+
+export type MainCategoryQuery = { __typename?: 'Query', mainCategory?: { __typename?: 'MainCategory', id: string, name: string, slug: string } | null };
+
+export type CreateOneMainCategoryMutationVariables = Exact<{
+  data: MainCategoryCreateInput;
+}>;
+
+
+export type CreateOneMainCategoryMutation = { __typename?: 'Mutation', createOneMainCategory: { __typename?: 'MainCategory', id: string } };
+
+export type DeleteOneMainCategoryMutationVariables = Exact<{
+  where: MainCategoryWhereUniqueInput;
+}>;
+
+
+export type DeleteOneMainCategoryMutation = { __typename?: 'Mutation', deleteOneMainCategory?: { __typename?: 'MainCategory', id: string } | null };
+
+export type UpdateOneMainCategoryMutationVariables = Exact<{
+  data: MainCategoryUpdateInput;
+  where: MainCategoryWhereUniqueInput;
+}>;
+
+
+export type UpdateOneMainCategoryMutation = { __typename?: 'Mutation', updateOneMainCategory?: { __typename?: 'MainCategory', id: string } | null };
 
 export type UploadFileMutationVariables = Exact<{
   file: Scalars['Upload']['input'];
@@ -8580,6 +9089,7 @@ export const CategoriesDocument = gql`
   ) {
     id
     name
+    mainCategoryId
   }
 }
     `;
@@ -9133,6 +9643,202 @@ export function useUpdateOneEmployeeSubCategoryMutation(baseOptions?: Apollo.Mut
 export type UpdateOneEmployeeSubCategoryMutationHookResult = ReturnType<typeof useUpdateOneEmployeeSubCategoryMutation>;
 export type UpdateOneEmployeeSubCategoryMutationResult = Apollo.MutationResult<UpdateOneEmployeeSubCategoryMutation>;
 export type UpdateOneEmployeeSubCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateOneEmployeeSubCategoryMutation, UpdateOneEmployeeSubCategoryMutationVariables>;
+export const MainCategoriesDocument = gql`
+    query MainCategories($where: MainCategoryWhereInput, $orderBy: [MainCategoryOrderByWithRelationInput!], $cursor: MainCategoryWhereUniqueInput, $take: Int, $skip: Int, $distinct: [MainCategoryScalarFieldEnum!]) {
+  mainCategories(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    name
+    slug
+    id
+  }
+}
+    `;
+
+/**
+ * __useMainCategoriesQuery__
+ *
+ * To run a query within a React component, call `useMainCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMainCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMainCategoriesQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function useMainCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<MainCategoriesQuery, MainCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MainCategoriesQuery, MainCategoriesQueryVariables>(MainCategoriesDocument, options);
+      }
+export function useMainCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MainCategoriesQuery, MainCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MainCategoriesQuery, MainCategoriesQueryVariables>(MainCategoriesDocument, options);
+        }
+export function useMainCategoriesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<MainCategoriesQuery, MainCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<MainCategoriesQuery, MainCategoriesQueryVariables>(MainCategoriesDocument, options);
+        }
+export type MainCategoriesQueryHookResult = ReturnType<typeof useMainCategoriesQuery>;
+export type MainCategoriesLazyQueryHookResult = ReturnType<typeof useMainCategoriesLazyQuery>;
+export type MainCategoriesSuspenseQueryHookResult = ReturnType<typeof useMainCategoriesSuspenseQuery>;
+export type MainCategoriesQueryResult = Apollo.QueryResult<MainCategoriesQuery, MainCategoriesQueryVariables>;
+export const MainCategoryDocument = gql`
+    query MainCategory($where: MainCategoryWhereUniqueInput!) {
+  mainCategory(where: $where) {
+    id
+    name
+    slug
+  }
+}
+    `;
+
+/**
+ * __useMainCategoryQuery__
+ *
+ * To run a query within a React component, call `useMainCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMainCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMainCategoryQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useMainCategoryQuery(baseOptions: Apollo.QueryHookOptions<MainCategoryQuery, MainCategoryQueryVariables> & ({ variables: MainCategoryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MainCategoryQuery, MainCategoryQueryVariables>(MainCategoryDocument, options);
+      }
+export function useMainCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MainCategoryQuery, MainCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MainCategoryQuery, MainCategoryQueryVariables>(MainCategoryDocument, options);
+        }
+export function useMainCategorySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<MainCategoryQuery, MainCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<MainCategoryQuery, MainCategoryQueryVariables>(MainCategoryDocument, options);
+        }
+export type MainCategoryQueryHookResult = ReturnType<typeof useMainCategoryQuery>;
+export type MainCategoryLazyQueryHookResult = ReturnType<typeof useMainCategoryLazyQuery>;
+export type MainCategorySuspenseQueryHookResult = ReturnType<typeof useMainCategorySuspenseQuery>;
+export type MainCategoryQueryResult = Apollo.QueryResult<MainCategoryQuery, MainCategoryQueryVariables>;
+export const CreateOneMainCategoryDocument = gql`
+    mutation CreateOneMainCategory($data: MainCategoryCreateInput!) {
+  createOneMainCategory(data: $data) {
+    id
+  }
+}
+    `;
+export type CreateOneMainCategoryMutationFn = Apollo.MutationFunction<CreateOneMainCategoryMutation, CreateOneMainCategoryMutationVariables>;
+
+/**
+ * __useCreateOneMainCategoryMutation__
+ *
+ * To run a mutation, you first call `useCreateOneMainCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOneMainCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOneMainCategoryMutation, { data, loading, error }] = useCreateOneMainCategoryMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOneMainCategoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateOneMainCategoryMutation, CreateOneMainCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOneMainCategoryMutation, CreateOneMainCategoryMutationVariables>(CreateOneMainCategoryDocument, options);
+      }
+export type CreateOneMainCategoryMutationHookResult = ReturnType<typeof useCreateOneMainCategoryMutation>;
+export type CreateOneMainCategoryMutationResult = Apollo.MutationResult<CreateOneMainCategoryMutation>;
+export type CreateOneMainCategoryMutationOptions = Apollo.BaseMutationOptions<CreateOneMainCategoryMutation, CreateOneMainCategoryMutationVariables>;
+export const DeleteOneMainCategoryDocument = gql`
+    mutation DeleteOneMainCategory($where: MainCategoryWhereUniqueInput!) {
+  deleteOneMainCategory(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteOneMainCategoryMutationFn = Apollo.MutationFunction<DeleteOneMainCategoryMutation, DeleteOneMainCategoryMutationVariables>;
+
+/**
+ * __useDeleteOneMainCategoryMutation__
+ *
+ * To run a mutation, you first call `useDeleteOneMainCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteOneMainCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteOneMainCategoryMutation, { data, loading, error }] = useDeleteOneMainCategoryMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteOneMainCategoryMutation(baseOptions?: Apollo.MutationHookOptions<DeleteOneMainCategoryMutation, DeleteOneMainCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteOneMainCategoryMutation, DeleteOneMainCategoryMutationVariables>(DeleteOneMainCategoryDocument, options);
+      }
+export type DeleteOneMainCategoryMutationHookResult = ReturnType<typeof useDeleteOneMainCategoryMutation>;
+export type DeleteOneMainCategoryMutationResult = Apollo.MutationResult<DeleteOneMainCategoryMutation>;
+export type DeleteOneMainCategoryMutationOptions = Apollo.BaseMutationOptions<DeleteOneMainCategoryMutation, DeleteOneMainCategoryMutationVariables>;
+export const UpdateOneMainCategoryDocument = gql`
+    mutation UpdateOneMainCategory($data: MainCategoryUpdateInput!, $where: MainCategoryWhereUniqueInput!) {
+  updateOneMainCategory(data: $data, where: $where) {
+    id
+  }
+}
+    `;
+export type UpdateOneMainCategoryMutationFn = Apollo.MutationFunction<UpdateOneMainCategoryMutation, UpdateOneMainCategoryMutationVariables>;
+
+/**
+ * __useUpdateOneMainCategoryMutation__
+ *
+ * To run a mutation, you first call `useUpdateOneMainCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOneMainCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOneMainCategoryMutation, { data, loading, error }] = useUpdateOneMainCategoryMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUpdateOneMainCategoryMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOneMainCategoryMutation, UpdateOneMainCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOneMainCategoryMutation, UpdateOneMainCategoryMutationVariables>(UpdateOneMainCategoryDocument, options);
+      }
+export type UpdateOneMainCategoryMutationHookResult = ReturnType<typeof useUpdateOneMainCategoryMutation>;
+export type UpdateOneMainCategoryMutationResult = Apollo.MutationResult<UpdateOneMainCategoryMutation>;
+export type UpdateOneMainCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateOneMainCategoryMutation, UpdateOneMainCategoryMutationVariables>;
 export const UploadFileDocument = gql`
     mutation UploadFile($file: Upload!) {
   uploadFile(file: $file) {

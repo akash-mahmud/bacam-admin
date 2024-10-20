@@ -27,5 +27,6 @@ query Categories($where: CategoryWhereInput, $orderBy: [CategoryOrderByWithRelat
   categories(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
     id
     name
+    mainCategoryId
   }
 }

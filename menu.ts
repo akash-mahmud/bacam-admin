@@ -60,6 +60,12 @@ export const demoPagesMenu = {
 			},
 		},
 	},
+	maincategory: {
+		id: 'maincategory',
+		text: 'Main Category',
+		path: 'maincategory',
+		icon: 'Article',
+	},
 	category: {
 		id: 'category',
 		text: 'Category',

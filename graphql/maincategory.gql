@@ -1,0 +1,30 @@
+query MainCategories($where: MainCategoryWhereInput, $orderBy: [MainCategoryOrderByWithRelationInput!], $cursor: MainCategoryWhereUniqueInput, $take: Int, $skip: Int, $distinct: [MainCategoryScalarFieldEnum!]) {
+  mainCategories(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
+    name
+    slug
+    id
+  }
+}
+query MainCategory($where: MainCategoryWhereUniqueInput!) {
+  mainCategory(where: $where) {
+    id
+    name
+    slug
+  }
+}
+mutation CreateOneMainCategory($data: MainCategoryCreateInput!) {
+  createOneMainCategory(data: $data) {
+    id
+  }
+}
+mutation DeleteOneMainCategory($where: MainCategoryWhereUniqueInput!) {
+  deleteOneMainCategory(where: $where) {
+    id
+  }
+}
+
+mutation UpdateOneMainCategory($data: MainCategoryUpdateInput!, $where: MainCategoryWhereUniqueInput!) {
+  updateOneMainCategory(data: $data, where: $where) {
+    id
+  }
+}

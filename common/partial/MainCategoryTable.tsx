@@ -24,19 +24,19 @@ import {
 	SortOrder,
 	useCategoriesQuery,
 	useCreateOneCategoryMutation,
+	useCreateOneMainCategoryMutation,
 	useDeleteOneCategoryMutation,
+	useDeleteOneMainCategoryMutation,
 	useMainCategoriesQuery,
 	useUpdateOneCategoryMutation,
 } from '@/graphql/generated/schema';
 import { notification, Popconfirm, Spin } from 'antd';
 import slug from 'slug';
-import Select from '@/components/bootstrap/forms/Select';
-import Option from '@/components/bootstrap/Option';
 
 interface ICategoryTableProps {
 	isFluid?: boolean;
 }
-const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
+const MainCategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	const { themeStatus, darkModeStatus } = useDarkMode();
 
 	// BEGIN :: Upcoming Events
@@ -47,18 +47,10 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
 	const [updatedataState, setupdatedataState] = useState({});
-	const handleUpcomingEdit = (item: {
-		__typename?: 'Category';
-		id: string;
-		name: string;
-		mainCategoryId: string;
-	}) => {
-		console.log(item);
-
+	const handleUpcomingEdit = (item: { __typename?: 'Category'; id: string; name: string }) => {
 		setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 		setupdatedataState(item);
 		formik.setFieldValue('name', item.name);
-		formik.setFieldValue('mainCategory', item.mainCategoryId);
 	};
 	// END :: Upcoming Events
 
@@ -74,13 +66,6 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 						name: {
 							set: values.name,
 						},
-						mainCategory: values.mainCategory
-							? {
-									connect: {
-										id: values.mainCategory,
-									},
-							  }
-							: undefined,
 					},
 				},
 			});
@@ -91,7 +76,6 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 		initialValues: {
 			name: '',
 			slug: '',
-			mainCategory: '',
 		},
 	});
 
@@ -106,7 +90,6 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 		initialValues: {
 			name: '',
 			slug: '',
-			mainCategory: '',
 		},
 	});
 	const [currentPage, setCurrentPage] = useState(1);
@@ -119,29 +102,22 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 		setcreateModal(false);
 	};
 
-	const [CreateCategory, { loading: categoryCreateLoading }] = useCreateOneCategoryMutation();
+	const [CreateCategory, { loading: categoryCreateLoading }] = useCreateOneMainCategoryMutation();
 	const [UpdateCategory, { loading: updatecategoryCreateLoading }] =
 		useUpdateOneCategoryMutation();
 
 	const createData = async (data: any) => {
 		const { data: res } = await CreateCategory({
 			variables: {
-				data: {
-					...data,
-					mainCategory: {
-						connect: {
-							id: data.mainCategory,
-						},
-					},
-				},
+				data: data,
 			},
 		});
-		if (res?.createOneCategory.id) {
+		if (res?.createOneMainCategory.id) {
 			notification.success({
 				message: 'created',
 			});
-			refetch();
-			formikCreateForm.resetForm();
+			refetch()
+			formikCreateForm.resetForm()
 			onCloseCreateModal();
 		} else {
 			notification.error({
@@ -149,27 +125,15 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			});
 		}
 	};
-	const { data, loading, refetch } = useCategoriesQuery({
+	const { data, loading, refetch } = useMainCategoriesQuery({
 		variables: {
 			orderBy: {
 				createdAt: SortOrder.Desc,
 			},
 		},
 	});
-	const categories = data?.categories;
-	const [Delete] = useDeleteOneCategoryMutation();
-	const {
-		data: MaincatData,
-		loading: MaincatDataLoading,
-		refetch: MaincatDataRefetch,
-	} = useMainCategoriesQuery({
-		variables: {
-			orderBy: {
-				createdAt: SortOrder.Desc,
-			},
-		},
-	});
-	const maincategories = MaincatData?.mainCategories;
+	const categories = data?.mainCategories;
+	const [Delete] = useDeleteOneMainCategoryMutation();
 	return (
 		<>
 			<Card stretch={isFluid}>
@@ -263,26 +227,6 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 								<Input onChange={formik.handleChange} value={formik.values.name} />
 							</FormGroup>
 						</div>
-						<div className='col-md-12'>
-							<FormGroup id='mainCategory' label='Main Category'>
-								<Select
-									ariaLabel=''
-									value={formik.values.mainCategory}
-									isTouched={formik.touched.mainCategory}
-									invalidFeedback={formik.errors.mainCategory}
-									isValid={formik.isValid}
-									onChange={formik.handleChange}
-									onBlur={formik.handleBlur}
-									onFocus={() => {
-										formik.setErrors({});
-									}}
-									className=''>
-									{maincategories?.map((maincat) => (
-										<Option value={maincat.id}>{maincat.name}</Option>
-									))}
-								</Select>
-							</FormGroup>
-						</div>
 					</div>
 				</OffCanvasBody>
 				<div className='row m-0'>
@@ -351,26 +295,6 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 									/>
 								</FormGroup>
 							</div>
-							<div className='col-md-12'>
-								<FormGroup id='mainCategory' label='Main Category'>
-									<Select
-										ariaLabel=''
-										value={formikCreateForm.values.mainCategory}
-										isTouched={formikCreateForm.touched.mainCategory}
-										invalidFeedback={formikCreateForm.errors.mainCategory}
-										isValid={formikCreateForm.isValid}
-										onChange={formikCreateForm.handleChange}
-										onBlur={formikCreateForm.handleBlur}
-										onFocus={() => {
-											formikCreateForm.setErrors({});
-										}}
-										className=''>
-										{maincategories?.map((maincat) => (
-											<Option value={maincat.id}>{maincat.name}</Option>
-										))}
-									</Select>
-								</FormGroup>
-							</div>
 						</form>
 					</ModalBody>
 					<ModalFooter>
@@ -384,4 +308,4 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 	);
 };
 
-export default CategoryTable;
+export default MainCategoryTable;
