@@ -29,6 +29,7 @@ export default function index() {
 			description: '',
 			slug: '',
 			shortdescription: '',
+			employee: '',
 			images: [],
 			type: ProductType.Custom,
 			custom_product_status: CustomProductStatus.Started,
@@ -54,24 +55,19 @@ export default function index() {
 	const [files, setFiles] = useState<any[]>([]);
 
 	const createProduct = useCallback(
-		async (data: {
-			name: string;
-			description: string;
-			slug: string;
-			images: never[];
-			category: {
-				connect: {
-					id: string;
-				};
-			};
-			price: number;
-			orderStartPrice: number;
-			shortdescription: string;
-			stock: number;
-			minimumOrderNeededToStart: number;
-			type: ProductType;
-			custom_product_status: CustomProductStatus;
-		}) => {
+		async (data: any) => {
+			if (data.type === ProductType.ReadyMate && !data.employee) {
+				notification.error({
+					message: 'Please select employee for your readymate product',
+				});
+				return;
+			}
+			if (data.type === ProductType.Custom && !data.orderStartPrice) {
+				notification.error({
+					message: "Order start price can't be 0 for custom product",
+				});
+				return;
+			}
 			try {
 				const { data: res } = await CreateProduct({
 					variables: {
@@ -86,6 +82,13 @@ export default function index() {
 							minimumOrderNeededToStart: parseFloat(
 								String(data.minimumOrderNeededToStart),
 							),
+							employee: data?.employee
+								? {
+										connect: {
+											id: data?.employee,
+										},
+								  }
+								: undefined,
 						},
 					},
 				});

@@ -18,7 +18,7 @@ query Employees(
 		image
 		name
 		employeeCategoryId
-    employeeSubCategoryId
+		employeeSubCategoryId
 		shortDescription
 	}
 }

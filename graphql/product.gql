@@ -64,6 +64,7 @@ query ProductForUpdate($where: ProductWhereUniqueInput!) {
 		price
 		type
 		slug
+		employeeId
 	}
 }
 mutation UpdateOneProduct($data: ProductUpdateInput!, $where: ProductWhereUniqueInput!) {

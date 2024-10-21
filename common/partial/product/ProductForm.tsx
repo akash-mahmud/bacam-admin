@@ -13,6 +13,7 @@ import {
 	CustomProductStatus,
 	ProductType,
 	useCategoriesQuery,
+	useEmployeesQuery,
 	useUploadFileMutation,
 } from '@/graphql/generated/schema';
 import { RcFile } from 'antd/es/upload';
@@ -26,13 +27,13 @@ export default function ProductForm({
 	files,
 	setFiles,
 	update = false,
-    rowClassName = 'col-md-6'
+	rowClassName = 'col-md-6',
 }: {
 	formik: any;
 	files: any[];
 	setFiles: React.Dispatch<React.SetStateAction<any[]>>;
 	update?: boolean;
-    rowClassName?:string
+	rowClassName?: string;
 }) {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState('');
@@ -65,6 +66,9 @@ export default function ProductForm({
 	};
 	const handleCancel = () => setPreviewOpen(false);
 	const { data } = useCategoriesQuery();
+	const { data: EmployeeData } = useEmployeesQuery();
+	const employees = EmployeeData?.employees ?? [];
+
 	return (
 		<>
 			<form className='row g-4' onSubmit={formik.handleSubmit}>
@@ -88,27 +92,26 @@ export default function ProductForm({
 						/>
 					</FormGroup>
 				</div>
-                {
-                    !update &&
-				<div className={rowClassName}>
-					<FormGroup id='slug' label='slug'>
-						<Input
-							type='text'
-							size={'lg'}
-							value={formik.values.slug}
-							isTouched={formik.touched.slug}
-							invalidFeedback={formik.errors.slug}
-							isValid={formik.isValid}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							onFocus={() => {
-								formik.setErrors({});
-							}}
-							className=''
-						/>
-					</FormGroup>
-				</div>
-                }
+				{!update && (
+					<div className={rowClassName}>
+						<FormGroup id='slug' label='slug'>
+							<Input
+								type='text'
+								size={'lg'}
+								value={formik.values.slug}
+								isTouched={formik.touched.slug}
+								invalidFeedback={formik.errors.slug}
+								isValid={formik.isValid}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								onFocus={() => {
+									formik.setErrors({});
+								}}
+								className=''
+							/>
+						</FormGroup>
+					</div>
+				)}
 				<div className={rowClassName}>
 					<FormGroup id='price' label='price'>
 						<Input
@@ -154,7 +157,29 @@ export default function ProductForm({
 						</Select>
 					</FormGroup>
 				</div>
-
+				<div className={rowClassName}>
+					<FormGroup id='employee' label='employee'>
+						<Select
+							ariaLabel=''
+							size={'lg'}
+							value={formik.values.employee}
+							isTouched={formik.touched.employee}
+							invalidFeedback={formik.errors.employee}
+							isValid={formik.isValid}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							onFocus={() => {
+								formik.setErrors({});
+							}}
+							className=''>
+							{employees.map((employee) => (
+								<Option key={employee.id} value={employee.id}>
+									{employee.name}
+								</Option>
+							))}
+						</Select>
+					</FormGroup>
+				</div>
 				<div className={rowClassName}>
 					<FormGroup id='custom_product_status' label='custom_product_status'>
 						<Select
@@ -243,7 +268,7 @@ export default function ProductForm({
 						</Select>
 					</FormGroup>
 				</div>
-                <div className={rowClassName}>
+				<div className={rowClassName}>
 					<FormGroup id='stock' label='stock'>
 						<Input
 							type='text'
@@ -290,7 +315,6 @@ export default function ProductForm({
 						</Spin>
 					</FormGroup>
 				</div>
-		
 
 				<div className='col-md-12'>
 					<FormGroup id='shortdescription' label='shortdescription'>

@@ -29,7 +29,6 @@ import { useFormik } from 'formik';
 import Button from '@/components/bootstrap/Button';
 import { getImage } from '@/utils/getImage';
 import { v4 } from 'uuid';
-
 const Index: NextPage = () => {
 	const [LoadProduct, { loading: loadProductLoading }] = useProductForUpdateLazyQuery();
 	const [updateId, setupdateId] = useState('');
@@ -50,6 +49,7 @@ const Index: NextPage = () => {
 					id: '',
 				},
 			},
+			employee: '',
 			price: 0,
 			orderStartPrice: 0,
 		},
@@ -73,7 +73,7 @@ const Index: NextPage = () => {
 					id,
 				},
 			},
-			fetchPolicy:'network-only'
+			fetchPolicy: 'network-only',
 		});
 		const productData = data?.product;
 
@@ -92,8 +92,9 @@ const Index: NextPage = () => {
 					id: productData?.categoryId,
 				},
 			},
-			price: productData?.minimumOrderNeededToStart,
+			price: productData?.price,
 			orderStartPrice: productData?.minimumOrderNeededToStart,
+			employee: productData?.employeeId,
 		};
 		formik.setValues(initSate as any);
 		const formattedImage =
@@ -112,26 +113,23 @@ const Index: NextPage = () => {
 	};
 
 	const updateProduct = useCallback(
-		async (data: {
-			name: string;
-			description: string;
-			stock: string;
-			shortdescription: string;
-			images: never[];
-			category: {
-				connect: {
-					id: string;
-				};
-			};
-			price: number;
-			orderStartPrice: number;
-			minimumOrderNeededToStart: number;
-			type: ProductType;
-			custom_product_status: CustomProductStatus;
-		}) => {
+		async (data: any) => {
+			if (data.type === ProductType.ReadyMate && !data.employee) {
+				notification.error({
+					message: 'Please select employee for your readymate product',
+				});
+				return;
+			}
+
+			if (data.type === ProductType.Custom && !data.orderStartPrice) {
+				notification.error({
+					message: "Order start price can't be 0 for custom product",
+				});
+				return;
+			}
 			const formattedData = { ...data } as any;
 			Object.keys(data).map((key) => {
-				if (key === 'category') {
+				if (key === 'category' || key === 'employee') {
 					return;
 				}
 				// @ts-ignore
@@ -149,6 +147,13 @@ const Index: NextPage = () => {
 						},
 						data: {
 							...formattedData,
+							employee: data?.employee
+								? {
+										connect: {
+											id: data?.employee,
+										},
+								  }
+								: undefined,
 							images: {
 								set: data.images,
 							},
@@ -174,7 +179,7 @@ const Index: NextPage = () => {
 					});
 					formik.resetForm();
 					setFiles([]);
-					refetch()
+					refetch();
 					closeUpdateCanvas(false);
 				} else {
 					notification.error({
@@ -250,7 +255,8 @@ const Index: NextPage = () => {
 					</OffCanvasHeader>
 					<OffCanvasBody>
 						<Spin spinning={loadProductLoading}>
-							<ProductForm rowClassName="col-md-12"
+							<ProductForm
+								rowClassName='col-md-12'
 								formik={formik}
 								setFiles={setFiles}
 								files={files}
