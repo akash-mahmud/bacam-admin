@@ -81,9 +81,7 @@ const Avatar: FC<IAvatarProps> = ({
 	border,
 	borderColor,
 	userName,
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	isOnline, // Not used
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	isReply, // Not used
 }) => {
 	const { darkModeStatus } = useDarkMode();

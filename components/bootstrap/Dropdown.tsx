@@ -53,7 +53,6 @@ export const DropdownToggle: FC<IDropdownToggleProps> = ({
 						ref: (node: null) => setButtonRef(node, ref),
 						onClick: () => {
 							// @ts-ignore
-							// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 							children?.props?.onClick ? children.props.onClick() : null;
 							if (setIsOpen) {
 								setIsOpen(!isOpen);
