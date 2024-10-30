@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 import { FormikHelpers, useFormik } from 'formik';

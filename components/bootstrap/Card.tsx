@@ -248,7 +248,6 @@ interface ICardCodeViewProps {
 	className?: string;
 }
 
-
 interface ICardFooterLeftProps extends HTMLAttributes<HTMLElement> {
 	tag?: string | null;
 	className?: string;

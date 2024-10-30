@@ -19,10 +19,7 @@ const CommonDashboardDesignTeam = () => {
 	const router = useRouter();
 	const { darkModeStatus } = useDarkMode();
 
-	const handleOnClickToEmployeeListPage = useCallback(
-		() => router.push(`../${demoPagesMenu.appointment.subMenu.employeeList.path}`),
-		[router],
-	);
+	const handleOnClickToEmployeeListPage = useCallback(() => router.push(`/`), [router]);
 
 	return (
 		<Card stretch>

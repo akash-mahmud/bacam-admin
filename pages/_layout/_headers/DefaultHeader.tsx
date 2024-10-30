@@ -10,7 +10,7 @@ const DefaultHeader = () => {
 		<Header>
 			<HeaderLeft>
 				<Navigation
-					menu={{  ...componentPagesMenu }}
+					menu={{ ...componentPagesMenu }}
 					id='header-top-menu'
 					horizontal={
 						!!deviceScreen?.width &&

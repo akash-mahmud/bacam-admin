@@ -1,7 +1,7 @@
 mutation UploadFile($file: Upload!) {
-  uploadFile(file: $file) {
-    message
-        success
-    file
-  }
+	uploadFile(file: $file) {
+		message
+		success
+		file
+	}
 }

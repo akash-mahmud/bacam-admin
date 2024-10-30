@@ -1,47 +1,61 @@
-query Orders($where: OrderWhereInput, $orderBy: [OrderOrderByWithRelationInput!], $cursor: OrderWhereUniqueInput, $take: Int, $skip: Int, $distinct: [OrderScalarFieldEnum!]) {
-  orders (where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
-    createdAt
-    id
-    itemsPrePrice
-    itemsPrice
-    status
-    taxPrice
-    totalPrice
-    orderItem {
-      product {
-        id
-        images
-        name
-      }
-      qty
-      id
-    }
-    shippingPrice
-    
-    shippingAddress {
-      id
-      lat
-      lng
-      postalCode
-      fullName
-      country
-      city
-      address
-    }
-    user {
-      email
-      firstname
-      lastname
-      id
-    }
-    updatedAt
-    itemsPrePricePaymentSessionId
-    itemsTotalPricePaymentSessionId
-  }
+query Orders(
+	$where: OrderWhereInput
+	$orderBy: [OrderOrderByWithRelationInput!]
+	$cursor: OrderWhereUniqueInput
+	$take: Int
+	$skip: Int
+	$distinct: [OrderScalarFieldEnum!]
+) {
+	orders(
+		where: $where
+		orderBy: $orderBy
+		cursor: $cursor
+		take: $take
+		skip: $skip
+		distinct: $distinct
+	) {
+		createdAt
+		id
+		itemsPrePrice
+		itemsPrice
+		status
+		taxPrice
+		totalPrice
+		orderItem {
+			product {
+				id
+				images
+				name
+			}
+			qty
+			id
+		}
+		shippingPrice
+
+		shippingAddress {
+			id
+			lat
+			lng
+			postalCode
+			fullName
+			country
+			city
+			address
+		}
+		user {
+			email
+			firstname
+			lastname
+			id
+		}
+		updatedAt
+		itemsPrePricePaymentSessionId
+		itemsTotalPricePaymentSessionId
+	}
 }
 
 mutation UpdateOneOrder($data: OrderUpdateInput!, $where: OrderWhereUniqueInput!) {
-  updateOneOrder(data: $data, where: $where) {
-    id
-  }
+	updateOneOrder(data: $data, where: $where) {
+		id
+	}
 }

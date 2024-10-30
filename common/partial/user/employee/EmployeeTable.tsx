@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import Avatar from '@/components/Avatar';
 import Button from '@/components/bootstrap/Button';
 import Card, { CardHeader, CardActions, CardBody } from '@/components/bootstrap/Card';

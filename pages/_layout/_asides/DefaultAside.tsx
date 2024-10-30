@@ -3,12 +3,8 @@ import React, { useContext, useState } from 'react';
 import Brand from '../../../layout/Brand/Brand';
 import Navigation, { NavigationLine } from '../../../layout/Navigation/Navigation';
 import User from '../../../layout/User/User';
-import {
-	dashboardPagesMenu,
-	demoPagesMenu,
-} from '../../../menu';
+import { dashboardPagesMenu, demoPagesMenu } from '../../../menu';
 import ThemeContext from '../../../context/themeContext';
-
 
 import Aside, { AsideBody, AsideFoot, AsideHead } from '../../../layout/Aside/Aside';
 
@@ -30,7 +26,5 @@ const DefaultAside = () => {
 		</Aside>
 	);
 };
-
-
 
 export default DefaultAside;

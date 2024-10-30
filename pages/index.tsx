@@ -48,7 +48,7 @@ const Index: NextPage = () => {
 			{/* <Head>
 				<title>{demoPagesMenu.sales.subMenu.dashboard.text}</title>
 			</Head> */}
-		
+
 			<Page container='fluid'>
 				<></>
 			</Page>

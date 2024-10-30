@@ -4,18 +4,19 @@ import { useMeAdminQuery } from '@/graphql/generated/schema';
 
 export interface IAuthContextProps {
 	isAuthorized: boolean;
-	user: {
-		avater?: string | null;
-		email?: string | null;
-		firstname?: string | null;
-		id?: string | null;
-		lastname?: string | null;
-		role?: string | null;
-		status: string;
-		phoneNumber?: string | null;
-	
-	} | null | undefined
-
+	user:
+		| {
+				avater?: string | null;
+				email?: string | null;
+				firstname?: string | null;
+				id?: string | null;
+				lastname?: string | null;
+				role?: string | null;
+				status: string;
+				phoneNumber?: string | null;
+		  }
+		| null
+		| undefined;
 
 	loading: boolean;
 	authorize(): void;
@@ -29,9 +30,7 @@ interface IAuthContextProviderProps {
 export const AuthContextProvider: FC<IAuthContextProviderProps> = ({ children }) => {
 	// @ts-ignore
 
-	const { data, loading, refetch } = useMeAdminQuery()
-
-
+	const { data, loading, refetch } = useMeAdminQuery();
 
 	const value = useMemo(
 		() => ({
@@ -39,15 +38,11 @@ export const AuthContextProvider: FC<IAuthContextProviderProps> = ({ children })
 			user: data?.meAdmin,
 			loading,
 			authorize() {
-				refetch()
+				refetch();
 			},
 			unauthorize() {
-
 				//? call server logout and all localstorage and cookie clear function
-
-
 			},
-
 		}),
 		[data, loading],
 	);

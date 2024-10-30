@@ -11,10 +11,7 @@ const Footer: FC<IFooterProps> = ({ children }) => {
 	const root = useRoot();
 	root?.style.setProperty('--footer-height', `${height}px`);
 
-	return (
-<>
-</>
-	);
+	return <></>;
 };
 
 export default Footer;

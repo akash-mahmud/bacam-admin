@@ -144,7 +144,6 @@ const Header: FC<IHeaderProps> = ({
 					</div>
 				</div>
 			</header>
-	
 		</Mounted>
 	);
 };

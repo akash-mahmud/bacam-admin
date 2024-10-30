@@ -23,48 +23,33 @@ const PageWrapper = forwardRef<HTMLDivElement, IPageWrapperProps>(
 		const { loading, isAuthorized } = useContext(AuthContext);
 		const mounted = useMounted();
 
-const router = useRouter()
-
-
-		
+		const router = useRouter();
 
 		useEffect(() => {
-			
-			if ((!isAuthorized && !loading) && isProtected) {
-				
-				router.push("/auth/login")
+			if (!isAuthorized && !loading && isProtected) {
+				router.push('/auth/login');
 				// navigate(`../${demoPages.login.path}`);
 			}
 			return () => {};
 			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [router , isAuthorized, loading]);
+		}, [router, isAuthorized, loading]);
 
-if (loading) {
-	<Spinner/>
-}	
+		if (loading) {
+			<Spinner />;
+		}
 
-return (
-	<>
-	
-	
-			<div ref={ref} className={classNames('page-wrapper', 'container-fluid', className)}>
-				<Mounted>
-			    { mounted && !isProtected && !loading
-				
-				
-				?children :
-				mounted && isProtected && isAuthorized && !loading? children:
-				
-				null
-				
-				
-				}
-
-					
-					
+		return (
+			<>
+				<div ref={ref} className={classNames('page-wrapper', 'container-fluid', className)}>
+					<Mounted>
+						{mounted && !isProtected && !loading
+							? children
+							: mounted && isProtected && isAuthorized && !loading
+							? children
+							: null}
 					</Mounted>
-			</div>
-	</>
+				</div>
+			</>
 		);
 	},
 );
@@ -77,4 +62,3 @@ PageWrapper.propTypes = {
 };
 
 export default PageWrapper;
-

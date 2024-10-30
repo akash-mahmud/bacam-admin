@@ -1,47 +1,48 @@
 mutation AdminRegister($input: CreateOneUserArgsCustom!) {
-  adminRegister(input: $input) {
-    __typename
-    message
-    success
-  }
+	adminRegister(input: $input) {
+		__typename
+		message
+		success
+	}
 }
 
 query MeAdmin {
-  meAdmin {
-    avater
-    email
-    firstname
-    id
-    lastname
-    role
-    status
-    phoneNumber
-
-  }
+	meAdmin {
+		avater
+		email
+		firstname
+		id
+		lastname
+		role
+		status
+		phoneNumber
+	}
 }
 
 mutation AdminLogin($password: String!, $email: String!) {
-  adminLogin(password: $password, email: $email) {
-    accessToken
-    isAuthenticated
-    message
-    success
-    user {
-      id
-    }
-  }
+	adminLogin(password: $password, email: $email) {
+		accessToken
+		isAuthenticated
+		message
+		success
+		user {
+			id
+		}
+	}
 }
 
 mutation RefreshToken {
-  adminRefreshToken
+	adminRefreshToken
 }
 
-
-mutation UpdateProfile($input: UpdateOneUserArgsCustom!, $passwordInput: UpdateProfilePaswordArgs!) {
-  updateProfile(input: $input, passwordInput: $passwordInput) {
-    message
-    success
-  }
+mutation UpdateProfile(
+	$input: UpdateOneUserArgsCustom!
+	$passwordInput: UpdateProfilePaswordArgs!
+) {
+	updateProfile(input: $input, passwordInput: $passwordInput) {
+		message
+		success
+	}
 }
 # mutation AddPaymentMethod($token: String!) {
 #   addPaymentMethod(token: $token)

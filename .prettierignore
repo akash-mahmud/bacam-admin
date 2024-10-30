@@ -1,3 +1,13 @@
+
+.next
+.vercel
+.husky
+.vscode
+build
+public
+styles
+README.md
+node_modules
 SvgIcons/
 build/
 node_modules/

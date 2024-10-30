@@ -16,12 +16,14 @@ query EmployeeCategories(
 	) {
 		name
 		id
+		position
 	}
 }
 
 query EmployeeCategory($where: EmployeeCategoryWhereUniqueInput!) {
 	employeeCategory(where: $where) {
 		name
+		position
 	}
 }
 
@@ -37,8 +39,11 @@ mutation DeleteOneEmployeeCategory($where: EmployeeCategoryWhereUniqueInput!) {
 	}
 }
 
-mutation UpdateOneEmployeeCategory($data: EmployeeCategoryUpdateInput!, $where: EmployeeCategoryWhereUniqueInput!) {
-  updateOneEmployeeCategory(data: $data, where: $where) {
-    id
-  }
+mutation UpdateOneEmployeeCategory(
+	$data: EmployeeCategoryUpdateInput!
+	$where: EmployeeCategoryWhereUniqueInput!
+) {
+	updateOneEmployeeCategory(data: $data, where: $where) {
+		id
+	}
 }

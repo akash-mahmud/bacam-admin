@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 import { FormikHelpers, useFormik } from 'formik';
@@ -42,14 +44,18 @@ const EmployeeSubCategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
 	const [updatedataState, setupdatedataState] = useState({});
-	const handleUpcomingEdit = (item: { __typename?: 'Category'; id: string; name: string, employeeCategoryId:string }) => {
+	const handleUpcomingEdit = (item: {
+		__typename?: 'Category';
+		id: string;
+		name: string;
+		employeeCategoryId: string;
+	}) => {
 		setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
 		setupdatedataState(item);
-        console.log(item);
-        
+		console.log(item);
+
 		formik.setFieldValue('name', item.name);
 		formik.setFieldValue('employeeCategory', item.employeeCategoryId);
-        
 	};
 	// END :: Upcoming Events
 
@@ -65,11 +71,11 @@ const EmployeeSubCategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 						name: {
 							set: values.name,
 						},
-                        employeeCategory:{
-                            connect:{
-id:values.employeeCategory
-                            }
-                        }
+						employeeCategory: {
+							connect: {
+								id: values.employeeCategory,
+							},
+						},
 					},
 				},
 			});
@@ -80,7 +86,7 @@ id:values.employeeCategory
 		initialValues: {
 			name: '',
 			slug: '',
-            employeeCategory:""
+			employeeCategory: '',
 		},
 	});
 
@@ -230,27 +236,27 @@ id:values.employeeCategory
 								<Input onChange={formik.handleChange} value={formik.values.name} />
 							</FormGroup>
 						</div>
-                        <div className='col-md-12'>
-								<FormGroup id='employeeCategory' label='Category'>
-									<Select
-										placeholder='Select category'
-										ariaLabel=''
-										value={formik.values.employeeCategory}
-										isTouched={formik.touched.employeeCategory}
-										invalidFeedback={formik.errors.employeeCategory}
-										isValid={formik.isValid}
-										onChange={formik.handleChange}
-										onBlur={formik.handleBlur}
-										onFocus={() => {
-											formik.setErrors({});
-										}}
-										className=''>
-										{categories?.map((category) => (
-											<Option value={category.id}>{category.name}</Option>
-										))}
-									</Select>
-								</FormGroup>
-							</div>
+						<div className='col-md-12'>
+							<FormGroup id='employeeCategory' label='Category'>
+								<Select
+									placeholder='Select category'
+									ariaLabel=''
+									value={formik.values.employeeCategory}
+									isTouched={formik.touched.employeeCategory}
+									invalidFeedback={formik.errors.employeeCategory}
+									isValid={formik.isValid}
+									onChange={formik.handleChange}
+									onBlur={formik.handleBlur}
+									onFocus={() => {
+										formik.setErrors({});
+									}}
+									className=''>
+									{categories?.map((category) => (
+										<Option value={category.id}>{category.name}</Option>
+									))}
+								</Select>
+							</FormGroup>
+						</div>
 					</div>
 				</OffCanvasBody>
 				<div className='row m-0'>

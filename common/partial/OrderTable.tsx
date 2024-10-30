@@ -1,12 +1,7 @@
 import React, { FC, useState } from 'react';
 import classNames from 'classnames';
 import { FormikHelpers, useFormik } from 'formik';
-import Card, {
-	CardBody,
-	CardHeader,
-	CardLabel,
-	CardTitle,
-} from '../../components/bootstrap/Card';
+import Card, { CardBody, CardHeader, CardLabel, CardTitle } from '../../components/bootstrap/Card';
 import Button from '../../components/bootstrap/Button';
 import { priceFormat } from '../../helpers/helpers';
 import Dropdown, {
@@ -28,7 +23,12 @@ import Popovers from '../../components/bootstrap/Popovers';
 import data from '../data/dummyEventsData';
 import Avatar from '../../components/Avatar';
 import useDarkMode from '../../hooks/useDarkMode';
-import { OrderStatus, SortOrder, useOrdersQuery, useUpdateOneOrderMutation } from '@/graphql/generated/schema';
+import {
+	OrderStatus,
+	SortOrder,
+	useOrdersQuery,
+	useUpdateOneOrderMutation,
+} from '@/graphql/generated/schema';
 import { Spin } from 'antd';
 import dayjs from 'dayjs';
 import { PER_COUNT } from '@/components/PaginationButtons';
@@ -49,19 +49,16 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 	};
 
 	const [upcomingEventsEditOffcanvas, setUpcomingEventsEditOffcanvas] = useState(false);
-	const [updatedataState, setupdatedataState] = useState({})
-	const handleUpcomingEdit = (item: { __typename?: "Category"; id: string; name: string; }) => {
+	const [updatedataState, setupdatedataState] = useState({});
+	const handleUpcomingEdit = (item: { __typename?: 'Category'; id: string; name: string }) => {
 		setUpcomingEventsEditOffcanvas(!upcomingEventsEditOffcanvas);
-		setupdatedataState(item)
-		formik.setFieldValue('name', item.name)
+		setupdatedataState(item);
+		formik.setFieldValue('name', item.name);
 	};
 	// END :: Upcoming Events
 
 	const formik = useFormik({
-		async onSubmit<Values>(
-			values: Values,
-			formikHelpers: FormikHelpers<Values>,
-		) {
+		async onSubmit<Values>(values: Values, formikHelpers: FormikHelpers<Values>) {
 			// await UpdateCategory({
 			// 	variables:{
 			// 		where:{
@@ -75,31 +72,32 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 			// 		}
 			// 	}
 			// })
-			setUpcomingEventsEditOffcanvas(false)
-			refetch()
+			setUpcomingEventsEditOffcanvas(false);
+			refetch();
 			return undefined;
 		},
 		initialValues: {
-
 			name: '',
 			slug: '',
 		},
 	});
 
-	const [UpdateOrder, { loading: updateOneOrderLoading }] = useUpdateOneOrderMutation()
-	const { data: orderData, loading, refetch } = useOrdersQuery({
+	const [UpdateOrder, { loading: updateOneOrderLoading }] = useUpdateOneOrderMutation();
+	const {
+		data: orderData,
+		loading,
+		refetch,
+	} = useOrdersQuery({
 		variables: {
 			orderBy: {
-				createdAt: SortOrder.Desc
-			}
-		}
-	})
-	const orders = orderData?.orders
+				createdAt: SortOrder.Desc,
+			},
+		},
+	});
+	const orders = orderData?.orders;
 	return (
 		<>
-
 			<Card stretch={isFluid}>
-
 				<CardBody className='table-responsive' isScrollable={isFluid}>
 					<Spin spinning={updateOneOrderLoading || loading}>
 						<table className='table table-modern'>
@@ -131,7 +129,6 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 									<th>totalPrice</th>
 									<th>itemsPrePricePaymentSessionId</th>
 									<th>itemsTotalPricePaymentSessionId</th>
-
 								</tr>
 							</thead>
 							<tbody>
@@ -197,12 +194,14 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 										<td>
 											<div className='d-flex flex-column '>
 												<div className='flex-shrink-0 '>
-
 													<Avatar
-														src={getImage(item.orderItem[0].product?.images[0] ?? "") ?? ""}
+														src={
+															getImage(
+																item.orderItem[0].product
+																	?.images[0] ?? '',
+															) ?? ''
+														}
 														size={36}
-
-
 													/>
 												</div>
 												<div className='flex-grow-1 ms-3 mt-4 d-flex align-items-center text-nowrap'>
@@ -221,28 +220,30 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 														{item.status}
 													</Button>
 												</DropdownToggle>
-												<DropdownMenu >
+												<DropdownMenu>
 													{Object.keys(OrderStatus).map((key) => (
-														<DropdownItem onClick={async () => {
-															await UpdateOrder({
-																variables: {
-																	where: {
-																		id: item.id
+														<DropdownItem
+															onClick={async () => {
+																await UpdateOrder({
+																	variables: {
+																		where: {
+																			id: item.id,
+																		},
+																		data: {
+																			status: {
+																				// @ts-ignore
+																				set: OrderStatus[
+																					key
+																				],
+																			},
+																		},
 																	},
-																	data: {
-																		status: {
-																			// @ts-ignore
-																			set: OrderStatus[key]
-																		}
-																	}
-																}
-															})
-															await refetch()
-														}} key={key}>
+																});
+																await refetch();
+															}}
+															key={key}>
 															<div>
-																<Icon
-																	icon='Circle'
-																/>
+																<Icon icon='Circle' />
 																{/*  @ts-ignore */}
 
 																{OrderStatus[key]}
@@ -252,12 +253,10 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 												</DropdownMenu>
 											</Dropdown>
 										</td>
-										<td>{item.orderItem?.qty}</td>
+										{/* <td>{item.orderItem?.qty}</td> */}
 
 										<td>
-											<Button>
-												View
-											</Button>
+											<Button>View</Button>
 										</td>
 
 										<td>{priceFormat(item.taxPrice ?? 0)}</td>
@@ -268,7 +267,6 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 
 										<td>{item.itemsPrePricePaymentSessionId}</td>
 										<td>{item.itemsTotalPricePaymentSessionId}</td>
-
 									</tr>
 								))}
 							</tbody>
@@ -276,135 +274,6 @@ const OrderTable: FC<IOrderTableProps> = ({ isFluid }) => {
 					</Spin>
 				</CardBody>
 			</Card>
-
-			<OffCanvas
-				setOpen={setUpcomingEventsEditOffcanvas}
-				isOpen={upcomingEventsEditOffcanvas}
-				titleId='upcomingEdit'
-				isBodyScroll
-				placement='end'>
-				<OffCanvasHeader setOpen={setUpcomingEventsEditOffcanvas}>
-					<OffCanvasTitle id='upcomingEdit'>Edit Appointments</OffCanvasTitle>
-				</OffCanvasHeader>
-				<OffCanvasBody>
-					<div className='row g-4'>
-						<div className='col-12'>
-							<FormGroup id='customerName' label='Customer'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.customerName}
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-12'>
-							<FormGroup id='service' label='Service'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.service}
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-12'>
-							<FormGroup id='employee' label='Employee'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.employee}
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-12'>
-							<FormGroup id='location' label='Location'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.location}
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-6'>
-							<FormGroup id='date' label='Date'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.date}
-									type='date'
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-6'>
-							<FormGroup id='time' label='time'>
-								<Input
-									onChange={formik.handleChange}
-									value={formik.values.time}
-									type='time'
-								/>
-							</FormGroup>
-						</div>
-						<div className='col-12'>
-							<Card isCompact borderSize={2} shadow='none' className='mb-0'>
-								<CardHeader>
-									<CardLabel>
-										<CardTitle>Extras</CardTitle>
-									</CardLabel>
-								</CardHeader>
-								<CardBody>
-									<FormGroup id='note' label='Note'>
-										<Textarea
-											onChange={formik.handleChange}
-											value={formik.values.note}
-										/>
-									</FormGroup>
-								</CardBody>
-							</Card>
-						</div>
-						<div className='col-12'>
-							<Card isCompact borderSize={2} shadow='none' className='mb-0'>
-								<CardHeader>
-									<CardLabel>
-										<CardTitle>Notification</CardTitle>
-									</CardLabel>
-								</CardHeader>
-								<CardBody>
-									<FormGroup>
-										<Checks
-											id='notify'
-											type='switch'
-											label={
-												<>
-													Notify the Customer
-													<Popovers
-														trigger='hover'
-														desc='Check this checkbox if you want your customer to receive an email about the scheduled appointment'>
-														<Icon
-															icon='Help'
-															size='lg'
-															className='ms-1 cursor-help'
-														/>
-													</Popovers>
-												</>
-											}
-											onChange={formik.handleChange}
-											checked={formik.values.notify}
-										/>
-									</FormGroup>
-								</CardBody>
-							</Card>
-						</div>
-					</div>
-				</OffCanvasBody>
-				<div className='row m-0'>
-					<div className='col-12 p-3'>
-						<Button
-							color='info'
-							className='w-100'
-							onClick={() => setUpcomingEventsEditOffcanvas(false)}>
-							Save
-						</Button>
-					</div>
-				</div>
-			</OffCanvas>
-
-
-
-
 		</>
 	);
 };

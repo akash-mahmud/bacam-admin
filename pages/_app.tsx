@@ -41,12 +41,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 	};
 
 	return (
-		<ApolloClientProvider >
-
-		<AuthContextProvider>
-			<ThemeContextProvider>
-				<ThemeProvider theme={theme}>
-				
+		<ApolloClientProvider>
+			<AuthContextProvider>
+				<ThemeContextProvider>
+					<ThemeProvider theme={theme}>
 						<App>
 							<AsideRoutes />
 							<Wrapper>
@@ -61,9 +59,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 							closeButton={ToastCloseButton}
 							toastClassName='toast show'
 						/>
-				</ThemeProvider>
-			</ThemeContextProvider>
-		</AuthContextProvider>
+					</ThemeProvider>
+				</ThemeContextProvider>
+			</AuthContextProvider>
 		</ApolloClientProvider>
 	);
 };

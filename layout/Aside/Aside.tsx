@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useContext, } from 'react';
+import React, { FC, ReactNode, useContext } from 'react';
 import { motion, MotionStyle } from 'framer-motion';
 import classNames from 'classnames';
 import ThemeContext from '../../context/themeContext';
@@ -34,7 +34,7 @@ const Aside: FC<IAsideProps> = ({ children }) => {
 	 * hooks
 	 */
 	const { asideStatus } = useContext(ThemeContext);
-	const { asideStyle, } = useAsideTouch();
+	const { asideStyle } = useAsideTouch();
 	const { mounted } = useMounted();
 
 	return (
@@ -43,11 +43,9 @@ const Aside: FC<IAsideProps> = ({ children }) => {
 				style={mounted ? (asideStyle as MotionStyle) : undefined}
 				className={classNames('aside', {
 					open: mounted && asideStatus,
-
 				})}>
 				{children}
 			</motion.aside>
-
 		</>
 	);
 };

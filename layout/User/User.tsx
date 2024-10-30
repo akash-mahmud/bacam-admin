@@ -20,7 +20,6 @@ const User = () => {
 
 	const [collapseStatus, setCollapseStatus] = useState<boolean>(false);
 
-
 	return (
 		<>
 			<div
@@ -47,12 +46,7 @@ const User = () => {
 						<div
 							role='presentation'
 							className='navigation-item cursor-pointer'
-							onClick={() =>
-								router.push(
-									`/profile`,
-								
-								)
-							}>
+							onClick={() => router.push(`/profile`)}>
 							<span className='navigation-link navigation-link-pill'>
 								<span className='navigation-link-info'>
 									<Icon icon='AccountBox' className='navigation-icon' />
@@ -75,7 +69,7 @@ const User = () => {
 										className='navigation-icon'
 									/>
 									<span className='navigation-text'>
-										{darkModeStatus ? "Dark" : "Light"}
+										{darkModeStatus ? 'Dark' : 'Light'}
 									</span>
 								</span>
 							</span>
@@ -89,8 +83,8 @@ const User = () => {
 							role='presentation'
 							className='navigation-item cursor-pointer'
 							onClick={() => {
-								unauthorize()
-								router.push(`/${demoPagesMenu.login.path}`);
+								unauthorize();
+								router.push(`/login}`);
 							}}>
 							<span className='navigation-link navigation-link-pill'>
 								<span className='navigation-link-info'>

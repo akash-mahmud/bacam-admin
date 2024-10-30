@@ -11,9 +11,7 @@ const PageLayoutHeader = () => {
 		<Header>
 			<HeaderLeft>
 				<Navigation
-					menu={{
-			
-					}}
+					menu={{}}
 					id='header-top-menu'
 					horizontal={
 						!!deviceScreen?.width &&

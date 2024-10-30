@@ -32,7 +32,7 @@ query Products(
 		orderStartPrice
 		price
 		type
-    stock
+		stock
 	}
 }
 
@@ -68,7 +68,7 @@ query ProductForUpdate($where: ProductWhereUniqueInput!) {
 	}
 }
 mutation UpdateOneProduct($data: ProductUpdateInput!, $where: ProductWhereUniqueInput!) {
-  updateOneProduct(data: $data, where: $where) {
-    id
-  }
+	updateOneProduct(data: $data, where: $where) {
+		id
+	}
 }
