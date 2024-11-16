@@ -63,7 +63,7 @@ export default function ProductForm({
 		} catch (error) {
 			console.log(error);
 		}
-		return false
+		return false;
 	};
 	const handleCancel = () => setPreviewOpen(false);
 	const { data } = useCategoriesQuery();
@@ -292,13 +292,13 @@ export default function ProductForm({
 						<Spin spinning={loadingUpload}>
 							<UploadSingleImage
 								uploadButton={uploadButton}
-								
 								filelist={
 									// isUpdate ? updatefiles :
 
 									files
 								}
 								handlePreview={handlePreview}
+								// @ts-ignore
 								beforeUpload={handleBeforeUploadUpdate}
 								handleRemove={(file) => {
 									const removedImageArrayForShow = files?.filter(
