@@ -1,0 +1,29 @@
+name: Art Booking Admin CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Deploy using ssh
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: |
+          export PATH="$PATH:/home/ubuntu/.pnpm-global/bin"  # Add PM2 path here
+          ls
+          node -v
+          cd art-booking/bacam-admin
+          git pull origin main
+          git status
+          pnpm install
+          pnpm list -g --depth 0
+          pnpm build 
+          pm2 restart artbooking-admin
