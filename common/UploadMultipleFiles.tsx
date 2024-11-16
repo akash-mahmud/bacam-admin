@@ -18,7 +18,7 @@ function UploadMultipleFiles({
 	accept = undefined,
 }: IPropType) {
 	return (
-		<Upload
+		<Upload action={''}
 			multiple={false}
 			accept={accept}
 			beforeUpload={(args) => beforeUpload(args)}

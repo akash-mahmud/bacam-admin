@@ -42,7 +42,7 @@ export default function ProductForm({
 		setPreviewOpen(true);
 	};
 	const [FileUpload, { loading: loadingUpload }] = useUploadFileMutation();
-	const handleBeforeUploadUpdate = async (file: RcFile): Promise<void> => {
+	const handleBeforeUploadUpdate = async (file: RcFile): Promise<boolean> => {
 		try {
 			const { data } = await FileUpload({
 				variables: {
@@ -63,6 +63,7 @@ export default function ProductForm({
 		} catch (error) {
 			console.log(error);
 		}
+		return false
 	};
 	const handleCancel = () => setPreviewOpen(false);
 	const { data } = useCategoriesQuery();
@@ -291,6 +292,7 @@ export default function ProductForm({
 						<Spin spinning={loadingUpload}>
 							<UploadSingleImage
 								uploadButton={uploadButton}
+								
 								filelist={
 									// isUpdate ? updatefiles :
 

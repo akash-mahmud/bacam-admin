@@ -58,8 +58,8 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 		formik.setFieldValue('name', item.name);
 		formik.setFieldValue('image', item.image);
 		formik.setFieldValue('shortDescription', item.shortDescription);
-		formik.setFieldValue('employeeCategory', item.employeeCategoryId);
-		formik.setFieldValue('employeeSubCategory', item.employeeSubCategoryId);
+		item.employeeCategoryId && formik.setFieldValue('employeeCategory', item.employeeCategoryId);
+		item.employeeSubCategoryId && formik.setFieldValue('employeeSubCategory', item.employeeSubCategoryId);
 		setFiles(() => [
 			{
 				uid: v4(),
@@ -87,11 +87,11 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 								id: values.employeeCategory,
 							},
 						},
-						employeeSubCategory: {
+						employeeSubCategory:values?.employeeSubCategory ? {
 							connect: {
 								id: values?.employeeSubCategory,
 							},
-						},
+						}:undefined,
 						image: {
 							set: values.image,
 						},
@@ -111,7 +111,7 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			image: '',
 			shortDescription: '',
 			employeeCategory: '',
-			employeeSubCategory: '',
+			employeeSubCategory: undefined,
 		},
 	});
 
@@ -128,7 +128,7 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			image: '',
 			shortDescription: '',
 			employeeCategory: '',
-			employeeSubCategory: '',
+			employeeSubCategory: undefined,
 		},
 	});
 	const handlePreview = async (file: UploadFile) => {
@@ -153,7 +153,11 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 					url: getImage(data?.uploadFile?.file as string),
 				},
 			]);
-			formikCreateForm.setFieldValue('image', data?.uploadFile?.file);
+			if (upcomingEventsEditOffcanvas) {
+				formik.setFieldValue('image', data?.uploadFile?.file);
+			} else {
+				formikCreateForm.setFieldValue('image', data?.uploadFile?.file);
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -183,11 +187,11 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 								id: data.employeeCategory,
 							},
 						},
-						employeeSubCategory: {
+						employeeSubCategory:data?.employeeSubCategory? {
 							connect: {
 								id: data?.employeeSubCategory,
 							},
-						},
+						}:undefined,
 					},
 				},
 			});
