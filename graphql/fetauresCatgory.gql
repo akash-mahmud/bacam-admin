@@ -1,0 +1,30 @@
+mutation CreateOneFetaureCategory($data: FetaureCategoryCreateInput!) {
+  createOneFetaureCategory(data: $data) {
+    id
+  }
+}
+mutation UpdateOneFetaureCategory($data: FetaureCategoryUpdateInput!, $where: FetaureCategoryWhereUniqueInput!) {
+  updateOneFetaureCategory(data: $data, where: $where) {
+    id
+  }
+}
+
+mutation DeleteOneFetaureCategory($where: FetaureCategoryWhereUniqueInput!) {
+  deleteOneFetaureCategory(where: $where) {
+    id
+  }
+}
+
+query FetaureCategory($where: FetaureCategoryWhereUniqueInput!) {
+  fetaureCategory(where: $where) {
+    id
+    name
+  }
+}
+
+query FetaureCategories($where: FetaureCategoryWhereInput, $orderBy: [FetaureCategoryOrderByWithRelationInput!], $cursor: FetaureCategoryWhereUniqueInput, $take: Int, $skip: Int, $distinct: [FetaureCategoryScalarFieldEnum!]) {
+  fetaureCategories(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
+    id
+    name
+  }
+}

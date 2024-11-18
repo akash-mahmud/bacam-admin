@@ -8,12 +8,22 @@ import Input from '@/components/bootstrap/forms/Input';
 import Button from '@/components/bootstrap/Button';
 import FormGroup from '@/components/bootstrap/forms/FormGroup';
 import Textarea from '@/components/bootstrap/forms/Textarea';
-import { Modal, Spin, UploadFile } from 'antd';
+
+import {
+	Modal,
+	Spin,
+	UploadFile,
+	Select as AntdSelect,
+	Collapse,
+	List,
+} from 'antd';
 import {
 	CustomProductStatus,
 	ProductType,
 	useCategoriesQuery,
+	useCreateOneFetaureCategoryMutation,
 	useEmployeesQuery,
+	useFetaureCategoriesQuery,
 	useUploadFileMutation,
 } from '@/graphql/generated/schema';
 import { RcFile } from 'antd/es/upload';
@@ -21,7 +31,15 @@ import { v4 } from 'uuid';
 import { getImage } from '@/utils/getImage';
 import Image from 'next/image';
 import { uploadButton } from '@/pages/product/create';
-
+import Label from '@/components/bootstrap/forms/Label';
+import FetaureCategoryForm from './FetaureCategoryForm';
+import { Settings } from '@/components/icon/material-icons';
+const { Panel } = Collapse;
+const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.
+`;
 export default function ProductForm({
 	formik,
 	files,
@@ -36,6 +54,17 @@ export default function ProductForm({
 	rowClassName?: string;
 }) {
 	const [previewOpen, setPreviewOpen] = useState(false);
+	const [createFetaureCategory, setcreateFetaureCategory] = useState(false);
+	const onChange = (key: string | string[]) => {
+		console.log(key);
+	};
+
+	const onOpenCreateFetaure = () => {
+		setcreateFetaureCategory(true);
+	};
+	const onCloseCreateFetaure = () => {
+		setcreateFetaureCategory(false);
+	};
 	const [previewImage, setPreviewImage] = useState('');
 	const handlePreview = async (file: UploadFile) => {
 		setPreviewImage(file.url as string);
@@ -69,7 +98,41 @@ export default function ProductForm({
 	const { data } = useCategoriesQuery();
 	const { data: EmployeeData } = useEmployeesQuery();
 	const employees = EmployeeData?.employees ?? [];
+	const {
+		data: FetaureCategoriesData,
+		refetch: FetaureCategoriesDatarefetch,
+		loading: FetaureCategoriesDataLoading,
+	} = useFetaureCategoriesQuery();
 
+	const fetaureCategories = FetaureCategoriesData?.fetaureCategories ?? [];
+	const [activeKeys, setActiveKeys] = useState<string[]>([]); // Track active panel keys
+
+	const handleCollapseChange = (key: string | string[]) => {
+		if (Array.isArray(key)) {
+			setActiveKeys(key); // Update active keys directly when multiple panels can be open
+		} else {
+			setActiveKeys(
+				(prevKeys) =>
+					prevKeys.includes(key)
+						? prevKeys.filter((k) => k !== key) // Remove key if already active
+						: [...prevKeys, key], // Add key if not active
+			);
+		}
+	};
+	const [Create, { loading: CreateLoading }] = useCreateOneFetaureCategoryMutation();
+	interface ListItem {
+		id: number;
+		name: string;
+		value: string;
+	}
+
+	const handleInputChange = (id: string, field: 'name' | 'value', newValue: string) => {
+		// Update the specific item in the array
+		const updatedItems = formik.values.fetaures.createMany.data.map((item) =>
+			item.id === id ? { ...item, [field]: newValue } : item,
+		);
+		formik.setFieldValue('fetaures.createMany.data', updatedItems);
+	};
 	return (
 		<>
 			<form className='row g-4' onSubmit={formik.handleSubmit}>
@@ -287,6 +350,186 @@ export default function ProductForm({
 						/>
 					</FormGroup>
 				</div>
+				<div className={' col-md-12 '}>
+					<Label>Add or create Fetaure categories for this product</Label>
+					<AntdSelect
+						mode='tags'
+						value={formik.values.fetauresCategories.connect?.map(
+							(val: { id: any }) => val.id,
+						)}
+						className=' col-md-12'
+						filterOption={(input, option) =>
+							option?.children
+								// @ts-ignore
+								?.toLowerCase()
+								.includes(input.toLowerCase())
+						}
+						onChange={(value: string[]) => {
+							formik.setFieldValue(
+								'fetauresCategories.connect',
+								value?.map((val) => ({ id: val })),
+							);
+							setActiveKeys(value);
+						}}
+						onSelect={async (value: string) => {
+							let isNewValue = false;
+							let newId = '';
+							if (!fetaureCategories.some((item) => item.id === value)) {
+								const { data } = await Create({
+									variables: {
+										data: {
+											name: value,
+										},
+									},
+								});
+								formik.setFieldValue('fetauresCategories.connect', [
+									...formik.values.fetauresCategories.connect,
+									{ id: data?.createOneFetaureCategory.id },
+								]);
+								await FetaureCategoriesDatarefetch();
+								setActiveKeys((prev) => [
+									...prev,
+									data?.createOneFetaureCategory?.id ?? '',
+								]);
+								isNewValue = true;
+								newId = data?.createOneFetaureCategory?.id ?? '';
+							}
+							if (isNewValue && newId) {
+								formik.setFieldValue('fetaures.createMany.data', [
+									...formik.values.fetaures.createMany.data,
+									{
+										id: v4(),
+										fetaurecategoryId: newId,
+										name: '',
+										value: '',
+									},
+								]);
+							} else {
+								formik.setFieldValue('fetaures.createMany.data', [
+									...formik.values.fetaures.createMany.data,
+									{
+										id: v4(),
+										fetaurecategoryId: value,
+										name: '',
+										value: '',
+									},
+								]);
+							}
+						}}>
+						{fetaureCategories.map((elem) => (
+							<AntdSelect.Option value={elem.id}>{elem.name}</AntdSelect.Option>
+						))}
+					</AntdSelect>
+					<p className=' text-body'>
+						You can asign existing fetaures or simply create a new fetaure by typing its
+						name
+					</p>
+				</div>
+				{formik.values.fetauresCategories.connect.length > 0 && (
+					<Spin spinning={FetaureCategoriesDataLoading}>
+						<div className=' col-md-12'>
+							<Collapse activeKey={activeKeys} onChange={handleCollapseChange}>
+								{[...fetaureCategories]
+									?.filter((obj) =>
+										formik.values.fetauresCategories.connect.some(
+											(item: { id: string }) => item.id === obj.id,
+										),
+									)
+									?.map((elem) => (
+										<Panel
+											header={elem.name}
+											key={elem.id}
+											extra={
+												<Button
+													className=' btn btn-info'
+													onClick={(event: any) => {
+														event.stopPropagation();
+														formik.setFieldValue(
+															'fetaures.createMany.data',
+															[
+																...formik.values.fetaures.createMany
+																	.data,
+																{
+																	id: v4(),
+																	fetaurecategoryId: elem.id,
+																	name: '',
+																	value: '',
+																},
+															],
+														);
+													}}>
+													Add
+												</Button>
+											}>
+											<List
+												bordered
+												dataSource={formik.values.fetaures.createMany.data?.filter(
+													(curElem: {
+														id: string;
+														fetaurecategoryId: string;
+														name: string;
+														value: string;
+													}) => curElem.fetaurecategoryId === elem.id,
+												)}
+												renderItem={(item) => (
+													<List.Item>
+														<div className=' d-flex justify-content-center align-content-center w-100 gap-2 '>
+															<div className=' w-50'>
+																<Label>Name</Label>
+																<Input
+																	value={item.name}
+																	onChange={(e) => {
+																		handleInputChange(
+																			item.id,
+																			'name',
+																			e.target.value,
+																		);
+																	}}
+																/>
+															</div>
+															<div className=' w-50 '>
+																<Label>value</Label>
+
+																<Input
+																	value={item.value}
+																	onChange={(e) =>
+																		handleInputChange(
+																			item.id,
+																			'value',
+																			e.target.value,
+																		)
+																	}
+																/>
+															</div>
+															<div className=' d-flex align-content-center align-items-end'>
+																<Button
+																	className=' btn btn-danger  '
+																	onClick={() => {
+																		// prevItems.filter((item) => item.id !== id)
+																		const updatedItems =
+																			formik.values.fetaures.createMany.data.filter(
+																				(elem) =>
+																					elem.id !==
+																					item.id,
+																			);
+																		formik.setFieldValue(
+																			'fetaures.createMany.data',
+																			updatedItems,
+																		);
+																	}}>
+																	Delete
+																</Button>
+															</div>
+														</div>
+													</List.Item>
+												)}
+											/>
+										</Panel>
+									))}
+							</Collapse>
+						</div>
+					</Spin>
+				)}
 				<div className='col-md-12'>
 					<FormGroup label='Images'>
 						<Spin spinning={loadingUpload}>
@@ -365,6 +608,19 @@ export default function ProductForm({
 			</form>
 			<Modal open={previewOpen} title={''} footer={null} onCancel={handleCancel}>
 				<Image alt='example' height={300} width={500} src={previewImage} />
+			</Modal>
+
+			<Modal
+				open={createFetaureCategory}
+				title={''}
+				footer={null}
+				onCancel={onCloseCreateFetaure}>
+				<FetaureCategoryForm
+					callBack={async () => {
+						onCloseCreateFetaure();
+						await FetaureCategoriesDatarefetch();
+					}}
+				/>
 			</Modal>
 		</>
 	);

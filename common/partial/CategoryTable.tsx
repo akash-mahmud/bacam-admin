@@ -16,12 +16,7 @@ import Input from '../../components/bootstrap/forms/Input';
 
 import { PER_COUNT } from '../../components/PaginationButtons';
 import useDarkMode from '../../hooks/useDarkMode';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-} from '@/components/bootstrap/Modal';
+import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@/components/bootstrap/Modal';
 import {
 	SortOrder,
 	useCategoriesQuery,
@@ -30,10 +25,9 @@ import {
 	useMainCategoriesQuery,
 	useUpdateOneCategoryMutation,
 } from '@/graphql/generated/schema';
-import { notification, Popconfirm, Spin } from 'antd';
+import { Modal, notification, Popconfirm, Select, Spin } from 'antd';
 import slug from 'slug';
-import Select from '@/components/bootstrap/forms/Select';
-import Option from '@/components/bootstrap/Option';
+import Label from '@/components/bootstrap/forms/Label';
 
 interface ICategoryTableProps {
 	isFluid?: boolean;
@@ -280,7 +274,9 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 									}}
 									className=''>
 									{maincategories?.map((maincat) => (
-										<Option value={maincat.id}>{maincat.name}</Option>
+										<Select.Option value={maincat.id}>
+											{maincat.name}
+										</Select.Option>
 									))}
 								</Select>
 							</FormGroup>
@@ -297,16 +293,13 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 			</OffCanvas>
 
 			<Modal
-				id={'createCategory'}
-				isOpen={createModal} // Example: state
-				setIsOpen={setcreateModal}
-				isScrollable={true}
-				isCentered={true}>
+				open={createModal} // Example: state
+				footer={null}
+				centered
+				onCancel={onCloseCreateModal}>
 				<></>
 				<Spin spinning={categoryCreateLoading}>
-					<ModalHeader
-						setIsOpen={setcreateModal} // Example: setState
-					>
+					<ModalHeader>
 						<ModalTitle id='create-category'>Create Category</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
@@ -353,25 +346,23 @@ const CategoryTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 									/>
 								</FormGroup>
 							</div>
-							<div className='col-md-12'>
-								<FormGroup id='mainCategory' label='Main Category'>
-									<Select
-										ariaLabel=''
-										value={formikCreateForm.values.mainCategory}
-										isTouched={formikCreateForm.touched.mainCategory}
-										invalidFeedback={formikCreateForm.errors.mainCategory}
-										isValid={formikCreateForm.isValid}
-										onChange={formikCreateForm.handleChange}
-										onBlur={formikCreateForm.handleBlur}
-										onFocus={() => {
-											formikCreateForm.setErrors({});
-										}}
-										className=''>
-										{maincategories?.map((maincat) => (
-											<Option value={maincat.id}>{maincat.name}</Option>
-										))}
-									</Select>
-								</FormGroup>
+							<div className='col-md-12 mb-3'>
+								<Label>Main category</Label>
+								<Select
+									value={formikCreateForm.values.mainCategory}
+									onChange={(value) =>
+										formikCreateForm.setFieldValue(
+											'mainCategory',
+											value,
+										)
+									}
+									className=' w-100'>
+									{maincategories?.map((maincat) => (
+										<Select.Option value={maincat.id}>
+											{maincat.name}
+										</Select.Option>
+									))}
+								</Select>
 							</div>
 						</form>
 					</ModalBody>

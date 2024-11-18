@@ -1,0 +1,27 @@
+query ProductFetaure($where: ProductFetaureWhereUniqueInput!) {
+  productFetaure(where: $where) {
+    id
+    name
+    value
+  }
+}
+
+query ProductFetaures($where: ProductFetaureWhereInput, $orderBy: [ProductFetaureOrderByWithRelationInput!], $cursor: ProductFetaureWhereUniqueInput, $take: Int, $skip: Int, $distinct: [ProductFetaureScalarFieldEnum!]) {
+  productFetaures(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
+    id
+    name
+    value
+  }
+}
+
+mutation UpdateOneProductFetaure($data: ProductFetaureUpdateInput!, $where: ProductFetaureWhereUniqueInput!) {
+  updateOneProductFetaure(data: $data, where: $where) {
+    id
+  }
+}
+
+mutation DeleteOneProductFetaure($where: ProductFetaureWhereUniqueInput!) {
+  deleteOneProductFetaure(where: $where) {
+    id
+  }
+}

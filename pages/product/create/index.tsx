@@ -39,9 +39,19 @@ export default function index() {
 					id: '',
 				},
 			},
-			price: 0,
+			price: 0, 
 			orderStartPrice: 0,
 			stock: 0,
+			fetauresCategories: {
+				connect: [],
+			},
+			fetaures: {
+				createMany: {
+					data: [
+					
+					],
+				},
+			},
 		},
 
 		validateOnChange: false,
@@ -112,7 +122,6 @@ export default function index() {
 		},
 		[user],
 	);
-
 	return (
 		<PageWrapper>
 			<div>
