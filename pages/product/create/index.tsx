@@ -45,6 +45,9 @@ export default function index() {
 			fetauresCategories: {
 				connect: [],
 			},
+			sizes:{
+				set:[]
+			},
 			fetaures: {
 				createMany: {
 					data: [

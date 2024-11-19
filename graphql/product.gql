@@ -65,6 +65,16 @@ query ProductForUpdate($where: ProductWhereUniqueInput!) {
 		type
 		slug
 		employeeId
+		fetauresCategories {
+			id
+		}
+		fetaures {
+			id
+			name
+			value
+			fetaurecategoryId
+		}
+		sizes
 	}
 }
 mutation UpdateOneProduct($data: ProductUpdateInput!, $where: ProductWhereUniqueInput!) {

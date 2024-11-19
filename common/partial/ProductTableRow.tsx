@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
 import Button from '../../components/bootstrap/Button';
-import useDarkMode from '../../hooks/useDarkMode';
 
 import { Product } from '@/graphql/generated/schema';
 import { getImage } from '@/utils/getImage';
+import { useRouter } from 'next/router';
 
 interface IProductTableRowProps extends Product {
 	selectOnChange: any;
@@ -28,8 +28,7 @@ const ProductTableRow: FC<IProductTableRowProps> = ({
 	selectChecked,
 	selectName,
 }) => {
-	const { darkModeStatus } = useDarkMode();
-
+	const router = useRouter();
 	return (
 		<tr>
 			<td>
@@ -68,7 +67,7 @@ const ProductTableRow: FC<IProductTableRowProps> = ({
 
 			<td className='text-end'>
 				<Button
-					onClick={() => openUpdateCanvas(id)}
+					onClick={() => router.push(`/product/update/${id}`)}
 					color='dark'
 					isLight
 					icon='Edit'

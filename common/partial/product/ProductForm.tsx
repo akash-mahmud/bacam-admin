@@ -9,14 +9,7 @@ import Button from '@/components/bootstrap/Button';
 import FormGroup from '@/components/bootstrap/forms/FormGroup';
 import Textarea from '@/components/bootstrap/forms/Textarea';
 
-import {
-	Modal,
-	Spin,
-	UploadFile,
-	Select as AntdSelect,
-	Collapse,
-	List,
-} from 'antd';
+import { Modal, Spin, UploadFile, Select as AntdSelect, Collapse, List } from 'antd';
 import {
 	CustomProductStatus,
 	ProductType,
@@ -24,6 +17,7 @@ import {
 	useCreateOneFetaureCategoryMutation,
 	useEmployeesQuery,
 	useFetaureCategoriesQuery,
+	useUpdateOneProductFetaureMutation,
 	useUploadFileMutation,
 } from '@/graphql/generated/schema';
 import { RcFile } from 'antd/es/upload';
@@ -33,13 +27,8 @@ import Image from 'next/image';
 import { uploadButton } from '@/pages/product/create';
 import Label from '@/components/bootstrap/forms/Label';
 import FetaureCategoryForm from './FetaureCategoryForm';
-import { Settings } from '@/components/icon/material-icons';
 const { Panel } = Collapse;
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+
 export default function ProductForm({
 	formik,
 	files,
@@ -106,7 +95,6 @@ export default function ProductForm({
 
 	const fetaureCategories = FetaureCategoriesData?.fetaureCategories ?? [];
 	const [activeKeys, setActiveKeys] = useState<string[]>([]); // Track active panel keys
-
 	const handleCollapseChange = (key: string | string[]) => {
 		if (Array.isArray(key)) {
 			setActiveKeys(key); // Update active keys directly when multiple panels can be open
@@ -121,18 +109,19 @@ export default function ProductForm({
 	};
 	const [Create, { loading: CreateLoading }] = useCreateOneFetaureCategoryMutation();
 	interface ListItem {
-		id: number;
+		id: string;
 		name: string;
 		value: string;
 	}
 
 	const handleInputChange = (id: string, field: 'name' | 'value', newValue: string) => {
 		// Update the specific item in the array
-		const updatedItems = formik.values.fetaures.createMany.data.map((item) =>
+		const updatedItems = formik.values.fetaures.createMany.data.map((item: { id: string }) =>
 			item.id === id ? { ...item, [field]: newValue } : item,
 		);
 		formik.setFieldValue('fetaures.createMany.data', updatedItems);
 	};
+
 	return (
 		<>
 			<form className='row g-4' onSubmit={formik.handleSubmit}>
@@ -351,6 +340,16 @@ export default function ProductForm({
 					</FormGroup>
 				</div>
 				<div className={' col-md-12 '}>
+					<Label>Sizes</Label>
+					<AntdSelect
+						mode='tags'
+						value={formik.values.sizes.set}
+						className=' col-md-12'
+						onChange={(value: string[]) => {
+							formik.setFieldValue('sizes.set', value);
+						}}></AntdSelect>
+				</div>
+				<div className={' col-md-12 '}>
 					<Label>Add or create Fetaure categories for this product</Label>
 					<AntdSelect
 						mode='tags'
@@ -425,7 +424,7 @@ export default function ProductForm({
 						name
 					</p>
 				</div>
-				{formik.values.fetauresCategories.connect.length > 0 && (
+				{formik.values.fetauresCategories.connect?.length > 0 && (
 					<Spin spinning={FetaureCategoriesDataLoading}>
 						<div className=' col-md-12'>
 							<Collapse activeKey={activeKeys} onChange={handleCollapseChange}>
@@ -463,14 +462,16 @@ export default function ProductForm({
 											}>
 											<List
 												bordered
-												dataSource={formik.values.fetaures.createMany.data?.filter(
-													(curElem: {
-														id: string;
-														fetaurecategoryId: string;
-														name: string;
-														value: string;
-													}) => curElem.fetaurecategoryId === elem.id,
-												)}
+												dataSource={
+													formik.values.fetaures.createMany.data?.filter(
+														(curElem: {
+															id: string;
+															fetaurecategoryId: string;
+															name: string;
+															value: string;
+														}) => curElem.fetaurecategoryId === elem.id,
+													) as ListItem[]
+												}
 												renderItem={(item) => (
 													<List.Item>
 														<div className=' d-flex justify-content-center align-content-center w-100 gap-2 '>
@@ -478,7 +479,7 @@ export default function ProductForm({
 																<Label>Name</Label>
 																<Input
 																	value={item.name}
-																	onChange={(e) => {
+																	onChange={(e: any) => {
 																		handleInputChange(
 																			item.id,
 																			'name',
@@ -492,7 +493,7 @@ export default function ProductForm({
 
 																<Input
 																	value={item.value}
-																	onChange={(e) =>
+																	onChange={(e: any) =>
 																		handleInputChange(
 																			item.id,
 																			'value',
@@ -508,7 +509,9 @@ export default function ProductForm({
 																		// prevItems.filter((item) => item.id !== id)
 																		const updatedItems =
 																			formik.values.fetaures.createMany.data.filter(
-																				(elem) =>
+																				(elem: {
+																					id: string;
+																				}) =>
 																					elem.id !==
 																					item.id,
 																			);

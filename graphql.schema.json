@@ -56967,7 +56967,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "args": [],
             "type": {
@@ -57552,7 +57552,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "args": [],
             "type": {
@@ -57789,7 +57789,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -58089,11 +58089,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58321,11 +58321,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58605,11 +58605,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -58901,11 +58901,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -59937,11 +59937,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -60229,11 +60229,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -60525,11 +60525,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -60821,11 +60821,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -61117,11 +61117,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -61413,11 +61413,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -61709,11 +61709,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductCreatesizeInput",
+              "name": "ProductCreatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -61819,7 +61819,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "ProductCreatesizeInput",
+        "name": "ProductCreatesizesInput",
         "description": null,
         "isOneOf": false,
         "fields": null,
@@ -65390,7 +65390,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "args": [],
             "type": {
@@ -66531,7 +66531,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -66831,7 +66831,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -67013,7 +67013,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -67257,7 +67257,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -67533,7 +67533,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -67953,11 +67953,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductUpdatesizeInput",
+              "name": "ProductUpdatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -68145,11 +68145,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductUpdatesizeInput",
+              "name": "ProductUpdatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -69621,11 +69621,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductUpdatesizeInput",
+              "name": "ProductUpdatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -69885,11 +69885,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductUpdatesizeInput",
+              "name": "ProductUpdatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -70149,11 +70149,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductUpdatesizeInput",
+              "name": "ProductUpdatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -70413,11 +70413,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductUpdatesizeInput",
+              "name": "ProductUpdatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -70677,11 +70677,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductUpdatesizeInput",
+              "name": "ProductUpdatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -70941,11 +70941,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductUpdatesizeInput",
+              "name": "ProductUpdatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -71205,11 +71205,11 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "ProductUpdatesizeInput",
+              "name": "ProductUpdatesizesInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -71323,7 +71323,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "ProductUpdatesizeInput",
+        "name": "ProductUpdatesizesInput",
         "description": null,
         "isOneOf": false,
         "fields": null,
@@ -72025,7 +72025,7 @@
             "deprecationReason": null
           },
           {
-            "name": "size",
+            "name": "sizes",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
