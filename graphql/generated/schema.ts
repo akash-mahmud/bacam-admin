@@ -72,6 +72,15 @@ export type AggregateEmployeeCategory = {
   _sum?: Maybe<EmployeeCategorySumAggregate>;
 };
 
+export type AggregateEmployeePreviousWork = {
+  __typename?: 'AggregateEmployeePreviousWork';
+  _avg?: Maybe<EmployeePreviousWorkAvgAggregate>;
+  _count?: Maybe<EmployeePreviousWorkCountAggregate>;
+  _max?: Maybe<EmployeePreviousWorkMaxAggregate>;
+  _min?: Maybe<EmployeePreviousWorkMinAggregate>;
+  _sum?: Maybe<EmployeePreviousWorkSumAggregate>;
+};
+
 export type AggregateEmployeeSubCategory = {
   __typename?: 'AggregateEmployeeSubCategory';
   _count?: Maybe<EmployeeSubCategoryCountAggregate>;
@@ -93,6 +102,15 @@ export type AggregateMainCategory = {
   _min?: Maybe<MainCategoryMinAggregate>;
 };
 
+export type AggregateNews = {
+  __typename?: 'AggregateNews';
+  _avg?: Maybe<NewsAvgAggregate>;
+  _count?: Maybe<NewsCountAggregate>;
+  _max?: Maybe<NewsMaxAggregate>;
+  _min?: Maybe<NewsMinAggregate>;
+  _sum?: Maybe<NewsSumAggregate>;
+};
+
 export type AggregateOrder = {
   __typename?: 'AggregateOrder';
   _avg?: Maybe<OrderAvgAggregate>;
@@ -109,6 +127,15 @@ export type AggregateOrderItem = {
   _max?: Maybe<OrderItemMaxAggregate>;
   _min?: Maybe<OrderItemMinAggregate>;
   _sum?: Maybe<OrderItemSumAggregate>;
+};
+
+export type AggregatePartnerShip = {
+  __typename?: 'AggregatePartnerShip';
+  _avg?: Maybe<PartnerShipAvgAggregate>;
+  _count?: Maybe<PartnerShipCountAggregate>;
+  _max?: Maybe<PartnerShipMaxAggregate>;
+  _min?: Maybe<PartnerShipMinAggregate>;
+  _sum?: Maybe<PartnerShipSumAggregate>;
 };
 
 export type AggregatePaymentResult = {
@@ -164,6 +191,23 @@ export type AggregateUserTokens = {
   _count?: Maybe<UserTokensCountAggregate>;
   _max?: Maybe<UserTokensMaxAggregate>;
   _min?: Maybe<UserTokensMinAggregate>;
+};
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type BoolFilter = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  not?: InputMaybe<NestedBoolFilter>;
+};
+
+export type BoolWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedBoolFilter>;
+  _min?: InputMaybe<NestedBoolFilter>;
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  not?: InputMaybe<NestedBoolWithAggregatesFilter>;
 };
 
 export type Cart = {
@@ -1545,6 +1589,7 @@ export type Employee = {
   image: Scalars['String']['output'];
   name: Scalars['String']['output'];
   orderItem: Array<OrderItem>;
+  ourTeam: Scalars['Boolean']['output'];
   products: Array<Product>;
   shortDescription: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -1951,6 +1996,7 @@ export type EmployeeCountAggregate = {
   id: Scalars['Int']['output'];
   image: Scalars['Int']['output'];
   name: Scalars['Int']['output'];
+  ourTeam: Scalars['Int']['output'];
   shortDescription: Scalars['Int']['output'];
   updatedAt: Scalars['Int']['output'];
 };
@@ -1962,6 +2008,7 @@ export type EmployeeCountOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
+  ourTeam?: InputMaybe<SortOrder>;
   shortDescription?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -1975,6 +2022,7 @@ export type EmployeeCreateInput = {
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -1986,6 +2034,7 @@ export type EmployeeCreateManyEmployeeCategoryInput = {
   id?: InputMaybe<Scalars['String']['input']>;
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -2001,6 +2050,7 @@ export type EmployeeCreateManyEmployeeSubCategoryInput = {
   id?: InputMaybe<Scalars['String']['input']>;
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -2017,6 +2067,7 @@ export type EmployeeCreateManyInput = {
   id?: InputMaybe<Scalars['String']['input']>;
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -2086,6 +2137,7 @@ export type EmployeeCreateWithoutCartItemInput = {
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2099,6 +2151,7 @@ export type EmployeeCreateWithoutEmployeeCategoryInput = {
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2112,6 +2165,7 @@ export type EmployeeCreateWithoutEmployeeSubCategoryInput = {
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2125,6 +2179,7 @@ export type EmployeeCreateWithoutOrderItemInput = {
   id?: InputMaybe<Scalars['String']['input']>;
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2139,6 +2194,7 @@ export type EmployeeCreateWithoutProductsInput = {
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -2154,6 +2210,7 @@ export type EmployeeGroupBy = {
   id: Scalars['String']['output'];
   image: Scalars['String']['output'];
   name: Scalars['String']['output'];
+  ourTeam: Scalars['Boolean']['output'];
   shortDescription: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -2172,6 +2229,7 @@ export type EmployeeMaxAggregate = {
   id?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  ourTeam?: Maybe<Scalars['Boolean']['output']>;
   shortDescription?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -2183,6 +2241,7 @@ export type EmployeeMaxOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
+  ourTeam?: InputMaybe<SortOrder>;
   shortDescription?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -2195,6 +2254,7 @@ export type EmployeeMinAggregate = {
   id?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  ourTeam?: Maybe<Scalars['Boolean']['output']>;
   shortDescription?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -2206,6 +2266,7 @@ export type EmployeeMinOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
+  ourTeam?: InputMaybe<SortOrder>;
   shortDescription?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -2224,6 +2285,7 @@ export type EmployeeOrderByWithAggregationInput = {
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
+  ourTeam?: InputMaybe<SortOrder>;
   shortDescription?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -2239,9 +2301,246 @@ export type EmployeeOrderByWithRelationInput = {
   image?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
   orderItem?: InputMaybe<OrderItemOrderByRelationAggregateInput>;
+  ourTeam?: InputMaybe<SortOrder>;
   products?: InputMaybe<ProductOrderByRelationAggregateInput>;
   shortDescription?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeePreviousWork = {
+  __typename?: 'EmployeePreviousWork';
+  createdAt: Scalars['DateTime']['output'];
+  description: Scalars['String']['output'];
+  files: Array<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  link: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type EmployeePreviousWorkAvgAggregate = {
+  __typename?: 'EmployeePreviousWorkAvgAggregate';
+  position?: Maybe<Scalars['Float']['output']>;
+};
+
+export type EmployeePreviousWorkAvgOrderByAggregateInput = {
+  position?: InputMaybe<SortOrder>;
+};
+
+export type EmployeePreviousWorkCountAggregate = {
+  __typename?: 'EmployeePreviousWorkCountAggregate';
+  _all: Scalars['Int']['output'];
+  createdAt: Scalars['Int']['output'];
+  description: Scalars['Int']['output'];
+  files: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  link: Scalars['Int']['output'];
+  position: Scalars['Int']['output'];
+  title: Scalars['Int']['output'];
+  updatedAt: Scalars['Int']['output'];
+};
+
+export type EmployeePreviousWorkCountOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  files?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeePreviousWorkCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  files?: InputMaybe<EmployeePreviousWorkCreatefilesInput>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
+  position?: InputMaybe<Scalars['Int']['input']>;
+  title: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type EmployeePreviousWorkCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  files?: InputMaybe<EmployeePreviousWorkCreatefilesInput>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
+  position?: InputMaybe<Scalars['Int']['input']>;
+  title: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type EmployeePreviousWorkCreatefilesInput = {
+  set: Array<Scalars['String']['input']>;
+};
+
+export type EmployeePreviousWorkGroupBy = {
+  __typename?: 'EmployeePreviousWorkGroupBy';
+  _avg?: Maybe<EmployeePreviousWorkAvgAggregate>;
+  _count?: Maybe<EmployeePreviousWorkCountAggregate>;
+  _max?: Maybe<EmployeePreviousWorkMaxAggregate>;
+  _min?: Maybe<EmployeePreviousWorkMinAggregate>;
+  _sum?: Maybe<EmployeePreviousWorkSumAggregate>;
+  createdAt: Scalars['DateTime']['output'];
+  description: Scalars['String']['output'];
+  files?: Maybe<Array<Scalars['String']['output']>>;
+  id: Scalars['String']['output'];
+  link: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type EmployeePreviousWorkMaxAggregate = {
+  __typename?: 'EmployeePreviousWorkMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+  position?: Maybe<Scalars['Int']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type EmployeePreviousWorkMaxOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeePreviousWorkMinAggregate = {
+  __typename?: 'EmployeePreviousWorkMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+  position?: Maybe<Scalars['Int']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type EmployeePreviousWorkMinOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeePreviousWorkOrderByWithAggregationInput = {
+  _avg?: InputMaybe<EmployeePreviousWorkAvgOrderByAggregateInput>;
+  _count?: InputMaybe<EmployeePreviousWorkCountOrderByAggregateInput>;
+  _max?: InputMaybe<EmployeePreviousWorkMaxOrderByAggregateInput>;
+  _min?: InputMaybe<EmployeePreviousWorkMinOrderByAggregateInput>;
+  _sum?: InputMaybe<EmployeePreviousWorkSumOrderByAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  files?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeePreviousWorkOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  files?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export enum EmployeePreviousWorkScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Description = 'description',
+  Files = 'files',
+  Id = 'id',
+  Link = 'link',
+  Position = 'position',
+  Title = 'title',
+  UpdatedAt = 'updatedAt'
+}
+
+export type EmployeePreviousWorkScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<EmployeePreviousWorkScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<EmployeePreviousWorkScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<EmployeePreviousWorkScalarWhereWithAggregatesInput>>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  description?: InputMaybe<StringWithAggregatesFilter>;
+  files?: InputMaybe<StringNullableListFilter>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  link?: InputMaybe<StringWithAggregatesFilter>;
+  position?: InputMaybe<IntWithAggregatesFilter>;
+  title?: InputMaybe<StringWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+};
+
+export type EmployeePreviousWorkSumAggregate = {
+  __typename?: 'EmployeePreviousWorkSumAggregate';
+  position?: Maybe<Scalars['Int']['output']>;
+};
+
+export type EmployeePreviousWorkSumOrderByAggregateInput = {
+  position?: InputMaybe<SortOrder>;
+};
+
+export type EmployeePreviousWorkUpdateInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  files?: InputMaybe<EmployeePreviousWorkUpdatefilesInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  link?: InputMaybe<StringFieldUpdateOperationsInput>;
+  position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  title?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type EmployeePreviousWorkUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  files?: InputMaybe<EmployeePreviousWorkUpdatefilesInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  link?: InputMaybe<StringFieldUpdateOperationsInput>;
+  position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  title?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type EmployeePreviousWorkUpdatefilesInput = {
+  push?: InputMaybe<Array<Scalars['String']['input']>>;
+  set?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type EmployeePreviousWorkWhereInput = {
+  AND?: InputMaybe<Array<EmployeePreviousWorkWhereInput>>;
+  NOT?: InputMaybe<Array<EmployeePreviousWorkWhereInput>>;
+  OR?: InputMaybe<Array<EmployeePreviousWorkWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  description?: InputMaybe<StringFilter>;
+  files?: InputMaybe<StringNullableListFilter>;
+  id?: InputMaybe<StringFilter>;
+  link?: InputMaybe<StringFilter>;
+  position?: InputMaybe<IntFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type EmployeePreviousWorkWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type EmployeeRelationFilter = {
@@ -2256,6 +2555,7 @@ export enum EmployeeScalarFieldEnum {
   Id = 'id',
   Image = 'image',
   Name = 'name',
+  OurTeam = 'ourTeam',
   ShortDescription = 'shortDescription',
   UpdatedAt = 'updatedAt'
 }
@@ -2270,6 +2570,7 @@ export type EmployeeScalarWhereInput = {
   id?: InputMaybe<StringFilter>;
   image?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
+  ourTeam?: InputMaybe<BoolFilter>;
   shortDescription?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
@@ -2284,6 +2585,7 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   id?: InputMaybe<StringWithAggregatesFilter>;
   image?: InputMaybe<StringWithAggregatesFilter>;
   name?: InputMaybe<StringWithAggregatesFilter>;
+  ourTeam?: InputMaybe<BoolWithAggregatesFilter>;
   shortDescription?: InputMaybe<StringWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
@@ -2645,6 +2947,7 @@ export type EmployeeUpdateInput = {
   image?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
+  ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -2655,6 +2958,7 @@ export type EmployeeUpdateManyMutationInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -2745,6 +3049,7 @@ export type EmployeeUpdateWithoutCartItemInput = {
   image?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
+  ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -2758,6 +3063,7 @@ export type EmployeeUpdateWithoutEmployeeCategoryInput = {
   image?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
+  ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -2771,6 +3077,7 @@ export type EmployeeUpdateWithoutEmployeeSubCategoryInput = {
   image?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
+  ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -2784,6 +3091,7 @@ export type EmployeeUpdateWithoutOrderItemInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -2798,6 +3106,7 @@ export type EmployeeUpdateWithoutProductsInput = {
   image?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
+  ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -2843,6 +3152,7 @@ export type EmployeeWhereInput = {
   image?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
   orderItem?: InputMaybe<OrderItemListRelationFilter>;
+  ourTeam?: InputMaybe<BoolFilter>;
   products?: InputMaybe<ProductListRelationFilter>;
   shortDescription?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -3572,11 +3882,14 @@ export type Mutation = {
   createManyDefaultShippingAdress: AffectedRowsOutput;
   createManyEmployee: AffectedRowsOutput;
   createManyEmployeeCategory: AffectedRowsOutput;
+  createManyEmployeePreviousWork: AffectedRowsOutput;
   createManyEmployeeSubCategory: AffectedRowsOutput;
   createManyFetaureCategory: AffectedRowsOutput;
   createManyMainCategory: AffectedRowsOutput;
+  createManyNews: AffectedRowsOutput;
   createManyOrder: AffectedRowsOutput;
   createManyOrderItem: AffectedRowsOutput;
+  createManyPartnerShip: AffectedRowsOutput;
   createManyPaymentResult: AffectedRowsOutput;
   createManyProduct: AffectedRowsOutput;
   createManyProductFetaure: AffectedRowsOutput;
@@ -3590,11 +3903,14 @@ export type Mutation = {
   createOneDefaultShippingAdress: DefaultShippingAdress;
   createOneEmployee: Employee;
   createOneEmployeeCategory: EmployeeCategory;
+  createOneEmployeePreviousWork: EmployeePreviousWork;
   createOneEmployeeSubCategory: EmployeeSubCategory;
   createOneFetaureCategory: FetaureCategory;
   createOneMainCategory: MainCategory;
+  createOneNews: News;
   createOneOrder: Order;
   createOneOrderItem: OrderItem;
+  createOnePartnerShip: PartnerShip;
   createOnePaymentResult: PaymentResult;
   createOneProduct: Product;
   createOneProductFetaure: ProductFetaure;
@@ -3608,11 +3924,14 @@ export type Mutation = {
   deleteManyDefaultShippingAdress: AffectedRowsOutput;
   deleteManyEmployee: AffectedRowsOutput;
   deleteManyEmployeeCategory: AffectedRowsOutput;
+  deleteManyEmployeePreviousWork: AffectedRowsOutput;
   deleteManyEmployeeSubCategory: AffectedRowsOutput;
   deleteManyFetaureCategory: AffectedRowsOutput;
   deleteManyMainCategory: AffectedRowsOutput;
+  deleteManyNews: AffectedRowsOutput;
   deleteManyOrder: AffectedRowsOutput;
   deleteManyOrderItem: AffectedRowsOutput;
+  deleteManyPartnerShip: AffectedRowsOutput;
   deleteManyPaymentResult: AffectedRowsOutput;
   deleteManyProduct: AffectedRowsOutput;
   deleteManyProductFetaure: AffectedRowsOutput;
@@ -3626,11 +3945,14 @@ export type Mutation = {
   deleteOneDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
   deleteOneEmployee?: Maybe<Employee>;
   deleteOneEmployeeCategory?: Maybe<EmployeeCategory>;
+  deleteOneEmployeePreviousWork?: Maybe<EmployeePreviousWork>;
   deleteOneEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
   deleteOneFetaureCategory?: Maybe<FetaureCategory>;
   deleteOneMainCategory?: Maybe<MainCategory>;
+  deleteOneNews?: Maybe<News>;
   deleteOneOrder?: Maybe<Order>;
   deleteOneOrderItem?: Maybe<OrderItem>;
+  deleteOnePartnerShip?: Maybe<PartnerShip>;
   deleteOnePaymentResult?: Maybe<PaymentResult>;
   deleteOneProduct?: Maybe<Product>;
   deleteOneProductFetaure?: Maybe<ProductFetaure>;
@@ -3651,11 +3973,14 @@ export type Mutation = {
   updateManyDefaultShippingAdress: AffectedRowsOutput;
   updateManyEmployee: AffectedRowsOutput;
   updateManyEmployeeCategory: AffectedRowsOutput;
+  updateManyEmployeePreviousWork: AffectedRowsOutput;
   updateManyEmployeeSubCategory: AffectedRowsOutput;
   updateManyFetaureCategory: AffectedRowsOutput;
   updateManyMainCategory: AffectedRowsOutput;
+  updateManyNews: AffectedRowsOutput;
   updateManyOrder: AffectedRowsOutput;
   updateManyOrderItem: AffectedRowsOutput;
+  updateManyPartnerShip: AffectedRowsOutput;
   updateManyPaymentResult: AffectedRowsOutput;
   updateManyProduct: AffectedRowsOutput;
   updateManyProductFetaure: AffectedRowsOutput;
@@ -3669,11 +3994,14 @@ export type Mutation = {
   updateOneDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
   updateOneEmployee?: Maybe<Employee>;
   updateOneEmployeeCategory?: Maybe<EmployeeCategory>;
+  updateOneEmployeePreviousWork?: Maybe<EmployeePreviousWork>;
   updateOneEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
   updateOneFetaureCategory?: Maybe<FetaureCategory>;
   updateOneMainCategory?: Maybe<MainCategory>;
+  updateOneNews?: Maybe<News>;
   updateOneOrder?: Maybe<Order>;
   updateOneOrderItem?: Maybe<OrderItem>;
+  updateOnePartnerShip?: Maybe<PartnerShip>;
   updateOnePaymentResult?: Maybe<PaymentResult>;
   updateOneProduct?: Maybe<Product>;
   updateOneProductFetaure?: Maybe<ProductFetaure>;
@@ -3689,11 +4017,14 @@ export type Mutation = {
   upsertOneDefaultShippingAdress: DefaultShippingAdress;
   upsertOneEmployee: Employee;
   upsertOneEmployeeCategory: EmployeeCategory;
+  upsertOneEmployeePreviousWork: EmployeePreviousWork;
   upsertOneEmployeeSubCategory: EmployeeSubCategory;
   upsertOneFetaureCategory: FetaureCategory;
   upsertOneMainCategory: MainCategory;
+  upsertOneNews: News;
   upsertOneOrder: Order;
   upsertOneOrderItem: OrderItem;
+  upsertOnePartnerShip: PartnerShip;
   upsertOnePaymentResult: PaymentResult;
   upsertOneProduct: Product;
   upsertOneProductFetaure: ProductFetaure;
@@ -3757,6 +4088,12 @@ export type MutationCreateManyEmployeeCategoryArgs = {
 };
 
 
+export type MutationCreateManyEmployeePreviousWorkArgs = {
+  data: Array<EmployeePreviousWorkCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
 export type MutationCreateManyEmployeeSubCategoryArgs = {
   data: Array<EmployeeSubCategoryCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3775,6 +4112,12 @@ export type MutationCreateManyMainCategoryArgs = {
 };
 
 
+export type MutationCreateManyNewsArgs = {
+  data: Array<NewsCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
 export type MutationCreateManyOrderArgs = {
   data: Array<OrderCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3783,6 +4126,12 @@ export type MutationCreateManyOrderArgs = {
 
 export type MutationCreateManyOrderItemArgs = {
   data: Array<OrderItemCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManyPartnerShipArgs = {
+  data: Array<PartnerShipCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -3859,6 +4208,11 @@ export type MutationCreateOneEmployeeCategoryArgs = {
 };
 
 
+export type MutationCreateOneEmployeePreviousWorkArgs = {
+  data: EmployeePreviousWorkCreateInput;
+};
+
+
 export type MutationCreateOneEmployeeSubCategoryArgs = {
   data: EmployeeSubCategoryCreateInput;
 };
@@ -3874,6 +4228,11 @@ export type MutationCreateOneMainCategoryArgs = {
 };
 
 
+export type MutationCreateOneNewsArgs = {
+  data: NewsCreateInput;
+};
+
+
 export type MutationCreateOneOrderArgs = {
   data: OrderCreateInput;
 };
@@ -3881,6 +4240,11 @@ export type MutationCreateOneOrderArgs = {
 
 export type MutationCreateOneOrderItemArgs = {
   data: OrderItemCreateInput;
+};
+
+
+export type MutationCreateOnePartnerShipArgs = {
+  data: PartnerShipCreateInput;
 };
 
 
@@ -3949,6 +4313,11 @@ export type MutationDeleteManyEmployeeCategoryArgs = {
 };
 
 
+export type MutationDeleteManyEmployeePreviousWorkArgs = {
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
+};
+
+
 export type MutationDeleteManyEmployeeSubCategoryArgs = {
   where?: InputMaybe<EmployeeSubCategoryWhereInput>;
 };
@@ -3964,6 +4333,11 @@ export type MutationDeleteManyMainCategoryArgs = {
 };
 
 
+export type MutationDeleteManyNewsArgs = {
+  where?: InputMaybe<NewsWhereInput>;
+};
+
+
 export type MutationDeleteManyOrderArgs = {
   where?: InputMaybe<OrderWhereInput>;
 };
@@ -3971,6 +4345,11 @@ export type MutationDeleteManyOrderArgs = {
 
 export type MutationDeleteManyOrderItemArgs = {
   where?: InputMaybe<OrderItemWhereInput>;
+};
+
+
+export type MutationDeleteManyPartnerShipArgs = {
+  where?: InputMaybe<PartnerShipWhereInput>;
 };
 
 
@@ -4039,6 +4418,11 @@ export type MutationDeleteOneEmployeeCategoryArgs = {
 };
 
 
+export type MutationDeleteOneEmployeePreviousWorkArgs = {
+  where: EmployeePreviousWorkWhereUniqueInput;
+};
+
+
 export type MutationDeleteOneEmployeeSubCategoryArgs = {
   where: EmployeeSubCategoryWhereUniqueInput;
 };
@@ -4054,6 +4438,11 @@ export type MutationDeleteOneMainCategoryArgs = {
 };
 
 
+export type MutationDeleteOneNewsArgs = {
+  where: NewsWhereUniqueInput;
+};
+
+
 export type MutationDeleteOneOrderArgs = {
   where: OrderWhereUniqueInput;
 };
@@ -4061,6 +4450,11 @@ export type MutationDeleteOneOrderArgs = {
 
 export type MutationDeleteOneOrderItemArgs = {
   where: OrderItemWhereUniqueInput;
+};
+
+
+export type MutationDeleteOnePartnerShipArgs = {
+  where: PartnerShipWhereUniqueInput;
 };
 
 
@@ -4161,6 +4555,12 @@ export type MutationUpdateManyEmployeeCategoryArgs = {
 };
 
 
+export type MutationUpdateManyEmployeePreviousWorkArgs = {
+  data: EmployeePreviousWorkUpdateManyMutationInput;
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
+};
+
+
 export type MutationUpdateManyEmployeeSubCategoryArgs = {
   data: EmployeeSubCategoryUpdateManyMutationInput;
   where?: InputMaybe<EmployeeSubCategoryWhereInput>;
@@ -4179,6 +4579,12 @@ export type MutationUpdateManyMainCategoryArgs = {
 };
 
 
+export type MutationUpdateManyNewsArgs = {
+  data: NewsUpdateManyMutationInput;
+  where?: InputMaybe<NewsWhereInput>;
+};
+
+
 export type MutationUpdateManyOrderArgs = {
   data: OrderUpdateManyMutationInput;
   where?: InputMaybe<OrderWhereInput>;
@@ -4188,6 +4594,12 @@ export type MutationUpdateManyOrderArgs = {
 export type MutationUpdateManyOrderItemArgs = {
   data: OrderItemUpdateManyMutationInput;
   where?: InputMaybe<OrderItemWhereInput>;
+};
+
+
+export type MutationUpdateManyPartnerShipArgs = {
+  data: PartnerShipUpdateManyMutationInput;
+  where?: InputMaybe<PartnerShipWhereInput>;
 };
 
 
@@ -4269,6 +4681,12 @@ export type MutationUpdateOneEmployeeCategoryArgs = {
 };
 
 
+export type MutationUpdateOneEmployeePreviousWorkArgs = {
+  data: EmployeePreviousWorkUpdateInput;
+  where: EmployeePreviousWorkWhereUniqueInput;
+};
+
+
 export type MutationUpdateOneEmployeeSubCategoryArgs = {
   data: EmployeeSubCategoryUpdateInput;
   where: EmployeeSubCategoryWhereUniqueInput;
@@ -4287,6 +4705,12 @@ export type MutationUpdateOneMainCategoryArgs = {
 };
 
 
+export type MutationUpdateOneNewsArgs = {
+  data: NewsUpdateInput;
+  where: NewsWhereUniqueInput;
+};
+
+
 export type MutationUpdateOneOrderArgs = {
   data: OrderUpdateInput;
   where: OrderWhereUniqueInput;
@@ -4296,6 +4720,12 @@ export type MutationUpdateOneOrderArgs = {
 export type MutationUpdateOneOrderItemArgs = {
   data: OrderItemUpdateInput;
   where: OrderItemWhereUniqueInput;
+};
+
+
+export type MutationUpdateOnePartnerShipArgs = {
+  data: PartnerShipUpdateInput;
+  where: PartnerShipWhereUniqueInput;
 };
 
 
@@ -4394,6 +4824,13 @@ export type MutationUpsertOneEmployeeCategoryArgs = {
 };
 
 
+export type MutationUpsertOneEmployeePreviousWorkArgs = {
+  create: EmployeePreviousWorkCreateInput;
+  update: EmployeePreviousWorkUpdateInput;
+  where: EmployeePreviousWorkWhereUniqueInput;
+};
+
+
 export type MutationUpsertOneEmployeeSubCategoryArgs = {
   create: EmployeeSubCategoryCreateInput;
   update: EmployeeSubCategoryUpdateInput;
@@ -4415,6 +4852,13 @@ export type MutationUpsertOneMainCategoryArgs = {
 };
 
 
+export type MutationUpsertOneNewsArgs = {
+  create: NewsCreateInput;
+  update: NewsUpdateInput;
+  where: NewsWhereUniqueInput;
+};
+
+
 export type MutationUpsertOneOrderArgs = {
   create: OrderCreateInput;
   update: OrderUpdateInput;
@@ -4426,6 +4870,13 @@ export type MutationUpsertOneOrderItemArgs = {
   create: OrderItemCreateInput;
   update: OrderItemUpdateInput;
   where: OrderItemWhereUniqueInput;
+};
+
+
+export type MutationUpsertOnePartnerShipArgs = {
+  create: PartnerShipCreateInput;
+  update: PartnerShipUpdateInput;
+  where: PartnerShipWhereUniqueInput;
 };
 
 
@@ -4480,6 +4931,19 @@ export type MutationUpsertOneUserTokensArgs = {
 
 export type MutationVerifyEmailArgs = {
   token: Scalars['String']['input'];
+};
+
+export type NestedBoolFilter = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  not?: InputMaybe<NestedBoolFilter>;
+};
+
+export type NestedBoolWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedBoolFilter>;
+  _min?: InputMaybe<NestedBoolFilter>;
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  not?: InputMaybe<NestedBoolWithAggregatesFilter>;
 };
 
 export type NestedDateTimeFilter = {
@@ -4744,6 +5208,220 @@ export type NestedStringWithAggregatesFilter = {
   not?: InputMaybe<NestedStringWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['String']['input']>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type News = {
+  __typename?: 'News';
+  createdAt: Scalars['DateTime']['output'];
+  description: Scalars['String']['output'];
+  fetaureFile: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type NewsAvgAggregate = {
+  __typename?: 'NewsAvgAggregate';
+  position?: Maybe<Scalars['Float']['output']>;
+};
+
+export type NewsAvgOrderByAggregateInput = {
+  position?: InputMaybe<SortOrder>;
+};
+
+export type NewsCountAggregate = {
+  __typename?: 'NewsCountAggregate';
+  _all: Scalars['Int']['output'];
+  createdAt: Scalars['Int']['output'];
+  description: Scalars['Int']['output'];
+  fetaureFile: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  position: Scalars['Int']['output'];
+  title: Scalars['Int']['output'];
+  updatedAt: Scalars['Int']['output'];
+};
+
+export type NewsCountOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  fetaureFile?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type NewsCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  fetaureFile: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<Scalars['Int']['input']>;
+  title: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type NewsCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  fetaureFile: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  position?: InputMaybe<Scalars['Int']['input']>;
+  title: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type NewsGroupBy = {
+  __typename?: 'NewsGroupBy';
+  _avg?: Maybe<NewsAvgAggregate>;
+  _count?: Maybe<NewsCountAggregate>;
+  _max?: Maybe<NewsMaxAggregate>;
+  _min?: Maybe<NewsMinAggregate>;
+  _sum?: Maybe<NewsSumAggregate>;
+  createdAt: Scalars['DateTime']['output'];
+  description: Scalars['String']['output'];
+  fetaureFile: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type NewsMaxAggregate = {
+  __typename?: 'NewsMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  fetaureFile?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  position?: Maybe<Scalars['Int']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type NewsMaxOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  fetaureFile?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type NewsMinAggregate = {
+  __typename?: 'NewsMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  fetaureFile?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  position?: Maybe<Scalars['Int']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type NewsMinOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  fetaureFile?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type NewsOrderByWithAggregationInput = {
+  _avg?: InputMaybe<NewsAvgOrderByAggregateInput>;
+  _count?: InputMaybe<NewsCountOrderByAggregateInput>;
+  _max?: InputMaybe<NewsMaxOrderByAggregateInput>;
+  _min?: InputMaybe<NewsMinOrderByAggregateInput>;
+  _sum?: InputMaybe<NewsSumOrderByAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  fetaureFile?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type NewsOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  fetaureFile?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export enum NewsScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Description = 'description',
+  FetaureFile = 'fetaureFile',
+  Id = 'id',
+  Position = 'position',
+  Title = 'title',
+  UpdatedAt = 'updatedAt'
+}
+
+export type NewsScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<NewsScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<NewsScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<NewsScalarWhereWithAggregatesInput>>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  description?: InputMaybe<StringWithAggregatesFilter>;
+  fetaureFile?: InputMaybe<StringWithAggregatesFilter>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  position?: InputMaybe<IntWithAggregatesFilter>;
+  title?: InputMaybe<StringWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+};
+
+export type NewsSumAggregate = {
+  __typename?: 'NewsSumAggregate';
+  position?: Maybe<Scalars['Int']['output']>;
+};
+
+export type NewsSumOrderByAggregateInput = {
+  position?: InputMaybe<SortOrder>;
+};
+
+export type NewsUpdateInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fetaureFile?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  title?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type NewsUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fetaureFile?: InputMaybe<StringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  title?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type NewsWhereInput = {
+  AND?: InputMaybe<Array<NewsWhereInput>>;
+  NOT?: InputMaybe<Array<NewsWhereInput>>;
+  OR?: InputMaybe<Array<NewsWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  description?: InputMaybe<StringFilter>;
+  fetaureFile?: InputMaybe<StringFilter>;
+  id?: InputMaybe<StringFilter>;
+  position?: InputMaybe<IntFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type NewsWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type NullableFloatFieldUpdateOperationsInput = {
@@ -5837,6 +6515,220 @@ export type OrderWhereInput = {
 };
 
 export type OrderWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PartnerShip = {
+  __typename?: 'PartnerShip';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  link: Scalars['String']['output'];
+  logo: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type PartnerShipAvgAggregate = {
+  __typename?: 'PartnerShipAvgAggregate';
+  position?: Maybe<Scalars['Float']['output']>;
+};
+
+export type PartnerShipAvgOrderByAggregateInput = {
+  position?: InputMaybe<SortOrder>;
+};
+
+export type PartnerShipCountAggregate = {
+  __typename?: 'PartnerShipCountAggregate';
+  _all: Scalars['Int']['output'];
+  createdAt: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  link: Scalars['Int']['output'];
+  logo: Scalars['Int']['output'];
+  name: Scalars['Int']['output'];
+  position: Scalars['Int']['output'];
+  updatedAt: Scalars['Int']['output'];
+};
+
+export type PartnerShipCountOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  logo?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type PartnerShipCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
+  logo: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  position?: InputMaybe<Scalars['Int']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PartnerShipCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
+  logo: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  position?: InputMaybe<Scalars['Int']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PartnerShipGroupBy = {
+  __typename?: 'PartnerShipGroupBy';
+  _avg?: Maybe<PartnerShipAvgAggregate>;
+  _count?: Maybe<PartnerShipCountAggregate>;
+  _max?: Maybe<PartnerShipMaxAggregate>;
+  _min?: Maybe<PartnerShipMinAggregate>;
+  _sum?: Maybe<PartnerShipSumAggregate>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  link: Scalars['String']['output'];
+  logo: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type PartnerShipMaxAggregate = {
+  __typename?: 'PartnerShipMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  position?: Maybe<Scalars['Int']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type PartnerShipMaxOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  logo?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type PartnerShipMinAggregate = {
+  __typename?: 'PartnerShipMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  position?: Maybe<Scalars['Int']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type PartnerShipMinOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  logo?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type PartnerShipOrderByWithAggregationInput = {
+  _avg?: InputMaybe<PartnerShipAvgOrderByAggregateInput>;
+  _count?: InputMaybe<PartnerShipCountOrderByAggregateInput>;
+  _max?: InputMaybe<PartnerShipMaxOrderByAggregateInput>;
+  _min?: InputMaybe<PartnerShipMinOrderByAggregateInput>;
+  _sum?: InputMaybe<PartnerShipSumOrderByAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  logo?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type PartnerShipOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  link?: InputMaybe<SortOrder>;
+  logo?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  position?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export enum PartnerShipScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Id = 'id',
+  Link = 'link',
+  Logo = 'logo',
+  Name = 'name',
+  Position = 'position',
+  UpdatedAt = 'updatedAt'
+}
+
+export type PartnerShipScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<PartnerShipScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<PartnerShipScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<PartnerShipScalarWhereWithAggregatesInput>>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  link?: InputMaybe<StringWithAggregatesFilter>;
+  logo?: InputMaybe<StringWithAggregatesFilter>;
+  name?: InputMaybe<StringWithAggregatesFilter>;
+  position?: InputMaybe<IntWithAggregatesFilter>;
+  updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+};
+
+export type PartnerShipSumAggregate = {
+  __typename?: 'PartnerShipSumAggregate';
+  position?: Maybe<Scalars['Int']['output']>;
+};
+
+export type PartnerShipSumOrderByAggregateInput = {
+  position?: InputMaybe<SortOrder>;
+};
+
+export type PartnerShipUpdateInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  link?: InputMaybe<StringFieldUpdateOperationsInput>;
+  logo?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type PartnerShipUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  link?: InputMaybe<StringFieldUpdateOperationsInput>;
+  logo?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type PartnerShipWhereInput = {
+  AND?: InputMaybe<Array<PartnerShipWhereInput>>;
+  NOT?: InputMaybe<Array<PartnerShipWhereInput>>;
+  OR?: InputMaybe<Array<PartnerShipWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  link?: InputMaybe<StringFilter>;
+  logo?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  position?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type PartnerShipWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -7541,11 +8433,14 @@ export type Query = {
   aggregateDefaultShippingAdress: AggregateDefaultShippingAdress;
   aggregateEmployee: AggregateEmployee;
   aggregateEmployeeCategory: AggregateEmployeeCategory;
+  aggregateEmployeePreviousWork: AggregateEmployeePreviousWork;
   aggregateEmployeeSubCategory: AggregateEmployeeSubCategory;
   aggregateFetaureCategory: AggregateFetaureCategory;
   aggregateMainCategory: AggregateMainCategory;
+  aggregateNews: AggregateNews;
   aggregateOrder: AggregateOrder;
   aggregateOrderItem: AggregateOrderItem;
+  aggregatePartnerShip: AggregatePartnerShip;
   aggregatePaymentResult: AggregatePaymentResult;
   aggregateProduct: AggregateProduct;
   aggregateProductFetaure: AggregateProductFetaure;
@@ -7564,6 +8459,8 @@ export type Query = {
   employee?: Maybe<Employee>;
   employeeCategories: Array<EmployeeCategory>;
   employeeCategory?: Maybe<EmployeeCategory>;
+  employeePreviousWork?: Maybe<EmployeePreviousWork>;
+  employeePreviousWorks: Array<EmployeePreviousWork>;
   employeeSubCategories: Array<EmployeeSubCategory>;
   employeeSubCategory?: Maybe<EmployeeSubCategory>;
   employees: Array<Employee>;
@@ -7581,16 +8478,22 @@ export type Query = {
   findFirstEmployeeCategory?: Maybe<EmployeeCategory>;
   findFirstEmployeeCategoryOrThrow?: Maybe<EmployeeCategory>;
   findFirstEmployeeOrThrow?: Maybe<Employee>;
+  findFirstEmployeePreviousWork?: Maybe<EmployeePreviousWork>;
+  findFirstEmployeePreviousWorkOrThrow?: Maybe<EmployeePreviousWork>;
   findFirstEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
   findFirstEmployeeSubCategoryOrThrow?: Maybe<EmployeeSubCategory>;
   findFirstFetaureCategory?: Maybe<FetaureCategory>;
   findFirstFetaureCategoryOrThrow?: Maybe<FetaureCategory>;
   findFirstMainCategory?: Maybe<MainCategory>;
   findFirstMainCategoryOrThrow?: Maybe<MainCategory>;
+  findFirstNews?: Maybe<News>;
+  findFirstNewsOrThrow?: Maybe<News>;
   findFirstOrder?: Maybe<Order>;
   findFirstOrderItem?: Maybe<OrderItem>;
   findFirstOrderItemOrThrow?: Maybe<OrderItem>;
   findFirstOrderOrThrow?: Maybe<Order>;
+  findFirstPartnerShip?: Maybe<PartnerShip>;
+  findFirstPartnerShipOrThrow?: Maybe<PartnerShip>;
   findFirstPaymentResult?: Maybe<PaymentResult>;
   findFirstPaymentResultOrThrow?: Maybe<PaymentResult>;
   findFirstProduct?: Maybe<Product>;
@@ -7605,7 +8508,10 @@ export type Query = {
   findFirstUserOrThrow?: Maybe<User>;
   findFirstUserTokens?: Maybe<UserTokens>;
   findFirstUserTokensOrThrow?: Maybe<UserTokens>;
+  findManyNews: Array<News>;
   findManyUserTokens: Array<UserTokens>;
+  findUniqueNews?: Maybe<News>;
+  findUniqueNewsOrThrow?: Maybe<News>;
   findUniqueUserTokens?: Maybe<UserTokens>;
   findUniqueUserTokensOrThrow?: Maybe<UserTokens>;
   getCart?: Maybe<Cart>;
@@ -7614,11 +8520,13 @@ export type Query = {
   getDefaultShippingAdress?: Maybe<DefaultShippingAdress>;
   getEmployee?: Maybe<Employee>;
   getEmployeeCategory?: Maybe<EmployeeCategory>;
+  getEmployeePreviousWork?: Maybe<EmployeePreviousWork>;
   getEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
   getFetaureCategory?: Maybe<FetaureCategory>;
   getMainCategory?: Maybe<MainCategory>;
   getOrder?: Maybe<Order>;
   getOrderItem?: Maybe<OrderItem>;
+  getPartnerShip?: Maybe<PartnerShip>;
   getPaymentResult?: Maybe<PaymentResult>;
   getProduct?: Maybe<Product>;
   getProductFetaure?: Maybe<ProductFetaure>;
@@ -7631,11 +8539,14 @@ export type Query = {
   groupByDefaultShippingAdress: Array<DefaultShippingAdressGroupBy>;
   groupByEmployee: Array<EmployeeGroupBy>;
   groupByEmployeeCategory: Array<EmployeeCategoryGroupBy>;
+  groupByEmployeePreviousWork: Array<EmployeePreviousWorkGroupBy>;
   groupByEmployeeSubCategory: Array<EmployeeSubCategoryGroupBy>;
   groupByFetaureCategory: Array<FetaureCategoryGroupBy>;
   groupByMainCategory: Array<MainCategoryGroupBy>;
+  groupByNews: Array<NewsGroupBy>;
   groupByOrder: Array<OrderGroupBy>;
   groupByOrderItem: Array<OrderItemGroupBy>;
+  groupByPartnerShip: Array<PartnerShipGroupBy>;
   groupByPaymentResult: Array<PaymentResultGroupBy>;
   groupByProduct: Array<ProductGroupBy>;
   groupByProductFetaure: Array<ProductFetaureGroupBy>;
@@ -7653,6 +8564,8 @@ export type Query = {
   orderItem?: Maybe<OrderItem>;
   orderItems: Array<OrderItem>;
   orders: Array<Order>;
+  partnerShip?: Maybe<PartnerShip>;
+  partnerShips: Array<PartnerShip>;
   paymentResult?: Maybe<PaymentResult>;
   paymentResults: Array<PaymentResult>;
   product?: Maybe<Product>;
@@ -7722,6 +8635,15 @@ export type QueryAggregateEmployeeCategoryArgs = {
 };
 
 
+export type QueryAggregateEmployeePreviousWorkArgs = {
+  cursor?: InputMaybe<EmployeePreviousWorkWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<EmployeePreviousWorkOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
+};
+
+
 export type QueryAggregateEmployeeSubCategoryArgs = {
   cursor?: InputMaybe<EmployeeSubCategoryWhereUniqueInput>;
   orderBy?: InputMaybe<Array<EmployeeSubCategoryOrderByWithRelationInput>>;
@@ -7749,6 +8671,15 @@ export type QueryAggregateMainCategoryArgs = {
 };
 
 
+export type QueryAggregateNewsArgs = {
+  cursor?: InputMaybe<NewsWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<NewsOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NewsWhereInput>;
+};
+
+
 export type QueryAggregateOrderArgs = {
   cursor?: InputMaybe<OrderWhereUniqueInput>;
   orderBy?: InputMaybe<Array<OrderOrderByWithRelationInput>>;
@@ -7764,6 +8695,15 @@ export type QueryAggregateOrderItemArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<OrderItemWhereInput>;
+};
+
+
+export type QueryAggregatePartnerShipArgs = {
+  cursor?: InputMaybe<PartnerShipWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<PartnerShipOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PartnerShipWhereInput>;
 };
 
 
@@ -7907,6 +8847,21 @@ export type QueryEmployeeCategoriesArgs = {
 
 export type QueryEmployeeCategoryArgs = {
   where: EmployeeCategoryWhereUniqueInput;
+};
+
+
+export type QueryEmployeePreviousWorkArgs = {
+  where: EmployeePreviousWorkWhereUniqueInput;
+};
+
+
+export type QueryEmployeePreviousWorksArgs = {
+  cursor?: InputMaybe<EmployeePreviousWorkWhereUniqueInput>;
+  distinct?: InputMaybe<Array<EmployeePreviousWorkScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<EmployeePreviousWorkOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
 };
 
 
@@ -8070,6 +9025,26 @@ export type QueryFindFirstEmployeeOrThrowArgs = {
 };
 
 
+export type QueryFindFirstEmployeePreviousWorkArgs = {
+  cursor?: InputMaybe<EmployeePreviousWorkWhereUniqueInput>;
+  distinct?: InputMaybe<Array<EmployeePreviousWorkScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<EmployeePreviousWorkOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
+};
+
+
+export type QueryFindFirstEmployeePreviousWorkOrThrowArgs = {
+  cursor?: InputMaybe<EmployeePreviousWorkWhereUniqueInput>;
+  distinct?: InputMaybe<Array<EmployeePreviousWorkScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<EmployeePreviousWorkOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
+};
+
+
 export type QueryFindFirstEmployeeSubCategoryArgs = {
   cursor?: InputMaybe<EmployeeSubCategoryWhereUniqueInput>;
   distinct?: InputMaybe<Array<EmployeeSubCategoryScalarFieldEnum>>;
@@ -8130,6 +9105,26 @@ export type QueryFindFirstMainCategoryOrThrowArgs = {
 };
 
 
+export type QueryFindFirstNewsArgs = {
+  cursor?: InputMaybe<NewsWhereUniqueInput>;
+  distinct?: InputMaybe<Array<NewsScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<NewsOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NewsWhereInput>;
+};
+
+
+export type QueryFindFirstNewsOrThrowArgs = {
+  cursor?: InputMaybe<NewsWhereUniqueInput>;
+  distinct?: InputMaybe<Array<NewsScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<NewsOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NewsWhereInput>;
+};
+
+
 export type QueryFindFirstOrderArgs = {
   cursor?: InputMaybe<OrderWhereUniqueInput>;
   distinct?: InputMaybe<Array<OrderScalarFieldEnum>>;
@@ -8167,6 +9162,26 @@ export type QueryFindFirstOrderOrThrowArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<OrderWhereInput>;
+};
+
+
+export type QueryFindFirstPartnerShipArgs = {
+  cursor?: InputMaybe<PartnerShipWhereUniqueInput>;
+  distinct?: InputMaybe<Array<PartnerShipScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<PartnerShipOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PartnerShipWhereInput>;
+};
+
+
+export type QueryFindFirstPartnerShipOrThrowArgs = {
+  cursor?: InputMaybe<PartnerShipWhereUniqueInput>;
+  distinct?: InputMaybe<Array<PartnerShipScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<PartnerShipOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PartnerShipWhereInput>;
 };
 
 
@@ -8310,6 +9325,16 @@ export type QueryFindFirstUserTokensOrThrowArgs = {
 };
 
 
+export type QueryFindManyNewsArgs = {
+  cursor?: InputMaybe<NewsWhereUniqueInput>;
+  distinct?: InputMaybe<Array<NewsScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<NewsOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NewsWhereInput>;
+};
+
+
 export type QueryFindManyUserTokensArgs = {
   cursor?: InputMaybe<UserTokensWhereUniqueInput>;
   distinct?: InputMaybe<Array<UserTokensScalarFieldEnum>>;
@@ -8317,6 +9342,16 @@ export type QueryFindManyUserTokensArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<UserTokensWhereInput>;
+};
+
+
+export type QueryFindUniqueNewsArgs = {
+  where: NewsWhereUniqueInput;
+};
+
+
+export type QueryFindUniqueNewsOrThrowArgs = {
+  where: NewsWhereUniqueInput;
 };
 
 
@@ -8360,6 +9395,11 @@ export type QueryGetEmployeeCategoryArgs = {
 };
 
 
+export type QueryGetEmployeePreviousWorkArgs = {
+  where: EmployeePreviousWorkWhereUniqueInput;
+};
+
+
 export type QueryGetEmployeeSubCategoryArgs = {
   where: EmployeeSubCategoryWhereUniqueInput;
 };
@@ -8382,6 +9422,11 @@ export type QueryGetOrderArgs = {
 
 export type QueryGetOrderItemArgs = {
   where: OrderItemWhereUniqueInput;
+};
+
+
+export type QueryGetPartnerShipArgs = {
+  where: PartnerShipWhereUniqueInput;
 };
 
 
@@ -8475,6 +9520,16 @@ export type QueryGroupByEmployeeCategoryArgs = {
 };
 
 
+export type QueryGroupByEmployeePreviousWorkArgs = {
+  by: Array<EmployeePreviousWorkScalarFieldEnum>;
+  having?: InputMaybe<EmployeePreviousWorkScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<EmployeePreviousWorkOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
+};
+
+
 export type QueryGroupByEmployeeSubCategoryArgs = {
   by: Array<EmployeeSubCategoryScalarFieldEnum>;
   having?: InputMaybe<EmployeeSubCategoryScalarWhereWithAggregatesInput>;
@@ -8505,6 +9560,16 @@ export type QueryGroupByMainCategoryArgs = {
 };
 
 
+export type QueryGroupByNewsArgs = {
+  by: Array<NewsScalarFieldEnum>;
+  having?: InputMaybe<NewsScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<NewsOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<NewsWhereInput>;
+};
+
+
 export type QueryGroupByOrderArgs = {
   by: Array<OrderScalarFieldEnum>;
   having?: InputMaybe<OrderScalarWhereWithAggregatesInput>;
@@ -8522,6 +9587,16 @@ export type QueryGroupByOrderItemArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<OrderItemWhereInput>;
+};
+
+
+export type QueryGroupByPartnerShipArgs = {
+  by: Array<PartnerShipScalarFieldEnum>;
+  having?: InputMaybe<PartnerShipScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<PartnerShipOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PartnerShipWhereInput>;
 };
 
 
@@ -8650,6 +9725,21 @@ export type QueryOrdersArgs = {
 };
 
 
+export type QueryPartnerShipArgs = {
+  where: PartnerShipWhereUniqueInput;
+};
+
+
+export type QueryPartnerShipsArgs = {
+  cursor?: InputMaybe<PartnerShipWhereUniqueInput>;
+  distinct?: InputMaybe<Array<PartnerShipScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<PartnerShipOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<PartnerShipWhereInput>;
+};
+
+
 export type QueryPaymentResultArgs = {
   where: PaymentResultWhereUniqueInput;
 };
@@ -8753,6 +9843,7 @@ export type ReesetPassByLinkInput = {
 export type Review = {
   __typename?: 'Review';
   createdAt: Scalars['DateTime']['output'];
+  displayOnHomePage: Scalars['Boolean']['output'];
   id: Scalars['String']['output'];
   message: Scalars['String']['output'];
   product: Product;
@@ -8776,6 +9867,7 @@ export type ReviewCountAggregate = {
   __typename?: 'ReviewCountAggregate';
   _all: Scalars['Int']['output'];
   createdAt: Scalars['Int']['output'];
+  displayOnHomePage: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   message: Scalars['Int']['output'];
   productId: Scalars['Int']['output'];
@@ -8786,6 +9878,7 @@ export type ReviewCountAggregate = {
 
 export type ReviewCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  displayOnHomePage?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   message?: InputMaybe<SortOrder>;
   productId?: InputMaybe<SortOrder>;
@@ -8796,6 +9889,7 @@ export type ReviewCountOrderByAggregateInput = {
 
 export type ReviewCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  displayOnHomePage?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   message: Scalars['String']['input'];
   product: ProductCreateNestedOneWithoutReveiwsInput;
@@ -8806,6 +9900,7 @@ export type ReviewCreateInput = {
 
 export type ReviewCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  displayOnHomePage?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   message: Scalars['String']['input'];
   productId: Scalars['String']['input'];
@@ -8816,6 +9911,7 @@ export type ReviewCreateManyInput = {
 
 export type ReviewCreateManyProductInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  displayOnHomePage?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   message: Scalars['String']['input'];
   star: Scalars['Int']['input'];
@@ -8830,6 +9926,7 @@ export type ReviewCreateManyProductInputEnvelope = {
 
 export type ReviewCreateManyUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  displayOnHomePage?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   message: Scalars['String']['input'];
   productId: Scalars['String']['input'];
@@ -8868,6 +9965,7 @@ export type ReviewCreateOrConnectWithoutUserInput = {
 
 export type ReviewCreateWithoutProductInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  displayOnHomePage?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   message: Scalars['String']['input'];
   star: Scalars['Int']['input'];
@@ -8877,6 +9975,7 @@ export type ReviewCreateWithoutProductInput = {
 
 export type ReviewCreateWithoutUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  displayOnHomePage?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
   message: Scalars['String']['input'];
   product: ProductCreateNestedOneWithoutReveiwsInput;
@@ -8892,6 +9991,7 @@ export type ReviewGroupBy = {
   _min?: Maybe<ReviewMinAggregate>;
   _sum?: Maybe<ReviewSumAggregate>;
   createdAt: Scalars['DateTime']['output'];
+  displayOnHomePage: Scalars['Boolean']['output'];
   id: Scalars['String']['output'];
   message: Scalars['String']['output'];
   productId: Scalars['String']['output'];
@@ -8909,6 +10009,7 @@ export type ReviewListRelationFilter = {
 export type ReviewMaxAggregate = {
   __typename?: 'ReviewMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  displayOnHomePage?: Maybe<Scalars['Boolean']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   message?: Maybe<Scalars['String']['output']>;
   productId?: Maybe<Scalars['String']['output']>;
@@ -8919,6 +10020,7 @@ export type ReviewMaxAggregate = {
 
 export type ReviewMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  displayOnHomePage?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   message?: InputMaybe<SortOrder>;
   productId?: InputMaybe<SortOrder>;
@@ -8930,6 +10032,7 @@ export type ReviewMaxOrderByAggregateInput = {
 export type ReviewMinAggregate = {
   __typename?: 'ReviewMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  displayOnHomePage?: Maybe<Scalars['Boolean']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   message?: Maybe<Scalars['String']['output']>;
   productId?: Maybe<Scalars['String']['output']>;
@@ -8940,6 +10043,7 @@ export type ReviewMinAggregate = {
 
 export type ReviewMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  displayOnHomePage?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   message?: InputMaybe<SortOrder>;
   productId?: InputMaybe<SortOrder>;
@@ -8959,6 +10063,7 @@ export type ReviewOrderByWithAggregationInput = {
   _min?: InputMaybe<ReviewMinOrderByAggregateInput>;
   _sum?: InputMaybe<ReviewSumOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
+  displayOnHomePage?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   message?: InputMaybe<SortOrder>;
   productId?: InputMaybe<SortOrder>;
@@ -8969,6 +10074,7 @@ export type ReviewOrderByWithAggregationInput = {
 
 export type ReviewOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
+  displayOnHomePage?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   message?: InputMaybe<SortOrder>;
   product?: InputMaybe<ProductOrderByWithRelationInput>;
@@ -8981,6 +10087,7 @@ export type ReviewOrderByWithRelationInput = {
 
 export enum ReviewScalarFieldEnum {
   CreatedAt = 'createdAt',
+  DisplayOnHomePage = 'displayOnHomePage',
   Id = 'id',
   Message = 'message',
   ProductId = 'productId',
@@ -8994,6 +10101,7 @@ export type ReviewScalarWhereInput = {
   NOT?: InputMaybe<Array<ReviewScalarWhereInput>>;
   OR?: InputMaybe<Array<ReviewScalarWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  displayOnHomePage?: InputMaybe<BoolFilter>;
   id?: InputMaybe<StringFilter>;
   message?: InputMaybe<StringFilter>;
   productId?: InputMaybe<StringFilter>;
@@ -9007,6 +10115,7 @@ export type ReviewScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<ReviewScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<ReviewScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  displayOnHomePage?: InputMaybe<BoolWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
   message?: InputMaybe<StringWithAggregatesFilter>;
   productId?: InputMaybe<StringWithAggregatesFilter>;
@@ -9026,6 +10135,7 @@ export type ReviewSumOrderByAggregateInput = {
 
 export type ReviewUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  displayOnHomePage?: InputMaybe<BoolFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   message?: InputMaybe<StringFieldUpdateOperationsInput>;
   product?: InputMaybe<ProductUpdateOneRequiredWithoutReveiwsNestedInput>;
@@ -9036,6 +10146,7 @@ export type ReviewUpdateInput = {
 
 export type ReviewUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  displayOnHomePage?: InputMaybe<BoolFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   message?: InputMaybe<StringFieldUpdateOperationsInput>;
   star?: InputMaybe<IntFieldUpdateOperationsInput>;
@@ -9092,6 +10203,7 @@ export type ReviewUpdateWithWhereUniqueWithoutUserInput = {
 
 export type ReviewUpdateWithoutProductInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  displayOnHomePage?: InputMaybe<BoolFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   message?: InputMaybe<StringFieldUpdateOperationsInput>;
   star?: InputMaybe<IntFieldUpdateOperationsInput>;
@@ -9101,6 +10213,7 @@ export type ReviewUpdateWithoutProductInput = {
 
 export type ReviewUpdateWithoutUserInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  displayOnHomePage?: InputMaybe<BoolFieldUpdateOperationsInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   message?: InputMaybe<StringFieldUpdateOperationsInput>;
   product?: InputMaybe<ProductUpdateOneRequiredWithoutReveiwsNestedInput>;
@@ -9130,6 +10243,7 @@ export type ReviewWhereInput = {
   NOT?: InputMaybe<Array<ReviewWhereInput>>;
   OR?: InputMaybe<Array<ReviewWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  displayOnHomePage?: InputMaybe<BoolFilter>;
   id?: InputMaybe<StringFilter>;
   message?: InputMaybe<StringFilter>;
   product?: InputMaybe<ProductRelationFilter>;
@@ -10603,6 +11717,47 @@ export type UploadFileMutationVariables = Exact<{
 
 export type UploadFileMutation = { __typename?: 'Mutation', uploadFile?: { __typename?: 'fileUploadResponsce', message: string, success: boolean, file?: string | null } | null };
 
+export type DeleteOneNewsMutationVariables = Exact<{
+  where: NewsWhereUniqueInput;
+}>;
+
+
+export type DeleteOneNewsMutation = { __typename?: 'Mutation', deleteOneNews?: { __typename?: 'News', id: string } | null };
+
+export type UpdateOneNewsMutationVariables = Exact<{
+  data: NewsUpdateInput;
+  where: NewsWhereUniqueInput;
+}>;
+
+
+export type UpdateOneNewsMutation = { __typename?: 'Mutation', updateOneNews?: { __typename?: 'News', id: string } | null };
+
+export type CreateOneNewsMutationVariables = Exact<{
+  data: NewsCreateInput;
+}>;
+
+
+export type CreateOneNewsMutation = { __typename?: 'Mutation', createOneNews: { __typename?: 'News', id: string } };
+
+export type FindManyNewsQueryVariables = Exact<{
+  where?: InputMaybe<NewsWhereInput>;
+  orderBy?: InputMaybe<Array<NewsOrderByWithRelationInput> | NewsOrderByWithRelationInput>;
+  cursor?: InputMaybe<NewsWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<NewsScalarFieldEnum> | NewsScalarFieldEnum>;
+}>;
+
+
+export type FindManyNewsQuery = { __typename?: 'Query', findManyNews: Array<{ __typename?: 'News', fetaureFile: string, id: string, position: number, title: string }> };
+
+export type FindUniqueNewsQueryVariables = Exact<{
+  where: NewsWhereUniqueInput;
+}>;
+
+
+export type FindUniqueNewsQuery = { __typename?: 'Query', findUniqueNews?: { __typename?: 'News', id: string, fetaureFile: string, description: string, position: number, title: string } | null };
+
 export type OrdersQueryVariables = Exact<{
   where?: InputMaybe<OrderWhereInput>;
   orderBy?: InputMaybe<Array<OrderOrderByWithRelationInput> | OrderOrderByWithRelationInput>;
@@ -10622,6 +11777,47 @@ export type UpdateOneOrderMutationVariables = Exact<{
 
 
 export type UpdateOneOrderMutation = { __typename?: 'Mutation', updateOneOrder?: { __typename?: 'Order', id: string } | null };
+
+export type PartnerShipsQueryVariables = Exact<{
+  where?: InputMaybe<PartnerShipWhereInput>;
+  orderBy?: InputMaybe<Array<PartnerShipOrderByWithRelationInput> | PartnerShipOrderByWithRelationInput>;
+  cursor?: InputMaybe<PartnerShipWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<PartnerShipScalarFieldEnum> | PartnerShipScalarFieldEnum>;
+}>;
+
+
+export type PartnerShipsQuery = { __typename?: 'Query', partnerShips: Array<{ __typename?: 'PartnerShip', id: string, link: string, logo: string, name: string, position: number }> };
+
+export type PartnerShipQueryVariables = Exact<{
+  where: PartnerShipWhereUniqueInput;
+}>;
+
+
+export type PartnerShipQuery = { __typename?: 'Query', partnerShip?: { __typename?: 'PartnerShip', id: string, link: string, logo: string, name: string, position: number } | null };
+
+export type CreateOnePartnerShipMutationVariables = Exact<{
+  data: PartnerShipCreateInput;
+}>;
+
+
+export type CreateOnePartnerShipMutation = { __typename?: 'Mutation', createOnePartnerShip: { __typename?: 'PartnerShip', id: string } };
+
+export type UpdateOnePartnerShipMutationVariables = Exact<{
+  data: PartnerShipUpdateInput;
+  where: PartnerShipWhereUniqueInput;
+}>;
+
+
+export type UpdateOnePartnerShipMutation = { __typename?: 'Mutation', updateOnePartnerShip?: { __typename?: 'PartnerShip', id: string } | null };
+
+export type DeleteOnePartnerShipMutationVariables = Exact<{
+  where: PartnerShipWhereUniqueInput;
+}>;
+
+
+export type DeleteOnePartnerShipMutation = { __typename?: 'Mutation', deleteOnePartnerShip?: { __typename?: 'PartnerShip', id: string } | null };
 
 export type CreateOneProductMutationVariables = Exact<{
   data: ProductCreateInput;
@@ -12000,6 +13196,205 @@ export function useUploadFileMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UploadFileMutationHookResult = ReturnType<typeof useUploadFileMutation>;
 export type UploadFileMutationResult = Apollo.MutationResult<UploadFileMutation>;
 export type UploadFileMutationOptions = Apollo.BaseMutationOptions<UploadFileMutation, UploadFileMutationVariables>;
+export const DeleteOneNewsDocument = gql`
+    mutation DeleteOneNews($where: NewsWhereUniqueInput!) {
+  deleteOneNews(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteOneNewsMutationFn = Apollo.MutationFunction<DeleteOneNewsMutation, DeleteOneNewsMutationVariables>;
+
+/**
+ * __useDeleteOneNewsMutation__
+ *
+ * To run a mutation, you first call `useDeleteOneNewsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteOneNewsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteOneNewsMutation, { data, loading, error }] = useDeleteOneNewsMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteOneNewsMutation(baseOptions?: Apollo.MutationHookOptions<DeleteOneNewsMutation, DeleteOneNewsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteOneNewsMutation, DeleteOneNewsMutationVariables>(DeleteOneNewsDocument, options);
+      }
+export type DeleteOneNewsMutationHookResult = ReturnType<typeof useDeleteOneNewsMutation>;
+export type DeleteOneNewsMutationResult = Apollo.MutationResult<DeleteOneNewsMutation>;
+export type DeleteOneNewsMutationOptions = Apollo.BaseMutationOptions<DeleteOneNewsMutation, DeleteOneNewsMutationVariables>;
+export const UpdateOneNewsDocument = gql`
+    mutation UpdateOneNews($data: NewsUpdateInput!, $where: NewsWhereUniqueInput!) {
+  updateOneNews(data: $data, where: $where) {
+    id
+  }
+}
+    `;
+export type UpdateOneNewsMutationFn = Apollo.MutationFunction<UpdateOneNewsMutation, UpdateOneNewsMutationVariables>;
+
+/**
+ * __useUpdateOneNewsMutation__
+ *
+ * To run a mutation, you first call `useUpdateOneNewsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOneNewsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOneNewsMutation, { data, loading, error }] = useUpdateOneNewsMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUpdateOneNewsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOneNewsMutation, UpdateOneNewsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOneNewsMutation, UpdateOneNewsMutationVariables>(UpdateOneNewsDocument, options);
+      }
+export type UpdateOneNewsMutationHookResult = ReturnType<typeof useUpdateOneNewsMutation>;
+export type UpdateOneNewsMutationResult = Apollo.MutationResult<UpdateOneNewsMutation>;
+export type UpdateOneNewsMutationOptions = Apollo.BaseMutationOptions<UpdateOneNewsMutation, UpdateOneNewsMutationVariables>;
+export const CreateOneNewsDocument = gql`
+    mutation CreateOneNews($data: NewsCreateInput!) {
+  createOneNews(data: $data) {
+    id
+  }
+}
+    `;
+export type CreateOneNewsMutationFn = Apollo.MutationFunction<CreateOneNewsMutation, CreateOneNewsMutationVariables>;
+
+/**
+ * __useCreateOneNewsMutation__
+ *
+ * To run a mutation, you first call `useCreateOneNewsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOneNewsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOneNewsMutation, { data, loading, error }] = useCreateOneNewsMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOneNewsMutation(baseOptions?: Apollo.MutationHookOptions<CreateOneNewsMutation, CreateOneNewsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOneNewsMutation, CreateOneNewsMutationVariables>(CreateOneNewsDocument, options);
+      }
+export type CreateOneNewsMutationHookResult = ReturnType<typeof useCreateOneNewsMutation>;
+export type CreateOneNewsMutationResult = Apollo.MutationResult<CreateOneNewsMutation>;
+export type CreateOneNewsMutationOptions = Apollo.BaseMutationOptions<CreateOneNewsMutation, CreateOneNewsMutationVariables>;
+export const FindManyNewsDocument = gql`
+    query FindManyNews($where: NewsWhereInput, $orderBy: [NewsOrderByWithRelationInput!], $cursor: NewsWhereUniqueInput, $take: Int, $skip: Int, $distinct: [NewsScalarFieldEnum!]) {
+  findManyNews(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    fetaureFile
+    id
+    position
+    title
+  }
+}
+    `;
+
+/**
+ * __useFindManyNewsQuery__
+ *
+ * To run a query within a React component, call `useFindManyNewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindManyNewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindManyNewsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function useFindManyNewsQuery(baseOptions?: Apollo.QueryHookOptions<FindManyNewsQuery, FindManyNewsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindManyNewsQuery, FindManyNewsQueryVariables>(FindManyNewsDocument, options);
+      }
+export function useFindManyNewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindManyNewsQuery, FindManyNewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindManyNewsQuery, FindManyNewsQueryVariables>(FindManyNewsDocument, options);
+        }
+export function useFindManyNewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindManyNewsQuery, FindManyNewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindManyNewsQuery, FindManyNewsQueryVariables>(FindManyNewsDocument, options);
+        }
+export type FindManyNewsQueryHookResult = ReturnType<typeof useFindManyNewsQuery>;
+export type FindManyNewsLazyQueryHookResult = ReturnType<typeof useFindManyNewsLazyQuery>;
+export type FindManyNewsSuspenseQueryHookResult = ReturnType<typeof useFindManyNewsSuspenseQuery>;
+export type FindManyNewsQueryResult = Apollo.QueryResult<FindManyNewsQuery, FindManyNewsQueryVariables>;
+export const FindUniqueNewsDocument = gql`
+    query FindUniqueNews($where: NewsWhereUniqueInput!) {
+  findUniqueNews(where: $where) {
+    id
+    fetaureFile
+    description
+    position
+    title
+  }
+}
+    `;
+
+/**
+ * __useFindUniqueNewsQuery__
+ *
+ * To run a query within a React component, call `useFindUniqueNewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUniqueNewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUniqueNewsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useFindUniqueNewsQuery(baseOptions: Apollo.QueryHookOptions<FindUniqueNewsQuery, FindUniqueNewsQueryVariables> & ({ variables: FindUniqueNewsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUniqueNewsQuery, FindUniqueNewsQueryVariables>(FindUniqueNewsDocument, options);
+      }
+export function useFindUniqueNewsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUniqueNewsQuery, FindUniqueNewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUniqueNewsQuery, FindUniqueNewsQueryVariables>(FindUniqueNewsDocument, options);
+        }
+export function useFindUniqueNewsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindUniqueNewsQuery, FindUniqueNewsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindUniqueNewsQuery, FindUniqueNewsQueryVariables>(FindUniqueNewsDocument, options);
+        }
+export type FindUniqueNewsQueryHookResult = ReturnType<typeof useFindUniqueNewsQuery>;
+export type FindUniqueNewsLazyQueryHookResult = ReturnType<typeof useFindUniqueNewsLazyQuery>;
+export type FindUniqueNewsSuspenseQueryHookResult = ReturnType<typeof useFindUniqueNewsSuspenseQuery>;
+export type FindUniqueNewsQueryResult = Apollo.QueryResult<FindUniqueNewsQuery, FindUniqueNewsQueryVariables>;
 export const OrdersDocument = gql`
     query Orders($where: OrderWhereInput, $orderBy: [OrderOrderByWithRelationInput!], $cursor: OrderWhereUniqueInput, $take: Int, $skip: Int, $distinct: [OrderScalarFieldEnum!]) {
   orders(
@@ -12121,6 +13516,206 @@ export function useUpdateOneOrderMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateOneOrderMutationHookResult = ReturnType<typeof useUpdateOneOrderMutation>;
 export type UpdateOneOrderMutationResult = Apollo.MutationResult<UpdateOneOrderMutation>;
 export type UpdateOneOrderMutationOptions = Apollo.BaseMutationOptions<UpdateOneOrderMutation, UpdateOneOrderMutationVariables>;
+export const PartnerShipsDocument = gql`
+    query PartnerShips($where: PartnerShipWhereInput, $orderBy: [PartnerShipOrderByWithRelationInput!], $cursor: PartnerShipWhereUniqueInput, $take: Int, $skip: Int, $distinct: [PartnerShipScalarFieldEnum!]) {
+  partnerShips(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    id
+    link
+    logo
+    name
+    position
+  }
+}
+    `;
+
+/**
+ * __usePartnerShipsQuery__
+ *
+ * To run a query within a React component, call `usePartnerShipsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePartnerShipsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePartnerShipsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function usePartnerShipsQuery(baseOptions?: Apollo.QueryHookOptions<PartnerShipsQuery, PartnerShipsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PartnerShipsQuery, PartnerShipsQueryVariables>(PartnerShipsDocument, options);
+      }
+export function usePartnerShipsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PartnerShipsQuery, PartnerShipsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PartnerShipsQuery, PartnerShipsQueryVariables>(PartnerShipsDocument, options);
+        }
+export function usePartnerShipsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<PartnerShipsQuery, PartnerShipsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PartnerShipsQuery, PartnerShipsQueryVariables>(PartnerShipsDocument, options);
+        }
+export type PartnerShipsQueryHookResult = ReturnType<typeof usePartnerShipsQuery>;
+export type PartnerShipsLazyQueryHookResult = ReturnType<typeof usePartnerShipsLazyQuery>;
+export type PartnerShipsSuspenseQueryHookResult = ReturnType<typeof usePartnerShipsSuspenseQuery>;
+export type PartnerShipsQueryResult = Apollo.QueryResult<PartnerShipsQuery, PartnerShipsQueryVariables>;
+export const PartnerShipDocument = gql`
+    query PartnerShip($where: PartnerShipWhereUniqueInput!) {
+  partnerShip(where: $where) {
+    id
+    link
+    logo
+    name
+    position
+  }
+}
+    `;
+
+/**
+ * __usePartnerShipQuery__
+ *
+ * To run a query within a React component, call `usePartnerShipQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePartnerShipQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePartnerShipQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function usePartnerShipQuery(baseOptions: Apollo.QueryHookOptions<PartnerShipQuery, PartnerShipQueryVariables> & ({ variables: PartnerShipQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PartnerShipQuery, PartnerShipQueryVariables>(PartnerShipDocument, options);
+      }
+export function usePartnerShipLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PartnerShipQuery, PartnerShipQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PartnerShipQuery, PartnerShipQueryVariables>(PartnerShipDocument, options);
+        }
+export function usePartnerShipSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<PartnerShipQuery, PartnerShipQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PartnerShipQuery, PartnerShipQueryVariables>(PartnerShipDocument, options);
+        }
+export type PartnerShipQueryHookResult = ReturnType<typeof usePartnerShipQuery>;
+export type PartnerShipLazyQueryHookResult = ReturnType<typeof usePartnerShipLazyQuery>;
+export type PartnerShipSuspenseQueryHookResult = ReturnType<typeof usePartnerShipSuspenseQuery>;
+export type PartnerShipQueryResult = Apollo.QueryResult<PartnerShipQuery, PartnerShipQueryVariables>;
+export const CreateOnePartnerShipDocument = gql`
+    mutation CreateOnePartnerShip($data: PartnerShipCreateInput!) {
+  createOnePartnerShip(data: $data) {
+    id
+  }
+}
+    `;
+export type CreateOnePartnerShipMutationFn = Apollo.MutationFunction<CreateOnePartnerShipMutation, CreateOnePartnerShipMutationVariables>;
+
+/**
+ * __useCreateOnePartnerShipMutation__
+ *
+ * To run a mutation, you first call `useCreateOnePartnerShipMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOnePartnerShipMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOnePartnerShipMutation, { data, loading, error }] = useCreateOnePartnerShipMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOnePartnerShipMutation(baseOptions?: Apollo.MutationHookOptions<CreateOnePartnerShipMutation, CreateOnePartnerShipMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOnePartnerShipMutation, CreateOnePartnerShipMutationVariables>(CreateOnePartnerShipDocument, options);
+      }
+export type CreateOnePartnerShipMutationHookResult = ReturnType<typeof useCreateOnePartnerShipMutation>;
+export type CreateOnePartnerShipMutationResult = Apollo.MutationResult<CreateOnePartnerShipMutation>;
+export type CreateOnePartnerShipMutationOptions = Apollo.BaseMutationOptions<CreateOnePartnerShipMutation, CreateOnePartnerShipMutationVariables>;
+export const UpdateOnePartnerShipDocument = gql`
+    mutation UpdateOnePartnerShip($data: PartnerShipUpdateInput!, $where: PartnerShipWhereUniqueInput!) {
+  updateOnePartnerShip(data: $data, where: $where) {
+    id
+  }
+}
+    `;
+export type UpdateOnePartnerShipMutationFn = Apollo.MutationFunction<UpdateOnePartnerShipMutation, UpdateOnePartnerShipMutationVariables>;
+
+/**
+ * __useUpdateOnePartnerShipMutation__
+ *
+ * To run a mutation, you first call `useUpdateOnePartnerShipMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOnePartnerShipMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOnePartnerShipMutation, { data, loading, error }] = useUpdateOnePartnerShipMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUpdateOnePartnerShipMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOnePartnerShipMutation, UpdateOnePartnerShipMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOnePartnerShipMutation, UpdateOnePartnerShipMutationVariables>(UpdateOnePartnerShipDocument, options);
+      }
+export type UpdateOnePartnerShipMutationHookResult = ReturnType<typeof useUpdateOnePartnerShipMutation>;
+export type UpdateOnePartnerShipMutationResult = Apollo.MutationResult<UpdateOnePartnerShipMutation>;
+export type UpdateOnePartnerShipMutationOptions = Apollo.BaseMutationOptions<UpdateOnePartnerShipMutation, UpdateOnePartnerShipMutationVariables>;
+export const DeleteOnePartnerShipDocument = gql`
+    mutation DeleteOnePartnerShip($where: PartnerShipWhereUniqueInput!) {
+  deleteOnePartnerShip(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteOnePartnerShipMutationFn = Apollo.MutationFunction<DeleteOnePartnerShipMutation, DeleteOnePartnerShipMutationVariables>;
+
+/**
+ * __useDeleteOnePartnerShipMutation__
+ *
+ * To run a mutation, you first call `useDeleteOnePartnerShipMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteOnePartnerShipMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteOnePartnerShipMutation, { data, loading, error }] = useDeleteOnePartnerShipMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteOnePartnerShipMutation(baseOptions?: Apollo.MutationHookOptions<DeleteOnePartnerShipMutation, DeleteOnePartnerShipMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteOnePartnerShipMutation, DeleteOnePartnerShipMutationVariables>(DeleteOnePartnerShipDocument, options);
+      }
+export type DeleteOnePartnerShipMutationHookResult = ReturnType<typeof useDeleteOnePartnerShipMutation>;
+export type DeleteOnePartnerShipMutationResult = Apollo.MutationResult<DeleteOnePartnerShipMutation>;
+export type DeleteOnePartnerShipMutationOptions = Apollo.BaseMutationOptions<DeleteOnePartnerShipMutation, DeleteOnePartnerShipMutationVariables>;
 export const CreateOneProductDocument = gql`
     mutation CreateOneProduct($data: ProductCreateInput!) {
   createOneProduct(data: $data) {

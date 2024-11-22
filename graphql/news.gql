@@ -1,0 +1,35 @@
+mutation DeleteOneNews($where: NewsWhereUniqueInput!) {
+  deleteOneNews(where: $where) {
+    id
+  }
+}
+mutation UpdateOneNews($data: NewsUpdateInput!, $where: NewsWhereUniqueInput!) {
+  updateOneNews(data: $data, where: $where) {
+    id
+  }
+}
+mutation CreateOneNews($data: NewsCreateInput!) {
+  createOneNews(data: $data) {
+    id
+  }
+}
+
+query FindManyNews($where: NewsWhereInput, $orderBy: [NewsOrderByWithRelationInput!], $cursor: NewsWhereUniqueInput, $take: Int, $skip: Int, $distinct: [NewsScalarFieldEnum!]) {
+  findManyNews(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
+    
+    fetaureFile
+    id
+    position
+    title
+  }
+}
+
+query FindUniqueNews($where: NewsWhereUniqueInput!) {
+  findUniqueNews(where: $where) {
+    id
+    fetaureFile
+    description
+    position
+    title
+  }
+}

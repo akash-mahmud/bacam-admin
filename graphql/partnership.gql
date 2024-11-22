@@ -1,0 +1,37 @@
+query PartnerShips($where: PartnerShipWhereInput, $orderBy: [PartnerShipOrderByWithRelationInput!], $cursor: PartnerShipWhereUniqueInput, $take: Int, $skip: Int, $distinct: [PartnerShipScalarFieldEnum!]) {
+  partnerShips(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
+    id
+    link
+    logo
+    name
+    position
+  }
+}
+
+query PartnerShip($where: PartnerShipWhereUniqueInput!) {
+  partnerShip(where: $where) {
+    id
+    link
+    logo
+    name
+    position
+  }
+}
+
+mutation CreateOnePartnerShip($data: PartnerShipCreateInput!) {
+  createOnePartnerShip(data: $data) {
+    id
+  }
+}
+
+mutation UpdateOnePartnerShip($data: PartnerShipUpdateInput!, $where: PartnerShipWhereUniqueInput!) {
+  updateOnePartnerShip(data: $data, where: $where) {
+    id
+  }
+}
+
+mutation DeleteOnePartnerShip($where: PartnerShipWhereUniqueInput!) {
+  deleteOnePartnerShip(where: $where) {
+    id
+  }
+}
