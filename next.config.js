@@ -29,7 +29,7 @@ const nextConfig = withInterceptStdout(
 				},
 			]
 		},
-		reactStrictMode: true,
+		reactStrictMode: false,
 		swcMinify: true,
 		i18n
 	}),

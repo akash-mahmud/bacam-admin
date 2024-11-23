@@ -53,63 +53,63 @@ export default function PartnerShipForm({
 	const handleCancel = () => setPreviewOpen(false);
 	return (
 		<>
-			<form className='row g-4'>
-				<div className='col-md-12'>
-					<FormGroup id='name' label='Name'>
-						<Input
-							type='text'
-							size={'lg'}
-							value={formik.values.name}
-							isTouched={formik.touched.name}
-							invalidFeedback={formik.errors.name}
-							isValid={formik.isValid}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							onFocus={() => {
-								formik.setErrors({});
-							}}
-						/>
-					</FormGroup>
-				</div>
+			<Spin spinning={loadingUpload}>
+				<form className='row g-4'>
+					<div className='col-md-12'>
+						<FormGroup id='name' label='Name'>
+							<Input
+								type='text'
+								size={'lg'}
+								value={formik.values.name}
+								isTouched={formik.touched.name}
+								invalidFeedback={formik.errors.name}
+								isValid={formik.isValid}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								onFocus={() => {
+									formik.setErrors({});
+								}}
+							/>
+						</FormGroup>
+					</div>
 
-				<div className='col-md-12'>
-					<FormGroup id='link' label='Link'>
-						<Input
-							type='text'
-							size={'lg'}
-							value={formik.values.link}
-							isTouched={formik.touched.link}
-							invalidFeedback={formik.errors.link}
-							isValid={formik.isValid}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							onFocus={() => {
-								formik.setErrors({});
-							}}
-						/>
-					</FormGroup>
-				</div>
-				<div className='col-md-12'>
-					<FormGroup id='position' label='Position'>
-						<Input
-							type='number'
-							size={'lg'}
-							value={formik.values.position}
-							isTouched={formik.touched.position}
-							invalidFeedback={formik.errors.position}
-							isValid={formik.isValid}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							onFocus={() => {
-								formik.setErrors({});
-							}}
-						/>
-					</FormGroup>
-				</div>
+					<div className='col-md-12'>
+						<FormGroup id='link' label='Link'>
+							<Input
+								type='text'
+								size={'lg'}
+								value={formik.values.link}
+								isTouched={formik.touched.link}
+								invalidFeedback={formik.errors.link}
+								isValid={formik.isValid}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								onFocus={() => {
+									formik.setErrors({});
+								}}
+							/>
+						</FormGroup>
+					</div>
+					<div className='col-md-12'>
+						<FormGroup id='position' label='Position'>
+							<Input
+								type='number'
+								size={'lg'}
+								value={formik.values.position}
+								isTouched={formik.touched.position}
+								invalidFeedback={formik.errors.position}
+								isValid={formik.isValid}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								onFocus={() => {
+									formik.setErrors({});
+								}}
+							/>
+						</FormGroup>
+					</div>
 
-				<div className='col-md-12'>
-					<FormGroup label='Logo'>
-						<Spin spinning={loadingUpload}>
+					<div className='col-md-12'>
+						<FormGroup label='Logo'>
 							<UploadSingleImage
 								uploadButton={uploadButton}
 								filelist={
@@ -130,10 +130,10 @@ export default function PartnerShipForm({
 									// }
 								}}
 							/>
-						</Spin>
-					</FormGroup>
-				</div>
-			</form>
+						</FormGroup>
+					</div>
+				</form>
+			</Spin>
 			<Modal open={previewOpen} footer={null} onCancel={handleCancel}>
 				<ModalBody>
 					<div className='d-flex justify-content-center'>

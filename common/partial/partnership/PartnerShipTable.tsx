@@ -9,24 +9,20 @@ import OffCanvas, {
 	OffCanvasBody,
 } from '@/components/bootstrap/OffCanvas';
 import {
-	Employee,
 	SortOrder,
-	useCreateOneEmployeeMutation,
 	useCreateOnePartnerShipMutation,
-	useEmployeesQuery,
+	useDeleteOnePartnerShipMutation,
 	usePartnerShipLazyQuery,
 	usePartnerShipsQuery,
-	useUpdateOneEmployeeMutation,
 	useUpdateOnePartnerShipMutation,
 } from '@/graphql/generated/schema';
 import useDarkMode from '@/hooks/useDarkMode';
-import { message, Modal, notification, Spin } from 'antd';
+import { message, Modal, notification, Popconfirm, Spin } from 'antd';
 import classNames from 'classnames';
 import { useFormik, FormikHelpers } from 'formik';
 import { FC, useState } from 'react';
 import { getImage } from '@/utils/getImage';
 import { v4 } from 'uuid';
-import Image from 'next/image';
 
 import PartnerShipForm from './PartnerShipForm';
 
@@ -133,6 +129,7 @@ const PartnerShipTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 
 	const [Create, { loading: createLoading }] = useCreateOnePartnerShipMutation();
 	const [Update, { loading: updateLoading }] = useUpdateOnePartnerShipMutation();
+	const [Delete, { loading: deleteLoding }] = useDeleteOnePartnerShipMutation();
 
 	const createData = async (data: any) => {
 		try {
@@ -209,17 +206,48 @@ const PartnerShipTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 										/>
 									</td>
 									<td>
-										<Button
-											isOutline={!darkModeStatus}
-											color='dark'
-											isLight={darkModeStatus}
-											className={classNames('text-nowrap', {
-												'border-light': !darkModeStatus,
-											})}
-											icon='Edit'
-											onClick={() => handelOpenUpdate(item.id)}>
-											Edit
-										</Button>
+										<div className=' d-flex flex-row gap-2'>
+											<Button
+												isOutline={!darkModeStatus}
+												color='dark'
+												isLight={darkModeStatus}
+												className={classNames('text-nowrap', {
+													'border-light': !darkModeStatus,
+												})}
+												icon='Edit'
+												onClick={() => handelOpenUpdate(item.id)}>
+												Edit
+											</Button>
+											<Popconfirm
+												title='Are you sure?'
+												onConfirm={async () => {
+													const { data } = await Delete({
+														variables: {
+															where: {
+																id: item.id,
+															},
+														},
+													});
+													if (data?.deleteOnePartnerShip?.id) {
+														message.success('Deleted');
+														await refetch();
+													} else {
+														message.error('Something went wrong');
+													}
+												}}>
+												<Button
+													isOutline={!darkModeStatus}
+													color='danger'
+													className={classNames('text-nowrap', {
+														'border-light': !darkModeStatus,
+													})}
+													icon='Delete'
+													// onClick={() => handelOpenUpdate(item.id)}
+												>
+													Delete
+												</Button>
+											</Popconfirm>
+										</div>
 									</td>
 								</tr>
 							))}

@@ -17,7 +17,7 @@ mutation CreateOneNews($data: NewsCreateInput!) {
 query FindManyNews($where: NewsWhereInput, $orderBy: [NewsOrderByWithRelationInput!], $cursor: NewsWhereUniqueInput, $take: Int, $skip: Int, $distinct: [NewsScalarFieldEnum!]) {
   findManyNews(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
     
-    fetaureFile
+    fetaureMedias
     id
     position
     title
@@ -27,7 +27,7 @@ query FindManyNews($where: NewsWhereInput, $orderBy: [NewsOrderByWithRelationInp
 query FindUniqueNews($where: NewsWhereUniqueInput!) {
   findUniqueNews(where: $where) {
     id
-    fetaureFile
+    fetaureMedias
     description
     position
     title

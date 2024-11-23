@@ -5214,9 +5214,10 @@ export type News = {
   __typename?: 'News';
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
-  fetaureFile: Scalars['String']['output'];
+  fetaureMedias: Array<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   position: Scalars['Int']['output'];
+  slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -5235,9 +5236,10 @@ export type NewsCountAggregate = {
   _all: Scalars['Int']['output'];
   createdAt: Scalars['Int']['output'];
   description: Scalars['Int']['output'];
-  fetaureFile: Scalars['Int']['output'];
+  fetaureMedias: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   position: Scalars['Int']['output'];
+  slug: Scalars['Int']['output'];
   title: Scalars['Int']['output'];
   updatedAt: Scalars['Int']['output'];
 };
@@ -5245,9 +5247,10 @@ export type NewsCountAggregate = {
 export type NewsCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
-  fetaureFile?: InputMaybe<SortOrder>;
+  fetaureMedias?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -5255,9 +5258,10 @@ export type NewsCountOrderByAggregateInput = {
 export type NewsCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description: Scalars['String']['input'];
-  fetaureFile: Scalars['String']['input'];
+  fetaureMedias?: InputMaybe<NewsCreatefetaureMediasInput>;
   id?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars['String']['input'];
   title: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -5265,11 +5269,16 @@ export type NewsCreateInput = {
 export type NewsCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description: Scalars['String']['input'];
-  fetaureFile: Scalars['String']['input'];
+  fetaureMedias?: InputMaybe<NewsCreatefetaureMediasInput>;
   id?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars['String']['input'];
   title: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type NewsCreatefetaureMediasInput = {
+  set: Array<Scalars['String']['input']>;
 };
 
 export type NewsGroupBy = {
@@ -5281,9 +5290,10 @@ export type NewsGroupBy = {
   _sum?: Maybe<NewsSumAggregate>;
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
-  fetaureFile: Scalars['String']['output'];
+  fetaureMedias?: Maybe<Array<Scalars['String']['output']>>;
   id: Scalars['String']['output'];
   position: Scalars['Int']['output'];
+  slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -5292,9 +5302,9 @@ export type NewsMaxAggregate = {
   __typename?: 'NewsMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
-  fetaureFile?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   position?: Maybe<Scalars['Int']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -5302,9 +5312,9 @@ export type NewsMaxAggregate = {
 export type NewsMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
-  fetaureFile?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -5313,9 +5323,9 @@ export type NewsMinAggregate = {
   __typename?: 'NewsMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
-  fetaureFile?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   position?: Maybe<Scalars['Int']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -5323,9 +5333,9 @@ export type NewsMinAggregate = {
 export type NewsMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
-  fetaureFile?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -5338,9 +5348,10 @@ export type NewsOrderByWithAggregationInput = {
   _sum?: InputMaybe<NewsSumOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
-  fetaureFile?: InputMaybe<SortOrder>;
+  fetaureMedias?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -5348,9 +5359,10 @@ export type NewsOrderByWithAggregationInput = {
 export type NewsOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
-  fetaureFile?: InputMaybe<SortOrder>;
+  fetaureMedias?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -5358,9 +5370,10 @@ export type NewsOrderByWithRelationInput = {
 export enum NewsScalarFieldEnum {
   CreatedAt = 'createdAt',
   Description = 'description',
-  FetaureFile = 'fetaureFile',
+  FetaureMedias = 'fetaureMedias',
   Id = 'id',
   Position = 'position',
+  Slug = 'slug',
   Title = 'title',
   UpdatedAt = 'updatedAt'
 }
@@ -5371,9 +5384,10 @@ export type NewsScalarWhereWithAggregatesInput = {
   OR?: InputMaybe<Array<NewsScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   description?: InputMaybe<StringWithAggregatesFilter>;
-  fetaureFile?: InputMaybe<StringWithAggregatesFilter>;
+  fetaureMedias?: InputMaybe<StringNullableListFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
   position?: InputMaybe<IntWithAggregatesFilter>;
+  slug?: InputMaybe<StringWithAggregatesFilter>;
   title?: InputMaybe<StringWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
@@ -5390,9 +5404,10 @@ export type NewsSumOrderByAggregateInput = {
 export type NewsUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
-  fetaureFile?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fetaureMedias?: InputMaybe<NewsUpdatefetaureMediasInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -5400,11 +5415,17 @@ export type NewsUpdateInput = {
 export type NewsUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
-  fetaureFile?: InputMaybe<StringFieldUpdateOperationsInput>;
+  fetaureMedias?: InputMaybe<NewsUpdatefetaureMediasInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type NewsUpdatefetaureMediasInput = {
+  push?: InputMaybe<Array<Scalars['String']['input']>>;
+  set?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 export type NewsWhereInput = {
@@ -5413,15 +5434,17 @@ export type NewsWhereInput = {
   OR?: InputMaybe<Array<NewsWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
   description?: InputMaybe<StringFilter>;
-  fetaureFile?: InputMaybe<StringFilter>;
+  fetaureMedias?: InputMaybe<StringNullableListFilter>;
   id?: InputMaybe<StringFilter>;
   position?: InputMaybe<IntFilter>;
+  slug?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type NewsWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type NullableFloatFieldUpdateOperationsInput = {
@@ -11749,14 +11772,14 @@ export type FindManyNewsQueryVariables = Exact<{
 }>;
 
 
-export type FindManyNewsQuery = { __typename?: 'Query', findManyNews: Array<{ __typename?: 'News', fetaureFile: string, id: string, position: number, title: string }> };
+export type FindManyNewsQuery = { __typename?: 'Query', findManyNews: Array<{ __typename?: 'News', fetaureMedias: Array<string>, id: string, position: number, title: string }> };
 
 export type FindUniqueNewsQueryVariables = Exact<{
   where: NewsWhereUniqueInput;
 }>;
 
 
-export type FindUniqueNewsQuery = { __typename?: 'Query', findUniqueNews?: { __typename?: 'News', id: string, fetaureFile: string, description: string, position: number, title: string } | null };
+export type FindUniqueNewsQuery = { __typename?: 'Query', findUniqueNews?: { __typename?: 'News', id: string, fetaureMedias: Array<string>, description: string, position: number, title: string } | null };
 
 export type OrdersQueryVariables = Exact<{
   where?: InputMaybe<OrderWhereInput>;
@@ -13306,7 +13329,7 @@ export const FindManyNewsDocument = gql`
     skip: $skip
     distinct: $distinct
   ) {
-    fetaureFile
+    fetaureMedias
     id
     position
     title
@@ -13355,7 +13378,7 @@ export const FindUniqueNewsDocument = gql`
     query FindUniqueNews($where: NewsWhereUniqueInput!) {
   findUniqueNews(where: $where) {
     id
-    fetaureFile
+    fetaureMedias
     description
     position
     title

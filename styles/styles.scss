@@ -15,3 +15,15 @@
 @import 'node_modules/bootstrap/scss/utilities/api';
 
 @import 'custom/index';
+.rdw-embedded-modal {
+ height: 211px !important;
+} 
+ .rdw-link-modal{
+    height: 240px !important;
+
+ }
+.rdw-editor-main{
+    min-height: 200px;
+    border: 1px solid rgba(230, 230, 230, 0.897);
+    padding: 5px;
+}
