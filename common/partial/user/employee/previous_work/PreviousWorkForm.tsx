@@ -11,7 +11,6 @@ import { RcFile } from 'antd/es/upload';
 import { ModalBody } from '@/components/bootstrap/Modal';
 import Image from 'next/image';
 
-const RichTextEditor = dynamic(() => import('@/common/RichTextEditor'), { ssr: false });
 import Label from '@/components/bootstrap/forms/Label';
 import dynamic from 'next/dynamic';
 import ReactPlayer from 'react-player';
@@ -21,8 +20,9 @@ import { getFileType } from '@/utils/fileType';
 import htmlToDraft from 'html-to-draftjs';
 import { ContentState } from 'draft-js';
 import { EditorState } from 'draft-js';
+import Textarea from '@/components/bootstrap/forms/Textarea';
 
-export default function NewsForm({
+export default function PreviousWorkForm({
 	formik,
 	setFiles,
 	files,
@@ -41,26 +41,6 @@ export default function NewsForm({
 		setPreviewOpen(true);
 	};
 	const [FileUpload, { loading: loadingUpload }] = useUploadFileMutation();
-	useEffect(() => {
-		if (isUpdate && typeof formik.values.description === 'string') {
-			const Desc = htmlToDraft(formik.values.description);
-			console.log(ContentState.createFromBlockArray(Desc.contentBlocks, Desc.entityMap));
-			//
-			if (Desc) {
-				const contentState = ContentState.createFromBlockArray(
-					Desc.contentBlocks, // Pass content blocks
-					Desc.entityMap, // Pass entity map
-				);
-				const editorState = EditorState.createWithContent(contentState);
-				formik.setFieldValue(
-					'description',
-					editorState, // EditorState.createEmpty()
-				);
-			}
-
-			formik.set;
-		}
-	}, [isUpdate, formik.values.description]);
 
 	const handleBeforeUploadUpdate = async (file: RcFile): Promise<void> => {
 		try {
@@ -79,10 +59,7 @@ export default function NewsForm({
 					url: getImage(data?.uploadFile?.file as string),
 				},
 			]);
-			formik.setFieldValue('fetaureMedias.set', [
-				...formik.values.fetaureMedias.set,
-				data?.uploadFile?.file,
-			]);
+			formik.setFieldValue('files.set', [...formik.values.files.set, data?.uploadFile?.file]);
 		} catch (error) {
 			console.log(error);
 		}
@@ -102,7 +79,7 @@ export default function NewsForm({
 								isTouched={formik.touched.title}
 								invalidFeedback={formik.errors.title}
 								isValid={formik.isValid}
-								onChange={(e:any) => {
+								onChange={(e: any) => {
 									formik.handleChange(e);
 									!isUpdate && formik.setFieldValue('slug', slug(e.target.value));
 								}}
@@ -149,17 +126,39 @@ export default function NewsForm({
 							/>
 						</FormGroup>
 					</div>
-					{typeof formik.values.description !== 'string' && (
-						<div className='col-md-12'>
-							<Label>Description</Label>
-							<RichTextEditor
-								state={formik.values.description}
-								setSate={(value: any) => {
-									formik.setFieldValue('description', value);
+					<div className='col-md-12'>
+						<FormGroup id='link' label='Link'>
+							<Input
+								type='text'
+								size={'lg'}
+								value={formik.values.link}
+								isTouched={formik.touched.link}
+								invalidFeedback={formik.errors.link}
+								isValid={formik.isValid}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								onFocus={() => {
+									formik.setErrors({});
 								}}
 							/>
-						</div>
-					)}
+						</FormGroup>
+					</div>
+					<div className='col-md-12'>
+						<FormGroup id='description' label='Description'>
+							<Textarea
+								size={'lg'}
+								value={formik.values.description}
+								isTouched={formik.touched.description}
+								invalidFeedback={formik.errors.description}
+								isValid={formik.isValid}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								onFocus={() => {
+									formik.setErrors({});
+								}}
+							/>
+						</FormGroup>
+					</div>
 					<div className='col-md-12'>
 						<FormGroup label='Feature Medias'>
 							<UploadSingleImage
@@ -175,8 +174,8 @@ export default function NewsForm({
 									setFiles(files.filter((f) => f.uid !== file.uid)); // Remove file from list on delete
 
 									formik.setFieldValue(
-										'fetaureMedias.set',
-										formik.values.fetaureMedias.set.filter(
+										'files.set',
+										formik.values.files.set.filter(
 											(f: string) => getImage(f) !== file.url,
 										),
 									);

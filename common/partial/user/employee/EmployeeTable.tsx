@@ -23,7 +23,7 @@ import {
 	useUploadFileMutation,
 } from '@/graphql/generated/schema';
 import useDarkMode from '@/hooks/useDarkMode';
-import { Modal, notification, Spin, UploadFile } from 'antd';
+import { Modal, notification, Popconfirm, Spin, UploadFile } from 'antd';
 import classNames from 'classnames';
 import { useFormik, FormikHelpers } from 'formik';
 import { FC, useState } from 'react';
@@ -35,6 +35,7 @@ import { v4 } from 'uuid';
 import Image from 'next/image';
 import Select from '@/components/bootstrap/forms/Select';
 import Option from '@/components/bootstrap/Option';
+import { useRouter } from 'next/router';
 
 interface ICategoryTableProps {
 	isFluid?: boolean;
@@ -58,8 +59,10 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 		formik.setFieldValue('name', item.name);
 		formik.setFieldValue('image', item.image);
 		formik.setFieldValue('shortDescription', item.shortDescription);
-		item.employeeCategoryId && formik.setFieldValue('employeeCategory', item.employeeCategoryId);
-		item.employeeSubCategoryId && formik.setFieldValue('employeeSubCategory', item.employeeSubCategoryId);
+		item.employeeCategoryId &&
+			formik.setFieldValue('employeeCategory', item.employeeCategoryId);
+		item.employeeSubCategoryId &&
+			formik.setFieldValue('employeeSubCategory', item.employeeSubCategoryId);
 		setFiles(() => [
 			{
 				uid: v4(),
@@ -87,11 +90,13 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 								id: values.employeeCategory,
 							},
 						},
-						employeeSubCategory:values?.employeeSubCategory ? {
-							connect: {
-								id: values?.employeeSubCategory,
-							},
-						}:undefined,
+						employeeSubCategory: values?.employeeSubCategory
+							? {
+									connect: {
+										id: values?.employeeSubCategory,
+									},
+							  }
+							: undefined,
 						image: {
 							set: values.image,
 						},
@@ -187,11 +192,13 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 								id: data.employeeCategory,
 							},
 						},
-						employeeSubCategory:data?.employeeSubCategory? {
-							connect: {
-								id: data?.employeeSubCategory,
-							},
-						}:undefined,
+						employeeSubCategory: data?.employeeSubCategory
+							? {
+									connect: {
+										id: data?.employeeSubCategory,
+									},
+							  }
+							: undefined,
 					},
 				},
 			});
@@ -243,7 +250,7 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 
 	const categories = catData?.employeeCategories;
 	const subcategories = subCatData?.employeeSubCategories;
-
+	const router = useRouter();
 	return (
 		<>
 			<Card stretch={isFluid}>
@@ -283,17 +290,47 @@ const EmployeeTable: FC<ICategoryTableProps> = ({ isFluid }) => {
 										/>
 									</td>
 									<td>
-										<Button
-											isOutline={!darkModeStatus}
-											color='dark'
-											isLight={darkModeStatus}
-											className={classNames('text-nowrap', {
-												'border-light': !darkModeStatus,
-											})}
-											icon='Edit'
-											onClick={() => handleUpcomingEdit(item as Employee)}>
-											Edit
-										</Button>
+										<div className='d-flex flex-row gap-2'>
+											<Button
+												isOutline={!darkModeStatus}
+												color='dark'
+												isLight={darkModeStatus}
+												className={classNames('text-nowrap', {
+													'border-light': !darkModeStatus,
+												})}
+												icon='Edit'
+												onClick={() =>
+													handleUpcomingEdit(item as Employee)
+												}>
+												Edit
+											</Button>
+											<Popconfirm title='Are you sure?' onConfirm={() => {}}>
+												<Button
+													isOutline={!darkModeStatus}
+													color='danger'
+													isLight={darkModeStatus}
+													className={classNames('text-nowrap', {
+														'border-light': !darkModeStatus,
+													})}
+													icon='Delete'
+													onClick={() => {}}>
+													Delete
+												</Button>
+											</Popconfirm>
+											<Button
+												onClick={() =>
+													router.push(`${router.asPath}/${item.id}`)
+												}
+												isOutline={!darkModeStatus}
+												color='dark'
+												isLight={darkModeStatus}
+												className={classNames('text-nowrap', {
+													'border-light': !darkModeStatus,
+												})}
+												icon='List'>
+												Previous works
+											</Button>
+										</div>
 									</td>
 								</tr>
 							))}

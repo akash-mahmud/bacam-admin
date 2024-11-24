@@ -1590,6 +1590,7 @@ export type Employee = {
   name: Scalars['String']['output'];
   orderItem: Array<OrderItem>;
   ourTeam: Scalars['Boolean']['output'];
+  previous_works: Array<EmployeePreviousWork>;
   products: Array<Product>;
   shortDescription: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -1613,6 +1614,16 @@ export type EmployeeOrderItemArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<OrderItemWhereInput>;
+};
+
+
+export type EmployeePrevious_WorksArgs = {
+  cursor?: InputMaybe<EmployeePreviousWorkWhereUniqueInput>;
+  distinct?: InputMaybe<Array<EmployeePreviousWorkScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<EmployeePreviousWorkOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
 };
 
 
@@ -1969,6 +1980,7 @@ export type EmployeeCount = {
   __typename?: 'EmployeeCount';
   cartItem: Scalars['Int']['output'];
   orderItem: Scalars['Int']['output'];
+  previous_works: Scalars['Int']['output'];
   products: Scalars['Int']['output'];
 };
 
@@ -1980,6 +1992,11 @@ export type EmployeeCountCartItemArgs = {
 
 export type EmployeeCountOrderItemArgs = {
   where?: InputMaybe<OrderItemWhereInput>;
+};
+
+
+export type EmployeeCountPrevious_WorksArgs = {
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
 };
 
 
@@ -2023,6 +2040,7 @@ export type EmployeeCreateInput = {
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
   ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
+  previous_works?: InputMaybe<EmployeePreviousWorkCreateNestedManyWithoutEmployeeInput>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2098,6 +2116,12 @@ export type EmployeeCreateNestedOneWithoutOrderItemInput = {
   create?: InputMaybe<EmployeeCreateWithoutOrderItemInput>;
 };
 
+export type EmployeeCreateNestedOneWithoutPrevious_WorksInput = {
+  connect?: InputMaybe<EmployeeWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<EmployeeCreateOrConnectWithoutPrevious_WorksInput>;
+  create?: InputMaybe<EmployeeCreateWithoutPrevious_WorksInput>;
+};
+
 export type EmployeeCreateNestedOneWithoutProductsInput = {
   connect?: InputMaybe<EmployeeWhereUniqueInput>;
   connectOrCreate?: InputMaybe<EmployeeCreateOrConnectWithoutProductsInput>;
@@ -2124,6 +2148,11 @@ export type EmployeeCreateOrConnectWithoutOrderItemInput = {
   where: EmployeeWhereUniqueInput;
 };
 
+export type EmployeeCreateOrConnectWithoutPrevious_WorksInput = {
+  create: EmployeeCreateWithoutPrevious_WorksInput;
+  where: EmployeeWhereUniqueInput;
+};
+
 export type EmployeeCreateOrConnectWithoutProductsInput = {
   create: EmployeeCreateWithoutProductsInput;
   where: EmployeeWhereUniqueInput;
@@ -2138,6 +2167,7 @@ export type EmployeeCreateWithoutCartItemInput = {
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
   ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
+  previous_works?: InputMaybe<EmployeePreviousWorkCreateNestedManyWithoutEmployeeInput>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2152,6 +2182,7 @@ export type EmployeeCreateWithoutEmployeeCategoryInput = {
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
   ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
+  previous_works?: InputMaybe<EmployeePreviousWorkCreateNestedManyWithoutEmployeeInput>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2166,6 +2197,7 @@ export type EmployeeCreateWithoutEmployeeSubCategoryInput = {
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
   ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
+  previous_works?: InputMaybe<EmployeePreviousWorkCreateNestedManyWithoutEmployeeInput>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -2179,6 +2211,22 @@ export type EmployeeCreateWithoutOrderItemInput = {
   id?: InputMaybe<Scalars['String']['input']>;
   image: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
+  previous_works?: InputMaybe<EmployeePreviousWorkCreateNestedManyWithoutEmployeeInput>;
+  products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
+  shortDescription: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type EmployeeCreateWithoutPrevious_WorksInput = {
+  cartItem?: InputMaybe<CartItemCreateNestedManyWithoutEmployeeInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  employeeCategory?: InputMaybe<EmployeeCategoryCreateNestedOneWithoutEmployeeInput>;
+  employeeSubCategory?: InputMaybe<EmployeeSubCategoryCreateNestedOneWithoutEmployeeInput>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  image: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
   ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
   products?: InputMaybe<ProductCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
@@ -2195,6 +2243,7 @@ export type EmployeeCreateWithoutProductsInput = {
   name: Scalars['String']['input'];
   orderItem?: InputMaybe<OrderItemCreateNestedManyWithoutEmployeeInput>;
   ourTeam?: InputMaybe<Scalars['Boolean']['input']>;
+  previous_works?: InputMaybe<EmployeePreviousWorkCreateNestedManyWithoutEmployeeInput>;
   shortDescription: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -2302,6 +2351,7 @@ export type EmployeeOrderByWithRelationInput = {
   name?: InputMaybe<SortOrder>;
   orderItem?: InputMaybe<OrderItemOrderByRelationAggregateInput>;
   ourTeam?: InputMaybe<SortOrder>;
+  previous_works?: InputMaybe<EmployeePreviousWorkOrderByRelationAggregateInput>;
   products?: InputMaybe<ProductOrderByRelationAggregateInput>;
   shortDescription?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -2311,10 +2361,13 @@ export type EmployeePreviousWork = {
   __typename?: 'EmployeePreviousWork';
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
+  employee: Employee;
+  employeeId: Scalars['String']['output'];
   files: Array<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   link: Scalars['String']['output'];
   position: Scalars['Int']['output'];
+  slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -2333,10 +2386,12 @@ export type EmployeePreviousWorkCountAggregate = {
   _all: Scalars['Int']['output'];
   createdAt: Scalars['Int']['output'];
   description: Scalars['Int']['output'];
+  employeeId: Scalars['Int']['output'];
   files: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   link: Scalars['Int']['output'];
   position: Scalars['Int']['output'];
+  slug: Scalars['Int']['output'];
   title: Scalars['Int']['output'];
   updatedAt: Scalars['Int']['output'];
 };
@@ -2344,10 +2399,12 @@ export type EmployeePreviousWorkCountAggregate = {
 export type EmployeePreviousWorkCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
+  employeeId?: InputMaybe<SortOrder>;
   files?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   link?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -2355,21 +2412,66 @@ export type EmployeePreviousWorkCountOrderByAggregateInput = {
 export type EmployeePreviousWorkCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description: Scalars['String']['input'];
+  employee: EmployeeCreateNestedOneWithoutPrevious_WorksInput;
   files?: InputMaybe<EmployeePreviousWorkCreatefilesInput>;
   id?: InputMaybe<Scalars['String']['input']>;
   link: Scalars['String']['input'];
   position?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars['String']['input'];
   title: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type EmployeePreviousWorkCreateManyInput = {
+export type EmployeePreviousWorkCreateManyEmployeeInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description: Scalars['String']['input'];
   files?: InputMaybe<EmployeePreviousWorkCreatefilesInput>;
   id?: InputMaybe<Scalars['String']['input']>;
   link: Scalars['String']['input'];
   position?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type EmployeePreviousWorkCreateManyEmployeeInputEnvelope = {
+  data: Array<EmployeePreviousWorkCreateManyEmployeeInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type EmployeePreviousWorkCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  employeeId: Scalars['String']['input'];
+  files?: InputMaybe<EmployeePreviousWorkCreatefilesInput>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
+  position?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type EmployeePreviousWorkCreateNestedManyWithoutEmployeeInput = {
+  connect?: InputMaybe<Array<EmployeePreviousWorkWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<EmployeePreviousWorkCreateOrConnectWithoutEmployeeInput>>;
+  create?: InputMaybe<Array<EmployeePreviousWorkCreateWithoutEmployeeInput>>;
+  createMany?: InputMaybe<EmployeePreviousWorkCreateManyEmployeeInputEnvelope>;
+};
+
+export type EmployeePreviousWorkCreateOrConnectWithoutEmployeeInput = {
+  create: EmployeePreviousWorkCreateWithoutEmployeeInput;
+  where: EmployeePreviousWorkWhereUniqueInput;
+};
+
+export type EmployeePreviousWorkCreateWithoutEmployeeInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  description: Scalars['String']['input'];
+  files?: InputMaybe<EmployeePreviousWorkCreatefilesInput>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
+  position?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars['String']['input'];
   title: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -2387,21 +2489,31 @@ export type EmployeePreviousWorkGroupBy = {
   _sum?: Maybe<EmployeePreviousWorkSumAggregate>;
   createdAt: Scalars['DateTime']['output'];
   description: Scalars['String']['output'];
+  employeeId: Scalars['String']['output'];
   files?: Maybe<Array<Scalars['String']['output']>>;
   id: Scalars['String']['output'];
   link: Scalars['String']['output'];
   position: Scalars['Int']['output'];
+  slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type EmployeePreviousWorkListRelationFilter = {
+  every?: InputMaybe<EmployeePreviousWorkWhereInput>;
+  none?: InputMaybe<EmployeePreviousWorkWhereInput>;
+  some?: InputMaybe<EmployeePreviousWorkWhereInput>;
 };
 
 export type EmployeePreviousWorkMaxAggregate = {
   __typename?: 'EmployeePreviousWorkMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  employeeId?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   link?: Maybe<Scalars['String']['output']>;
   position?: Maybe<Scalars['Int']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -2409,9 +2521,11 @@ export type EmployeePreviousWorkMaxAggregate = {
 export type EmployeePreviousWorkMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
+  employeeId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   link?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -2420,9 +2534,11 @@ export type EmployeePreviousWorkMinAggregate = {
   __typename?: 'EmployeePreviousWorkMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  employeeId?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   link?: Maybe<Scalars['String']['output']>;
   position?: Maybe<Scalars['Int']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -2430,11 +2546,17 @@ export type EmployeePreviousWorkMinAggregate = {
 export type EmployeePreviousWorkMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
+  employeeId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   link?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type EmployeePreviousWorkOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
 };
 
 export type EmployeePreviousWorkOrderByWithAggregationInput = {
@@ -2445,10 +2567,12 @@ export type EmployeePreviousWorkOrderByWithAggregationInput = {
   _sum?: InputMaybe<EmployeePreviousWorkSumOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
+  employeeId?: InputMaybe<SortOrder>;
   files?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   link?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -2456,10 +2580,13 @@ export type EmployeePreviousWorkOrderByWithAggregationInput = {
 export type EmployeePreviousWorkOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
   description?: InputMaybe<SortOrder>;
+  employee?: InputMaybe<EmployeeOrderByWithRelationInput>;
+  employeeId?: InputMaybe<SortOrder>;
   files?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   link?: InputMaybe<SortOrder>;
   position?: InputMaybe<SortOrder>;
+  slug?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -2467,13 +2594,31 @@ export type EmployeePreviousWorkOrderByWithRelationInput = {
 export enum EmployeePreviousWorkScalarFieldEnum {
   CreatedAt = 'createdAt',
   Description = 'description',
+  EmployeeId = 'employeeId',
   Files = 'files',
   Id = 'id',
   Link = 'link',
   Position = 'position',
+  Slug = 'slug',
   Title = 'title',
   UpdatedAt = 'updatedAt'
 }
+
+export type EmployeePreviousWorkScalarWhereInput = {
+  AND?: InputMaybe<Array<EmployeePreviousWorkScalarWhereInput>>;
+  NOT?: InputMaybe<Array<EmployeePreviousWorkScalarWhereInput>>;
+  OR?: InputMaybe<Array<EmployeePreviousWorkScalarWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  description?: InputMaybe<StringFilter>;
+  employeeId?: InputMaybe<StringFilter>;
+  files?: InputMaybe<StringNullableListFilter>;
+  id?: InputMaybe<StringFilter>;
+  link?: InputMaybe<StringFilter>;
+  position?: InputMaybe<IntFilter>;
+  slug?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
 
 export type EmployeePreviousWorkScalarWhereWithAggregatesInput = {
   AND?: InputMaybe<Array<EmployeePreviousWorkScalarWhereWithAggregatesInput>>;
@@ -2481,10 +2626,12 @@ export type EmployeePreviousWorkScalarWhereWithAggregatesInput = {
   OR?: InputMaybe<Array<EmployeePreviousWorkScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   description?: InputMaybe<StringWithAggregatesFilter>;
+  employeeId?: InputMaybe<StringWithAggregatesFilter>;
   files?: InputMaybe<StringNullableListFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
   link?: InputMaybe<StringWithAggregatesFilter>;
   position?: InputMaybe<IntWithAggregatesFilter>;
+  slug?: InputMaybe<StringWithAggregatesFilter>;
   title?: InputMaybe<StringWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
 };
@@ -2501,10 +2648,12 @@ export type EmployeePreviousWorkSumOrderByAggregateInput = {
 export type EmployeePreviousWorkUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  employee?: InputMaybe<EmployeeUpdateOneRequiredWithoutPrevious_WorksNestedInput>;
   files?: InputMaybe<EmployeePreviousWorkUpdatefilesInput>;
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   link?: InputMaybe<StringFieldUpdateOperationsInput>;
   position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -2516,6 +2665,43 @@ export type EmployeePreviousWorkUpdateManyMutationInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   link?: InputMaybe<StringFieldUpdateOperationsInput>;
   position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
+  title?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type EmployeePreviousWorkUpdateManyWithWhereWithoutEmployeeInput = {
+  data: EmployeePreviousWorkUpdateManyMutationInput;
+  where: EmployeePreviousWorkScalarWhereInput;
+};
+
+export type EmployeePreviousWorkUpdateManyWithoutEmployeeNestedInput = {
+  connect?: InputMaybe<Array<EmployeePreviousWorkWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<EmployeePreviousWorkCreateOrConnectWithoutEmployeeInput>>;
+  create?: InputMaybe<Array<EmployeePreviousWorkCreateWithoutEmployeeInput>>;
+  createMany?: InputMaybe<EmployeePreviousWorkCreateManyEmployeeInputEnvelope>;
+  delete?: InputMaybe<Array<EmployeePreviousWorkWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<EmployeePreviousWorkScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<EmployeePreviousWorkWhereUniqueInput>>;
+  set?: InputMaybe<Array<EmployeePreviousWorkWhereUniqueInput>>;
+  update?: InputMaybe<Array<EmployeePreviousWorkUpdateWithWhereUniqueWithoutEmployeeInput>>;
+  updateMany?: InputMaybe<Array<EmployeePreviousWorkUpdateManyWithWhereWithoutEmployeeInput>>;
+  upsert?: InputMaybe<Array<EmployeePreviousWorkUpsertWithWhereUniqueWithoutEmployeeInput>>;
+};
+
+export type EmployeePreviousWorkUpdateWithWhereUniqueWithoutEmployeeInput = {
+  data: EmployeePreviousWorkUpdateWithoutEmployeeInput;
+  where: EmployeePreviousWorkWhereUniqueInput;
+};
+
+export type EmployeePreviousWorkUpdateWithoutEmployeeInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  description?: InputMaybe<StringFieldUpdateOperationsInput>;
+  files?: InputMaybe<EmployeePreviousWorkUpdatefilesInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  link?: InputMaybe<StringFieldUpdateOperationsInput>;
+  position?: InputMaybe<IntFieldUpdateOperationsInput>;
+  slug?: InputMaybe<StringFieldUpdateOperationsInput>;
   title?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -2525,22 +2711,32 @@ export type EmployeePreviousWorkUpdatefilesInput = {
   set?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
+export type EmployeePreviousWorkUpsertWithWhereUniqueWithoutEmployeeInput = {
+  create: EmployeePreviousWorkCreateWithoutEmployeeInput;
+  update: EmployeePreviousWorkUpdateWithoutEmployeeInput;
+  where: EmployeePreviousWorkWhereUniqueInput;
+};
+
 export type EmployeePreviousWorkWhereInput = {
   AND?: InputMaybe<Array<EmployeePreviousWorkWhereInput>>;
   NOT?: InputMaybe<Array<EmployeePreviousWorkWhereInput>>;
   OR?: InputMaybe<Array<EmployeePreviousWorkWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
   description?: InputMaybe<StringFilter>;
+  employee?: InputMaybe<EmployeeRelationFilter>;
+  employeeId?: InputMaybe<StringFilter>;
   files?: InputMaybe<StringNullableListFilter>;
   id?: InputMaybe<StringFilter>;
   link?: InputMaybe<StringFilter>;
   position?: InputMaybe<IntFilter>;
+  slug?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type EmployeePreviousWorkWhereUniqueInput = {
   id?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type EmployeeRelationFilter = {
@@ -2948,6 +3144,7 @@ export type EmployeeUpdateInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
   ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  previous_works?: InputMaybe<EmployeePreviousWorkUpdateManyWithoutEmployeeNestedInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -3001,6 +3198,14 @@ export type EmployeeUpdateManyWithoutEmployeeSubCategoryNestedInput = {
   upsert?: InputMaybe<Array<EmployeeUpsertWithWhereUniqueWithoutEmployeeSubCategoryInput>>;
 };
 
+export type EmployeeUpdateOneRequiredWithoutPrevious_WorksNestedInput = {
+  connect?: InputMaybe<EmployeeWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<EmployeeCreateOrConnectWithoutPrevious_WorksInput>;
+  create?: InputMaybe<EmployeeCreateWithoutPrevious_WorksInput>;
+  update?: InputMaybe<EmployeeUpdateWithoutPrevious_WorksInput>;
+  upsert?: InputMaybe<EmployeeUpsertWithoutPrevious_WorksInput>;
+};
+
 export type EmployeeUpdateOneWithoutCartItemNestedInput = {
   connect?: InputMaybe<EmployeeWhereUniqueInput>;
   connectOrCreate?: InputMaybe<EmployeeCreateOrConnectWithoutCartItemInput>;
@@ -3050,6 +3255,7 @@ export type EmployeeUpdateWithoutCartItemInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
   ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  previous_works?: InputMaybe<EmployeePreviousWorkUpdateManyWithoutEmployeeNestedInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -3064,6 +3270,7 @@ export type EmployeeUpdateWithoutEmployeeCategoryInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
   ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  previous_works?: InputMaybe<EmployeePreviousWorkUpdateManyWithoutEmployeeNestedInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -3078,6 +3285,7 @@ export type EmployeeUpdateWithoutEmployeeSubCategoryInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
   ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  previous_works?: InputMaybe<EmployeePreviousWorkUpdateManyWithoutEmployeeNestedInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -3091,6 +3299,22 @@ export type EmployeeUpdateWithoutOrderItemInput = {
   id?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<StringFieldUpdateOperationsInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  previous_works?: InputMaybe<EmployeePreviousWorkUpdateManyWithoutEmployeeNestedInput>;
+  products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
+  shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type EmployeeUpdateWithoutPrevious_WorksInput = {
+  cartItem?: InputMaybe<CartItemUpdateManyWithoutEmployeeNestedInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  employeeCategory?: InputMaybe<EmployeeCategoryUpdateOneWithoutEmployeeNestedInput>;
+  employeeSubCategory?: InputMaybe<EmployeeSubCategoryUpdateOneWithoutEmployeeNestedInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  image?: InputMaybe<StringFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
   ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
   products?: InputMaybe<ProductUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
@@ -3107,6 +3331,7 @@ export type EmployeeUpdateWithoutProductsInput = {
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   orderItem?: InputMaybe<OrderItemUpdateManyWithoutEmployeeNestedInput>;
   ourTeam?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  previous_works?: InputMaybe<EmployeePreviousWorkUpdateManyWithoutEmployeeNestedInput>;
   shortDescription?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -3133,6 +3358,11 @@ export type EmployeeUpsertWithoutOrderItemInput = {
   update: EmployeeUpdateWithoutOrderItemInput;
 };
 
+export type EmployeeUpsertWithoutPrevious_WorksInput = {
+  create: EmployeeCreateWithoutPrevious_WorksInput;
+  update: EmployeeUpdateWithoutPrevious_WorksInput;
+};
+
 export type EmployeeUpsertWithoutProductsInput = {
   create: EmployeeCreateWithoutProductsInput;
   update: EmployeeUpdateWithoutProductsInput;
@@ -3153,6 +3383,7 @@ export type EmployeeWhereInput = {
   name?: InputMaybe<StringFilter>;
   orderItem?: InputMaybe<OrderItemListRelationFilter>;
   ourTeam?: InputMaybe<BoolFilter>;
+  previous_works?: InputMaybe<EmployeePreviousWorkListRelationFilter>;
   products?: InputMaybe<ProductListRelationFilter>;
   shortDescription?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -11842,6 +12073,47 @@ export type DeleteOnePartnerShipMutationVariables = Exact<{
 
 export type DeleteOnePartnerShipMutation = { __typename?: 'Mutation', deleteOnePartnerShip?: { __typename?: 'PartnerShip', id: string } | null };
 
+export type EmployeePreviousWorksQueryVariables = Exact<{
+  where?: InputMaybe<EmployeePreviousWorkWhereInput>;
+  orderBy?: InputMaybe<Array<EmployeePreviousWorkOrderByWithRelationInput> | EmployeePreviousWorkOrderByWithRelationInput>;
+  cursor?: InputMaybe<EmployeePreviousWorkWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<EmployeePreviousWorkScalarFieldEnum> | EmployeePreviousWorkScalarFieldEnum>;
+}>;
+
+
+export type EmployeePreviousWorksQuery = { __typename?: 'Query', employeePreviousWorks: Array<{ __typename?: 'EmployeePreviousWork', id: string, files: Array<string>, link: string, position: number, title: string }> };
+
+export type EmployeePreviousWorkQueryVariables = Exact<{
+  where: EmployeePreviousWorkWhereUniqueInput;
+}>;
+
+
+export type EmployeePreviousWorkQuery = { __typename?: 'Query', employeePreviousWork?: { __typename?: 'EmployeePreviousWork', files: Array<string>, description: string, id: string, link: string, position: number, title: string } | null };
+
+export type CreateOneEmployeePreviousWorkMutationVariables = Exact<{
+  data: EmployeePreviousWorkCreateInput;
+}>;
+
+
+export type CreateOneEmployeePreviousWorkMutation = { __typename?: 'Mutation', createOneEmployeePreviousWork: { __typename?: 'EmployeePreviousWork', id: string } };
+
+export type UpdateOneEmployeePreviousWorkMutationVariables = Exact<{
+  data: EmployeePreviousWorkUpdateInput;
+  where: EmployeePreviousWorkWhereUniqueInput;
+}>;
+
+
+export type UpdateOneEmployeePreviousWorkMutation = { __typename?: 'Mutation', updateOneEmployeePreviousWork?: { __typename?: 'EmployeePreviousWork', id: string } | null };
+
+export type DeleteOneEmployeePreviousWorkMutationVariables = Exact<{
+  where: EmployeePreviousWorkWhereUniqueInput;
+}>;
+
+
+export type DeleteOneEmployeePreviousWorkMutation = { __typename?: 'Mutation', deleteOneEmployeePreviousWork?: { __typename?: 'EmployeePreviousWork', id: string } | null };
+
 export type CreateOneProductMutationVariables = Exact<{
   data: ProductCreateInput;
 }>;
@@ -13739,6 +14011,207 @@ export function useDeleteOnePartnerShipMutation(baseOptions?: Apollo.MutationHoo
 export type DeleteOnePartnerShipMutationHookResult = ReturnType<typeof useDeleteOnePartnerShipMutation>;
 export type DeleteOnePartnerShipMutationResult = Apollo.MutationResult<DeleteOnePartnerShipMutation>;
 export type DeleteOnePartnerShipMutationOptions = Apollo.BaseMutationOptions<DeleteOnePartnerShipMutation, DeleteOnePartnerShipMutationVariables>;
+export const EmployeePreviousWorksDocument = gql`
+    query EmployeePreviousWorks($where: EmployeePreviousWorkWhereInput, $orderBy: [EmployeePreviousWorkOrderByWithRelationInput!], $cursor: EmployeePreviousWorkWhereUniqueInput, $take: Int, $skip: Int, $distinct: [EmployeePreviousWorkScalarFieldEnum!]) {
+  employeePreviousWorks(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    id
+    files
+    link
+    position
+    title
+  }
+}
+    `;
+
+/**
+ * __useEmployeePreviousWorksQuery__
+ *
+ * To run a query within a React component, call `useEmployeePreviousWorksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEmployeePreviousWorksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEmployeePreviousWorksQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function useEmployeePreviousWorksQuery(baseOptions?: Apollo.QueryHookOptions<EmployeePreviousWorksQuery, EmployeePreviousWorksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EmployeePreviousWorksQuery, EmployeePreviousWorksQueryVariables>(EmployeePreviousWorksDocument, options);
+      }
+export function useEmployeePreviousWorksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmployeePreviousWorksQuery, EmployeePreviousWorksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EmployeePreviousWorksQuery, EmployeePreviousWorksQueryVariables>(EmployeePreviousWorksDocument, options);
+        }
+export function useEmployeePreviousWorksSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<EmployeePreviousWorksQuery, EmployeePreviousWorksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<EmployeePreviousWorksQuery, EmployeePreviousWorksQueryVariables>(EmployeePreviousWorksDocument, options);
+        }
+export type EmployeePreviousWorksQueryHookResult = ReturnType<typeof useEmployeePreviousWorksQuery>;
+export type EmployeePreviousWorksLazyQueryHookResult = ReturnType<typeof useEmployeePreviousWorksLazyQuery>;
+export type EmployeePreviousWorksSuspenseQueryHookResult = ReturnType<typeof useEmployeePreviousWorksSuspenseQuery>;
+export type EmployeePreviousWorksQueryResult = Apollo.QueryResult<EmployeePreviousWorksQuery, EmployeePreviousWorksQueryVariables>;
+export const EmployeePreviousWorkDocument = gql`
+    query EmployeePreviousWork($where: EmployeePreviousWorkWhereUniqueInput!) {
+  employeePreviousWork(where: $where) {
+    files
+    description
+    id
+    link
+    position
+    title
+  }
+}
+    `;
+
+/**
+ * __useEmployeePreviousWorkQuery__
+ *
+ * To run a query within a React component, call `useEmployeePreviousWorkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEmployeePreviousWorkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEmployeePreviousWorkQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useEmployeePreviousWorkQuery(baseOptions: Apollo.QueryHookOptions<EmployeePreviousWorkQuery, EmployeePreviousWorkQueryVariables> & ({ variables: EmployeePreviousWorkQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EmployeePreviousWorkQuery, EmployeePreviousWorkQueryVariables>(EmployeePreviousWorkDocument, options);
+      }
+export function useEmployeePreviousWorkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmployeePreviousWorkQuery, EmployeePreviousWorkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EmployeePreviousWorkQuery, EmployeePreviousWorkQueryVariables>(EmployeePreviousWorkDocument, options);
+        }
+export function useEmployeePreviousWorkSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<EmployeePreviousWorkQuery, EmployeePreviousWorkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<EmployeePreviousWorkQuery, EmployeePreviousWorkQueryVariables>(EmployeePreviousWorkDocument, options);
+        }
+export type EmployeePreviousWorkQueryHookResult = ReturnType<typeof useEmployeePreviousWorkQuery>;
+export type EmployeePreviousWorkLazyQueryHookResult = ReturnType<typeof useEmployeePreviousWorkLazyQuery>;
+export type EmployeePreviousWorkSuspenseQueryHookResult = ReturnType<typeof useEmployeePreviousWorkSuspenseQuery>;
+export type EmployeePreviousWorkQueryResult = Apollo.QueryResult<EmployeePreviousWorkQuery, EmployeePreviousWorkQueryVariables>;
+export const CreateOneEmployeePreviousWorkDocument = gql`
+    mutation CreateOneEmployeePreviousWork($data: EmployeePreviousWorkCreateInput!) {
+  createOneEmployeePreviousWork(data: $data) {
+    id
+  }
+}
+    `;
+export type CreateOneEmployeePreviousWorkMutationFn = Apollo.MutationFunction<CreateOneEmployeePreviousWorkMutation, CreateOneEmployeePreviousWorkMutationVariables>;
+
+/**
+ * __useCreateOneEmployeePreviousWorkMutation__
+ *
+ * To run a mutation, you first call `useCreateOneEmployeePreviousWorkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOneEmployeePreviousWorkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOneEmployeePreviousWorkMutation, { data, loading, error }] = useCreateOneEmployeePreviousWorkMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOneEmployeePreviousWorkMutation(baseOptions?: Apollo.MutationHookOptions<CreateOneEmployeePreviousWorkMutation, CreateOneEmployeePreviousWorkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOneEmployeePreviousWorkMutation, CreateOneEmployeePreviousWorkMutationVariables>(CreateOneEmployeePreviousWorkDocument, options);
+      }
+export type CreateOneEmployeePreviousWorkMutationHookResult = ReturnType<typeof useCreateOneEmployeePreviousWorkMutation>;
+export type CreateOneEmployeePreviousWorkMutationResult = Apollo.MutationResult<CreateOneEmployeePreviousWorkMutation>;
+export type CreateOneEmployeePreviousWorkMutationOptions = Apollo.BaseMutationOptions<CreateOneEmployeePreviousWorkMutation, CreateOneEmployeePreviousWorkMutationVariables>;
+export const UpdateOneEmployeePreviousWorkDocument = gql`
+    mutation UpdateOneEmployeePreviousWork($data: EmployeePreviousWorkUpdateInput!, $where: EmployeePreviousWorkWhereUniqueInput!) {
+  updateOneEmployeePreviousWork(data: $data, where: $where) {
+    id
+  }
+}
+    `;
+export type UpdateOneEmployeePreviousWorkMutationFn = Apollo.MutationFunction<UpdateOneEmployeePreviousWorkMutation, UpdateOneEmployeePreviousWorkMutationVariables>;
+
+/**
+ * __useUpdateOneEmployeePreviousWorkMutation__
+ *
+ * To run a mutation, you first call `useUpdateOneEmployeePreviousWorkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOneEmployeePreviousWorkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOneEmployeePreviousWorkMutation, { data, loading, error }] = useUpdateOneEmployeePreviousWorkMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUpdateOneEmployeePreviousWorkMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOneEmployeePreviousWorkMutation, UpdateOneEmployeePreviousWorkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOneEmployeePreviousWorkMutation, UpdateOneEmployeePreviousWorkMutationVariables>(UpdateOneEmployeePreviousWorkDocument, options);
+      }
+export type UpdateOneEmployeePreviousWorkMutationHookResult = ReturnType<typeof useUpdateOneEmployeePreviousWorkMutation>;
+export type UpdateOneEmployeePreviousWorkMutationResult = Apollo.MutationResult<UpdateOneEmployeePreviousWorkMutation>;
+export type UpdateOneEmployeePreviousWorkMutationOptions = Apollo.BaseMutationOptions<UpdateOneEmployeePreviousWorkMutation, UpdateOneEmployeePreviousWorkMutationVariables>;
+export const DeleteOneEmployeePreviousWorkDocument = gql`
+    mutation DeleteOneEmployeePreviousWork($where: EmployeePreviousWorkWhereUniqueInput!) {
+  deleteOneEmployeePreviousWork(where: $where) {
+    id
+  }
+}
+    `;
+export type DeleteOneEmployeePreviousWorkMutationFn = Apollo.MutationFunction<DeleteOneEmployeePreviousWorkMutation, DeleteOneEmployeePreviousWorkMutationVariables>;
+
+/**
+ * __useDeleteOneEmployeePreviousWorkMutation__
+ *
+ * To run a mutation, you first call `useDeleteOneEmployeePreviousWorkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteOneEmployeePreviousWorkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteOneEmployeePreviousWorkMutation, { data, loading, error }] = useDeleteOneEmployeePreviousWorkMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useDeleteOneEmployeePreviousWorkMutation(baseOptions?: Apollo.MutationHookOptions<DeleteOneEmployeePreviousWorkMutation, DeleteOneEmployeePreviousWorkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteOneEmployeePreviousWorkMutation, DeleteOneEmployeePreviousWorkMutationVariables>(DeleteOneEmployeePreviousWorkDocument, options);
+      }
+export type DeleteOneEmployeePreviousWorkMutationHookResult = ReturnType<typeof useDeleteOneEmployeePreviousWorkMutation>;
+export type DeleteOneEmployeePreviousWorkMutationResult = Apollo.MutationResult<DeleteOneEmployeePreviousWorkMutation>;
+export type DeleteOneEmployeePreviousWorkMutationOptions = Apollo.BaseMutationOptions<DeleteOneEmployeePreviousWorkMutation, DeleteOneEmployeePreviousWorkMutationVariables>;
 export const CreateOneProductDocument = gql`
     mutation CreateOneProduct($data: ProductCreateInput!) {
   createOneProduct(data: $data) {

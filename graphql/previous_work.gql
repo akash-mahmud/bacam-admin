@@ -1,0 +1,38 @@
+query EmployeePreviousWorks($where: EmployeePreviousWorkWhereInput, $orderBy: [EmployeePreviousWorkOrderByWithRelationInput!], $cursor: EmployeePreviousWorkWhereUniqueInput, $take: Int, $skip: Int, $distinct: [EmployeePreviousWorkScalarFieldEnum!]) {
+  employeePreviousWorks(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
+    id
+    files
+    link
+    position
+    title
+    
+  }
+}
+
+query EmployeePreviousWork($where: EmployeePreviousWorkWhereUniqueInput!) {
+  employeePreviousWork(where: $where) {
+    files
+    description
+    id
+    link
+    position
+    title
+  }
+}
+mutation CreateOneEmployeePreviousWork($data: EmployeePreviousWorkCreateInput!) {
+  createOneEmployeePreviousWork(data: $data) {
+    id
+  }
+}
+
+mutation UpdateOneEmployeePreviousWork($data: EmployeePreviousWorkUpdateInput!, $where: EmployeePreviousWorkWhereUniqueInput!) {
+  updateOneEmployeePreviousWork(data: $data, where: $where) {
+    id
+  }
+}
+
+mutation DeleteOneEmployeePreviousWork($where: EmployeePreviousWorkWhereUniqueInput!) {
+  deleteOneEmployeePreviousWork(where: $where) {
+    id
+  }
+}
