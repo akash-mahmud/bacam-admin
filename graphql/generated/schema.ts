@@ -95,6 +95,13 @@ export type AggregateFetaureCategory = {
   _min?: Maybe<FetaureCategoryMinAggregate>;
 };
 
+export type AggregateHome = {
+  __typename?: 'AggregateHome';
+  _count?: Maybe<HomeCountAggregate>;
+  _max?: Maybe<HomeMaxAggregate>;
+  _min?: Maybe<HomeMinAggregate>;
+};
+
 export type AggregateMainCategory = {
   __typename?: 'AggregateMainCategory';
   _count?: Maybe<MainCategoryCountAggregate>;
@@ -3825,6 +3832,164 @@ export type FloatWithAggregatesFilter = {
   notIn?: InputMaybe<Array<Scalars['Float']['input']>>;
 };
 
+export type Home = {
+  __typename?: 'Home';
+  bannerUrl?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  keywords?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+};
+
+export type HomeCountAggregate = {
+  __typename?: 'HomeCountAggregate';
+  _all: Scalars['Int']['output'];
+  bannerUrl: Scalars['Int']['output'];
+  description: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  keywords: Scalars['Int']['output'];
+  title: Scalars['Int']['output'];
+};
+
+export type HomeCountOrderByAggregateInput = {
+  bannerUrl?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  keywords?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+};
+
+export type HomeCreateInput = {
+  bannerUrl?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  keywords?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
+};
+
+export type HomeCreateManyInput = {
+  bannerUrl?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  keywords?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
+};
+
+export type HomeGroupBy = {
+  __typename?: 'HomeGroupBy';
+  _count?: Maybe<HomeCountAggregate>;
+  _max?: Maybe<HomeMaxAggregate>;
+  _min?: Maybe<HomeMinAggregate>;
+  bannerUrl?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  keywords?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+};
+
+export type HomeMaxAggregate = {
+  __typename?: 'HomeMaxAggregate';
+  bannerUrl?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  keywords?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeMaxOrderByAggregateInput = {
+  bannerUrl?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  keywords?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+};
+
+export type HomeMinAggregate = {
+  __typename?: 'HomeMinAggregate';
+  bannerUrl?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  keywords?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeMinOrderByAggregateInput = {
+  bannerUrl?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  keywords?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+};
+
+export type HomeOrderByWithAggregationInput = {
+  _count?: InputMaybe<HomeCountOrderByAggregateInput>;
+  _max?: InputMaybe<HomeMaxOrderByAggregateInput>;
+  _min?: InputMaybe<HomeMinOrderByAggregateInput>;
+  bannerUrl?: InputMaybe<SortOrderInput>;
+  description?: InputMaybe<SortOrderInput>;
+  id?: InputMaybe<SortOrder>;
+  keywords?: InputMaybe<SortOrderInput>;
+  title?: InputMaybe<SortOrder>;
+};
+
+export type HomeOrderByWithRelationInput = {
+  bannerUrl?: InputMaybe<SortOrderInput>;
+  description?: InputMaybe<SortOrderInput>;
+  id?: InputMaybe<SortOrder>;
+  keywords?: InputMaybe<SortOrderInput>;
+  title?: InputMaybe<SortOrder>;
+};
+
+export enum HomeScalarFieldEnum {
+  BannerUrl = 'bannerUrl',
+  Description = 'description',
+  Id = 'id',
+  Keywords = 'keywords',
+  Title = 'title'
+}
+
+export type HomeScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<HomeScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<HomeScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<HomeScalarWhereWithAggregatesInput>>;
+  bannerUrl?: InputMaybe<StringNullableWithAggregatesFilter>;
+  description?: InputMaybe<StringNullableWithAggregatesFilter>;
+  id?: InputMaybe<StringWithAggregatesFilter>;
+  keywords?: InputMaybe<StringNullableWithAggregatesFilter>;
+  title?: InputMaybe<StringWithAggregatesFilter>;
+};
+
+export type HomeUpdateInput = {
+  bannerUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  keywords?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  title?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type HomeUpdateManyMutationInput = {
+  bannerUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  description?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  id?: InputMaybe<StringFieldUpdateOperationsInput>;
+  keywords?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
+  title?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type HomeWhereInput = {
+  AND?: InputMaybe<Array<HomeWhereInput>>;
+  NOT?: InputMaybe<Array<HomeWhereInput>>;
+  OR?: InputMaybe<Array<HomeWhereInput>>;
+  bannerUrl?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringNullableFilter>;
+  id?: InputMaybe<StringFilter>;
+  keywords?: InputMaybe<StringNullableFilter>;
+  title?: InputMaybe<StringFilter>;
+};
+
+export type HomeWhereUniqueInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type IntFieldUpdateOperationsInput = {
   decrement?: InputMaybe<Scalars['Int']['input']>;
   divide?: InputMaybe<Scalars['Int']['input']>;
@@ -4116,6 +4281,7 @@ export type Mutation = {
   createManyEmployeePreviousWork: AffectedRowsOutput;
   createManyEmployeeSubCategory: AffectedRowsOutput;
   createManyFetaureCategory: AffectedRowsOutput;
+  createManyHome: AffectedRowsOutput;
   createManyMainCategory: AffectedRowsOutput;
   createManyNews: AffectedRowsOutput;
   createManyOrder: AffectedRowsOutput;
@@ -4137,6 +4303,7 @@ export type Mutation = {
   createOneEmployeePreviousWork: EmployeePreviousWork;
   createOneEmployeeSubCategory: EmployeeSubCategory;
   createOneFetaureCategory: FetaureCategory;
+  createOneHome: Home;
   createOneMainCategory: MainCategory;
   createOneNews: News;
   createOneOrder: Order;
@@ -4158,6 +4325,7 @@ export type Mutation = {
   deleteManyEmployeePreviousWork: AffectedRowsOutput;
   deleteManyEmployeeSubCategory: AffectedRowsOutput;
   deleteManyFetaureCategory: AffectedRowsOutput;
+  deleteManyHome: AffectedRowsOutput;
   deleteManyMainCategory: AffectedRowsOutput;
   deleteManyNews: AffectedRowsOutput;
   deleteManyOrder: AffectedRowsOutput;
@@ -4179,6 +4347,7 @@ export type Mutation = {
   deleteOneEmployeePreviousWork?: Maybe<EmployeePreviousWork>;
   deleteOneEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
   deleteOneFetaureCategory?: Maybe<FetaureCategory>;
+  deleteOneHome?: Maybe<Home>;
   deleteOneMainCategory?: Maybe<MainCategory>;
   deleteOneNews?: Maybe<News>;
   deleteOneOrder?: Maybe<Order>;
@@ -4207,6 +4376,7 @@ export type Mutation = {
   updateManyEmployeePreviousWork: AffectedRowsOutput;
   updateManyEmployeeSubCategory: AffectedRowsOutput;
   updateManyFetaureCategory: AffectedRowsOutput;
+  updateManyHome: AffectedRowsOutput;
   updateManyMainCategory: AffectedRowsOutput;
   updateManyNews: AffectedRowsOutput;
   updateManyOrder: AffectedRowsOutput;
@@ -4228,6 +4398,7 @@ export type Mutation = {
   updateOneEmployeePreviousWork?: Maybe<EmployeePreviousWork>;
   updateOneEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
   updateOneFetaureCategory?: Maybe<FetaureCategory>;
+  updateOneHome?: Maybe<Home>;
   updateOneMainCategory?: Maybe<MainCategory>;
   updateOneNews?: Maybe<News>;
   updateOneOrder?: Maybe<Order>;
@@ -4251,6 +4422,7 @@ export type Mutation = {
   upsertOneEmployeePreviousWork: EmployeePreviousWork;
   upsertOneEmployeeSubCategory: EmployeeSubCategory;
   upsertOneFetaureCategory: FetaureCategory;
+  upsertOneHome: Home;
   upsertOneMainCategory: MainCategory;
   upsertOneNews: News;
   upsertOneOrder: Order;
@@ -4333,6 +4505,12 @@ export type MutationCreateManyEmployeeSubCategoryArgs = {
 
 export type MutationCreateManyFetaureCategoryArgs = {
   data: Array<FetaureCategoryCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type MutationCreateManyHomeArgs = {
+  data: Array<HomeCreateManyInput>;
   skipDuplicates?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -4454,6 +4632,11 @@ export type MutationCreateOneFetaureCategoryArgs = {
 };
 
 
+export type MutationCreateOneHomeArgs = {
+  data: HomeCreateInput;
+};
+
+
 export type MutationCreateOneMainCategoryArgs = {
   data: MainCategoryCreateInput;
 };
@@ -4559,6 +4742,11 @@ export type MutationDeleteManyFetaureCategoryArgs = {
 };
 
 
+export type MutationDeleteManyHomeArgs = {
+  where?: InputMaybe<HomeWhereInput>;
+};
+
+
 export type MutationDeleteManyMainCategoryArgs = {
   where?: InputMaybe<MainCategoryWhereInput>;
 };
@@ -4661,6 +4849,11 @@ export type MutationDeleteOneEmployeeSubCategoryArgs = {
 
 export type MutationDeleteOneFetaureCategoryArgs = {
   where: FetaureCategoryWhereUniqueInput;
+};
+
+
+export type MutationDeleteOneHomeArgs = {
+  where: HomeWhereUniqueInput;
 };
 
 
@@ -4804,6 +4997,12 @@ export type MutationUpdateManyFetaureCategoryArgs = {
 };
 
 
+export type MutationUpdateManyHomeArgs = {
+  data: HomeUpdateManyMutationInput;
+  where?: InputMaybe<HomeWhereInput>;
+};
+
+
 export type MutationUpdateManyMainCategoryArgs = {
   data: MainCategoryUpdateManyMutationInput;
   where?: InputMaybe<MainCategoryWhereInput>;
@@ -4927,6 +5126,12 @@ export type MutationUpdateOneEmployeeSubCategoryArgs = {
 export type MutationUpdateOneFetaureCategoryArgs = {
   data: FetaureCategoryUpdateInput;
   where: FetaureCategoryWhereUniqueInput;
+};
+
+
+export type MutationUpdateOneHomeArgs = {
+  data: HomeUpdateInput;
+  where: HomeWhereUniqueInput;
 };
 
 
@@ -5073,6 +5278,13 @@ export type MutationUpsertOneFetaureCategoryArgs = {
   create: FetaureCategoryCreateInput;
   update: FetaureCategoryUpdateInput;
   where: FetaureCategoryWhereUniqueInput;
+};
+
+
+export type MutationUpsertOneHomeArgs = {
+  create: HomeCreateInput;
+  update: HomeUpdateInput;
+  where: HomeWhereUniqueInput;
 };
 
 
@@ -8690,6 +8902,7 @@ export type Query = {
   aggregateEmployeePreviousWork: AggregateEmployeePreviousWork;
   aggregateEmployeeSubCategory: AggregateEmployeeSubCategory;
   aggregateFetaureCategory: AggregateFetaureCategory;
+  aggregateHome: AggregateHome;
   aggregateMainCategory: AggregateMainCategory;
   aggregateNews: AggregateNews;
   aggregateOrder: AggregateOrder;
@@ -8738,6 +8951,8 @@ export type Query = {
   findFirstEmployeeSubCategoryOrThrow?: Maybe<EmployeeSubCategory>;
   findFirstFetaureCategory?: Maybe<FetaureCategory>;
   findFirstFetaureCategoryOrThrow?: Maybe<FetaureCategory>;
+  findFirstHome?: Maybe<Home>;
+  findFirstHomeOrThrow?: Maybe<Home>;
   findFirstMainCategory?: Maybe<MainCategory>;
   findFirstMainCategoryOrThrow?: Maybe<MainCategory>;
   findFirstNews?: Maybe<News>;
@@ -8777,6 +8992,7 @@ export type Query = {
   getEmployeePreviousWork?: Maybe<EmployeePreviousWork>;
   getEmployeeSubCategory?: Maybe<EmployeeSubCategory>;
   getFetaureCategory?: Maybe<FetaureCategory>;
+  getHome?: Maybe<Home>;
   getMainCategory?: Maybe<MainCategory>;
   getOrder?: Maybe<Order>;
   getOrderItem?: Maybe<OrderItem>;
@@ -8796,6 +9012,7 @@ export type Query = {
   groupByEmployeePreviousWork: Array<EmployeePreviousWorkGroupBy>;
   groupByEmployeeSubCategory: Array<EmployeeSubCategoryGroupBy>;
   groupByFetaureCategory: Array<FetaureCategoryGroupBy>;
+  groupByHome: Array<HomeGroupBy>;
   groupByMainCategory: Array<MainCategoryGroupBy>;
   groupByNews: Array<NewsGroupBy>;
   groupByOrder: Array<OrderGroupBy>;
@@ -8809,6 +9026,8 @@ export type Query = {
   groupByUser: Array<UserGroupBy>;
   groupByUserTokens: Array<UserTokensGroupBy>;
   healthCheck: Scalars['String']['output'];
+  home?: Maybe<Home>;
+  homes: Array<Home>;
   mainCategories: Array<MainCategory>;
   mainCategory?: Maybe<MainCategory>;
   me?: Maybe<UserForResponsce>;
@@ -8913,6 +9132,15 @@ export type QueryAggregateFetaureCategoryArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<FetaureCategoryWhereInput>;
+};
+
+
+export type QueryAggregateHomeArgs = {
+  cursor?: InputMaybe<HomeWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<HomeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<HomeWhereInput>;
 };
 
 
@@ -9339,6 +9567,26 @@ export type QueryFindFirstFetaureCategoryOrThrowArgs = {
 };
 
 
+export type QueryFindFirstHomeArgs = {
+  cursor?: InputMaybe<HomeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<HomeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<HomeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<HomeWhereInput>;
+};
+
+
+export type QueryFindFirstHomeOrThrowArgs = {
+  cursor?: InputMaybe<HomeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<HomeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<HomeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<HomeWhereInput>;
+};
+
+
 export type QueryFindFirstMainCategoryArgs = {
   cursor?: InputMaybe<MainCategoryWhereUniqueInput>;
   distinct?: InputMaybe<Array<MainCategoryScalarFieldEnum>>;
@@ -9664,6 +9912,11 @@ export type QueryGetFetaureCategoryArgs = {
 };
 
 
+export type QueryGetHomeArgs = {
+  where: HomeWhereUniqueInput;
+};
+
+
 export type QueryGetMainCategoryArgs = {
   where: MainCategoryWhereUniqueInput;
 };
@@ -9804,6 +10057,16 @@ export type QueryGroupByFetaureCategoryArgs = {
 };
 
 
+export type QueryGroupByHomeArgs = {
+  by: Array<HomeScalarFieldEnum>;
+  having?: InputMaybe<HomeScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<HomeOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<HomeWhereInput>;
+};
+
+
 export type QueryGroupByMainCategoryArgs = {
   by: Array<MainCategoryScalarFieldEnum>;
   having?: InputMaybe<MainCategoryScalarWhereWithAggregatesInput>;
@@ -9921,6 +10184,21 @@ export type QueryGroupByUserTokensArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<UserTokensWhereInput>;
+};
+
+
+export type QueryHomeArgs = {
+  where: HomeWhereUniqueInput;
+};
+
+
+export type QueryHomesArgs = {
+  cursor?: InputMaybe<HomeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<HomeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<HomeOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<HomeWhereInput>;
 };
 
 
@@ -11923,6 +12201,27 @@ export type FetaureCategoriesQueryVariables = Exact<{
 
 export type FetaureCategoriesQuery = { __typename?: 'Query', fetaureCategories: Array<{ __typename?: 'FetaureCategory', id: string, name: string }> };
 
+export type FindFirstHomeQueryVariables = Exact<{
+  where?: InputMaybe<HomeWhereInput>;
+  orderBy?: InputMaybe<Array<HomeOrderByWithRelationInput> | HomeOrderByWithRelationInput>;
+  cursor?: InputMaybe<HomeWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  distinct?: InputMaybe<Array<HomeScalarFieldEnum> | HomeScalarFieldEnum>;
+}>;
+
+
+export type FindFirstHomeQuery = { __typename?: 'Query', findFirstHome?: { __typename?: 'Home', bannerUrl?: string | null, description?: string | null, id: string, keywords?: string | null, title: string } | null };
+
+export type UpsertOneHomeMutationVariables = Exact<{
+  where: HomeWhereUniqueInput;
+  create: HomeCreateInput;
+  update: HomeUpdateInput;
+}>;
+
+
+export type UpsertOneHomeMutation = { __typename?: 'Mutation', upsertOneHome: { __typename?: 'Home', id: string } };
+
 export type MainCategoriesQueryVariables = Exact<{
   where?: InputMaybe<MainCategoryWhereInput>;
   orderBy?: InputMaybe<Array<MainCategoryOrderByWithRelationInput> | MainCategoryOrderByWithRelationInput>;
@@ -13260,6 +13559,97 @@ export type FetaureCategoriesQueryHookResult = ReturnType<typeof useFetaureCateg
 export type FetaureCategoriesLazyQueryHookResult = ReturnType<typeof useFetaureCategoriesLazyQuery>;
 export type FetaureCategoriesSuspenseQueryHookResult = ReturnType<typeof useFetaureCategoriesSuspenseQuery>;
 export type FetaureCategoriesQueryResult = Apollo.QueryResult<FetaureCategoriesQuery, FetaureCategoriesQueryVariables>;
+export const FindFirstHomeDocument = gql`
+    query FindFirstHome($where: HomeWhereInput, $orderBy: [HomeOrderByWithRelationInput!], $cursor: HomeWhereUniqueInput, $take: Int, $skip: Int, $distinct: [HomeScalarFieldEnum!]) {
+  findFirstHome(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    bannerUrl
+    description
+    id
+    keywords
+    title
+  }
+}
+    `;
+
+/**
+ * __useFindFirstHomeQuery__
+ *
+ * To run a query within a React component, call `useFindFirstHomeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindFirstHomeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindFirstHomeQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function useFindFirstHomeQuery(baseOptions?: Apollo.QueryHookOptions<FindFirstHomeQuery, FindFirstHomeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindFirstHomeQuery, FindFirstHomeQueryVariables>(FindFirstHomeDocument, options);
+      }
+export function useFindFirstHomeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindFirstHomeQuery, FindFirstHomeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindFirstHomeQuery, FindFirstHomeQueryVariables>(FindFirstHomeDocument, options);
+        }
+export function useFindFirstHomeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindFirstHomeQuery, FindFirstHomeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindFirstHomeQuery, FindFirstHomeQueryVariables>(FindFirstHomeDocument, options);
+        }
+export type FindFirstHomeQueryHookResult = ReturnType<typeof useFindFirstHomeQuery>;
+export type FindFirstHomeLazyQueryHookResult = ReturnType<typeof useFindFirstHomeLazyQuery>;
+export type FindFirstHomeSuspenseQueryHookResult = ReturnType<typeof useFindFirstHomeSuspenseQuery>;
+export type FindFirstHomeQueryResult = Apollo.QueryResult<FindFirstHomeQuery, FindFirstHomeQueryVariables>;
+export const UpsertOneHomeDocument = gql`
+    mutation UpsertOneHome($where: HomeWhereUniqueInput!, $create: HomeCreateInput!, $update: HomeUpdateInput!) {
+  upsertOneHome(where: $where, create: $create, update: $update) {
+    id
+  }
+}
+    `;
+export type UpsertOneHomeMutationFn = Apollo.MutationFunction<UpsertOneHomeMutation, UpsertOneHomeMutationVariables>;
+
+/**
+ * __useUpsertOneHomeMutation__
+ *
+ * To run a mutation, you first call `useUpsertOneHomeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertOneHomeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertOneHomeMutation, { data, loading, error }] = useUpsertOneHomeMutation({
+ *   variables: {
+ *      where: // value for 'where'
+ *      create: // value for 'create'
+ *      update: // value for 'update'
+ *   },
+ * });
+ */
+export function useUpsertOneHomeMutation(baseOptions?: Apollo.MutationHookOptions<UpsertOneHomeMutation, UpsertOneHomeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpsertOneHomeMutation, UpsertOneHomeMutationVariables>(UpsertOneHomeDocument, options);
+      }
+export type UpsertOneHomeMutationHookResult = ReturnType<typeof useUpsertOneHomeMutation>;
+export type UpsertOneHomeMutationResult = Apollo.MutationResult<UpsertOneHomeMutation>;
+export type UpsertOneHomeMutationOptions = Apollo.BaseMutationOptions<UpsertOneHomeMutation, UpsertOneHomeMutationVariables>;
 export const MainCategoriesDocument = gql`
     query MainCategories($where: MainCategoryWhereInput, $orderBy: [MainCategoryOrderByWithRelationInput!], $cursor: MainCategoryWhereUniqueInput, $take: Int, $skip: Int, $distinct: [MainCategoryScalarFieldEnum!]) {
   mainCategories(

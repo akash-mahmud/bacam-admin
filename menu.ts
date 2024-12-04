@@ -3,6 +3,12 @@ export const summaryPageTopMenu = {};
 export const dashboardPagesMenu = {};
 
 export const demoPagesMenu = {
+	home: {
+		id: 'home',
+		text: 'Home',
+		path: 'home',
+		icon: 'Home',
+	},
 	pages: {
 		id: 'pages',
 		text: 'Pages',

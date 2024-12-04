@@ -1,0 +1,15 @@
+query FindFirstHome($where: HomeWhereInput, $orderBy: [HomeOrderByWithRelationInput!], $cursor: HomeWhereUniqueInput, $take: Int, $skip: Int, $distinct: [HomeScalarFieldEnum!]) {
+  findFirstHome(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
+    bannerUrl
+    description
+    id
+    keywords
+    title
+  }
+}
+
+mutation UpsertOneHome($where: HomeWhereUniqueInput!, $create: HomeCreateInput!, $update: HomeUpdateInput!) {
+  upsertOneHome(where: $where, create: $create, update: $update) {
+    id
+  }
+}
